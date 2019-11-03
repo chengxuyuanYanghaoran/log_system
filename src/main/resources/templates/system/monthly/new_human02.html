@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>周计划</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/new_human01.css">
+    <link rel="stylesheet" href="/static/layui-v2.5.5/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/animate.min.css">
+    <script src="/static/js/jquery-3.4.0.min.js"></script>
+    <!--<script src="../layui-v2.5.5/layui/layui.js"></script>-->
+    <script src="/static/layui-v2.5.5/layui/layui.js"></script>
+</head>
+<script>
+    $(function() {
+        // 给全选按钮添加点击事件
+        $("#selectAll").click(function() {
+            var flag = document.getElementById("selectAll").checked;//获取全选的状态
+            setAll(flag);//让所有条目复选框与全选同步
+        });
+        // 给条目复选框添加事件
+        $("input:checkbox[name='operate_check']").click(function() {
+            var selectedCount = $("input:checkbox[name='operate_check'][checked=true]").length;//被勾选复选框个数
+            var allCount = $("input:checkbox[name='operate_check']").length;//所有条目复选框个数
+            if(selectedCount == allCount) {//全选了
+                $("#selectAll").attr("checked", true);//勾选全选复选框
+            }else {//未全选
+                $("#selectAll").attr("checked", false);//撤消全选复选框
+            }
+        });
+    });
+    // 设置所有条目复选框
+    function setAll(flag) {
+        $("input:checkbox[name='operate_check']").attr("checked", flag);//让所有条目的复选框与参数flag同步
+    }
+
+    /*
+    * 批量审核
+    * */
+    function examineList(state) {
+        var monthlyPlanIdArray = new Array();
+        var pid=state;
+        var ci = document.getElementsByName("operate_check");
+        $("input:checkbox[name='operate_check']").each(function() {
+            if ($(this).is(":checked")){
+                if ($(this).val()!="null"){
+                    monthlyPlanIdArray.push($(this).val());//把复选框的值添加到数组中
+                }
+            }
+        });
+        $.ajax({
+            async: false,
+            url: "/system/weekPlan/updateWeekPlanStateListById",
+            data:{"ids":monthlyPlanIdArray,"state":pid},
+            type:"post",
+            traditional:true,
+            datatype:"json",
+            success: function (res) {
+                if (res.code==null){
+                    alert("您的权限不足！")
+                }else {
+                    if (res.code==0){
+                        alert("审核成功！");
+                        location.reload();
+                    }else {
+                        alert("系统异常！");
+                    }
+                }
+            }
+        });
+    }
+</script>
+<body>
+<p><img src="/static/img/d.PNG" style="margin-left: -180px"/></p>
+<!--查询-->
+<div class="sum_day" style="margin-top: -10px">
+    <div class="month_T">
+        <input type="button" value="批量审核" data-method="setTop" class="btn btn-primary btn-lg active btn btn-primary btn-sm" onclick="sssList()"  id="examine"/>
+        <input type="button" value="添加计划" data-method="setTop" class="btn btn-primary btn-lg active btn btn-primary btn-sm" onclick="writeCurrentDate()"  id="add"/>
+        <input type="text" value="" class="data_text" id="data_text01" placeholder="按人员查询"/>
+        <input type="text" value="" class="data_text" id="data_text02" placeholder="按部门查询"/>
+        <input type="text" value="" class="data_text" id="data_text03" placeholder="按公司查询"/>
+        <input type="month" value="" class="data_textw" id="data_text04" placeholder="按月份查询"/>
+        <button type="button" class="btn btn-info btn btn-primary btn-sm" onclick="monthplanSelect()" id="size">查看</button>
+    </div>
+</div>
+<!--审核-->
+<div class="pop_main">
+    <div class="pop_con">
+        <div class="pop_detail">
+            <p class="pop_text">是否通过审核？</p>
+        </div>
+        <div class="pop_footer">
+            <input type="button" value="通过" class="cancel" name="4" id="cancel" onclick="Get_cancel(this.name)">
+            <input type="button" value="驳回" class="cancel" name="3" id="confirm" onclick="Get_confirm(this.name)">
+        </div>
+    </div>
+</div>
+<!--批量审核-->
+<div class="pop_mainList">
+    <div class="pop_conList">
+        <div class="pop_detail">
+            <p class="pop_text">是否通过审核？</p>
+        </div>
+        <div class="pop_footer">
+            <input type="button" value="通过" class="cancel" name="4" id="cancelList" onclick="examineList(this.name)">
+            <input type="button" value="驳回" class="cancel" name="3" id="confirmList" onclick="examineList(this.name)">
+        </div>
+    </div>
+</div>
+
+<!--表格-->
+<div class="table-responsive">
+    <table border="1" class="table table-bordered table-hover" id="table_id">
+        <thead>
+        <tr class="active">
+            <td><input type="checkbox" value="全选" id="selectAll" /></td>
+            <td>工号</td>
+            <td>人员名称</td>
+            <td>计划时间</td>
+            <td>录入时间</td>
+            <td>查看周计划</td>
+            <td>状态</td>
+            <td><input type="button" value="审核" class="btn btn-primary btn-lg active btn btn-primary btn-sm" onclick="delSome()"/></td>
+            <!--<td><a>Week-End</a></td>-->
+            <!--<td><a>Day-End</a></td>-->
+        </tr>
+        <thead>
+        <tbody id="tb">
+        </tbody>
+    </table>
+    <!--月展示层-->
+    <div class="signWrap" id="divPop">
+        <div class="sign" id="sign">
+            <h4>周报</h4>
+            <p class="one_p"></p>
+            <label>本周工作计划：</label>
+            <p></p>
+            <textarea type="text" placeholder="尝试@TA" id="oneP_plan_week" readonly></textarea>
+            <p class="one_p"></p>
+            <label>录入时间：</label>
+            <textarea type="text" placeholder="尝试@TA" id="oneP_end_week" readonly></textarea>
+            <h4>月报</h4>
+            <p class="one_p"></p>
+            <label>本月工作计划：</label>
+            <p></p>
+            <textarea type="text" placeholder="尝试@TA" id="oneP_plan" readonly></textarea>
+            <p class="one_p"></p>
+            <label>录入时间：</label>
+            <textarea type="text" placeholder="尝试@TA" id="oneP_end" readonly></textarea>
+            <p class="one_p"></p>
+        </div>
+    </div>
+</div>
+<!--对到顶部-->
+<button type="button" class="btn btn-warning" id="back-to-top">
+    <span style="writing-mode:tb-rl">回到顶部</span>
+</button>
+
+<div class="end" id="page"></div>
+
+<!--周计划的录入-->
+<div id="layui" style="display: none" class="layui">
+    <div class="layui_time">
+        <span style="display: inline-block">本次录入时间：</span>
+        <span style="display: inline-block;"  id="currentDate"></span>
+    </div>
+    <p style="width: 100%;height: 15px;background-color: darkkhaki;"></p >
+
+    <textarea type="text" placeholder="该写计划了，朋友！" id="text_I" class="text_I"  readonly ></textarea>
+    <div class="layui_btn_value">
+        <input type="button" value="提交" id="addPlan" class="btn_value" onclick="saveOne(this.value)" >
+        <input type="button" value="保存" id="savaPlan" class="btn_value" onclick="saveOne(this.value)">
+        <input type="button" value="修改" id="updatePlan" class="btn_value" onclick="editEnable(this)">
+    </div>
+
+    <div>
+        <a href="javascript:showSign()" class="btn_a" id="btn_a" status="off" contchar="">本月的计划</a>
+    </div>
+
+    <div class="signWrap_two" id="signWrap_two" style="display:none;">
+        <!--月-->
+        <div class="sign_two">
+            <label>本月工作内容：</label>
+            <textarea type="text" placeholder="尝试@TA" id="oneP_plan_three" class="oneP_plan_two_son" readonly></textarea>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+<script src="/static/js/new_human02.js"></script>
+<script src="/static/js/new_month02.js"></script>
+</html>

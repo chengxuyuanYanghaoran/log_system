@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hlwxy.xu_boot2.system.dao.EmailDao">
+
+	<resultMap id="peopleDO" type="com.hlwxy.xu_boot2.system.domain.PeopleDO">
+		<id column="id" property="id"></id>
+		<result column="people_code" property="peopleCode"></result>
+		<result column="job_number" property="jobNumber"></result>
+		<result column="peo_name" property="peoName"></result>
+		<result column="morning_state" property="morningState"></result>
+		<result column="afternoon_state" property="afternoonState"></result>
+		<result column="user_id" property="userId"></result>
+		<result column="gs_id" property="gsId"></result>
+		<result column="bm_id" property="bmId"></result>
+		<result column="position_id" property="positionId"></result>
+		<result column="day_plan_id" property="dayPlanId"></result>
+		<result column="day_summary_id" property="daySummaryId"></result>
+		<result column="week_plan_id" property="weekPlanId"></result>
+		<result column="week_summary_id" property="weekSummaryId"></result>
+		<result column="monthly_plan_id" property="monthlyPlanId"></result>
+		<result column="monthly_summary_id" property="monthlySummaryId"></result>
+	</resultMap>
+
+	<resultMap id="dayPlanDO" type="com.hlwxy.xu_boot2.system.domain.DayPlanDO">
+		<!--column的值为在数据库中查询的列，property的值为返回的pojo中的属性-->
+		<!--id配置对应主键，result配置对应属性和列名 -->
+		<id column="id" property="id"></id>
+		<result column="day_plan_code" property="day_plan_code"></result>
+		<result column="day_plan_time" property="day_plan_time"></result>
+		<result column="day_plan_entry_end_time" property="day_plan_entry_end_time"></result>
+		<result column="day_plan_content" property="day_plan_content"></result>
+		<result column="day_plan_entry_time" property="day_plan_entry_time"></result>
+		<result column="day_plan_reply" property="day_plan_reply"></result>
+		<result column="day_plan_see" property="day_plan_see"></result>
+		<result column="day_plan_state" property="day_plan_state"></result>
+		<result column="peo_id" property="peo_id"></result>
+	</resultMap>
+
+	<resultMap id="userDO" type="com.hlwxy.xu_boot2.system.domain.PeopleDO">
+		<id column="id" property="id"></id>
+		<result column="username" property="username"></result>
+		<result column="password" property="password"></result>
+		<result column="email" property="email"></result>
+	</resultMap>
+
+	<!--查询所有人员-->
+	<select id="findPeopleDO" resultMap="peopleDO">
+		SELECT * FROM t_people
+	</select>
+	<!--根据人员查询日计划-->
+	<select id="gerDdyPlan" parameterType="com.hlwxy.xu_boot2.system.domain.PeopleDO" resultMap="dayPlanDO">
+		SELECT
+			*
+		FROM
+			t_day_plan
+		WHERE
+			id = ${dayPlanId}
+	</select>
+	<!--根据人员查询User，因为Email在user中-->
+	<select id="getUser" parameterType="com.hlwxy.xu_boot2.system.domain.PeopleDO" resultMap="userDO">
+		SELECT
+			*
+		FROM
+			`user`
+		WHERE
+			id = ${userId}
+	</select>
+</mapper>

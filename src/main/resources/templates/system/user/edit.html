@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+						<input id="id" name="id" th:value="${user.id}"  type="hidden">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">用户名：</label>
+								<div class="col-sm-8">
+									<input id="username" name="username" th:value="${user.username}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">人员名称：</label>
+								<div class="col-sm-8">
+									<input id="name" name="name" th:value="${user.name}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">密码：</label>
+								<div class="col-sm-8">
+									<input id="password" name="password" th:value="${user.password}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">邮箱：</label>
+								<div class="col-sm-8">
+									<input id="email" name="email" th:value="${user.email}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">上午状态：</label>
+								<div class="col-sm-8">
+									<input id="morningState" name="morningState" th:value="${user.morningState}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">下午状态：</label>
+								<div class="col-sm-8">
+									<input id="afternoonState" name="afternoonState" th:value="${user.afternoonState}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">公司名称：</label>
+								<div class="col-sm-8">
+									<input id="gsId" name="gsId"  th:value="${user.gsId}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">部门名称：</label>
+								<div class="col-sm-8">
+									<input id="bmId" name="bmId" th:value="${user.bmId}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">职位名称：</label>
+								<div class="col-sm-8">
+									<input id="positionId" name="positionId" th:value="${user.positionId}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">手机号：</label>
+								<div class="col-sm-8">
+									<input id="mobile" name="mobile" th:value="${user.mobile}" class="form-control" type="text">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">创建时间：</label>
+								<div class="col-sm-8">
+									<input id="userCreate" name="userCreate" class="form-control" value="${#dates.format(system.userCreate,'yyyy-MM-dd')}" type="date">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">性别：</label>
+								<div class="col-sm-8">
+									<select id="nusSex" name="sex" class="form-control">
+										<option value="男">男</option>
+										<option value="女">女</option>
+									</select>
+								</div>
+							</div>
+																					<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/system/user/edit.js">
+	</script>
+</body>
+</html>

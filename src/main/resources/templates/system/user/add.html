@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">用户名：</label>
+								<div class="col-sm-8">
+									<input id="username" name="username" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">人员名称：</label>
+								<div class="col-sm-8">
+									<input id="name" name="name" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">密码：</label>
+								<div class="col-sm-8">
+									<input id="password" name="password" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">邮箱：</label>
+								<div class="col-sm-8">
+									<input id="email" name="email" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">上午状态：</label>
+								<div class="col-sm-8">
+									<select id="morningState" name="morningState" class="form-control">
+										<option value="在线">在线</option>
+										<option value="外出">外出</option>
+										<option value="请假">请假</option>
+									</select>
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">下午状态：</label>
+								<div class="col-sm-8">
+									<select id="afternoonState" name="afternoonState" class="form-control">
+										<option value="在线">在线</option>
+										<option value="外出">外出</option>
+										<option value="请假">请假</option>
+									</select>
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">公司名称：</label>
+								<div class="col-sm-8">
+									<!--<input id="gsName" name="gsName" class="form-control" type="text">-->
+									<select id="gsId" name="gsId" class="form-control">
+										<option th:each="dict: ${companyList}" th:value="${dict.id}" th:text="${dict.gsName}"></option>
+									</select>
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">部门名称：</label>
+								<div class="col-sm-8">
+									<!--<input id="bmName" name="bmName" class="form-control" type="text">-->
+									<select id="bmId" name="bmId" class="form-control">
+										<option th:each="dict: ${departmentList}" th:value="${dict.id}" th:text="${dict.bmName}"></option>
+									</select>
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">职位名称：</label>
+								<div class="col-sm-8">
+									<!--<input id="positionName" name="positionName" class="form-control" type="text">-->
+									<select id="positionId" name="positionId" class="form-control">
+										<option th:each="dict: ${positionList}" th:value="${dict.id}" th:text="${dict.jobTitle}"></option>
+									</select>
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">手机号：</label>
+								<div class="col-sm-8">
+									<input id="mobile" name="mobile" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">创建时间：</label>
+								<div class="col-sm-8">
+									<input id="userCreate" name="userCreate" class="form-control" value="${#dates.format(system.userCreate,'yyyy-MM-dd')}" type="date">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">性别：</label>
+								<div class="col-sm-8">
+									<select id="nusSex" name="sex" class="form-control">
+										<option value="男">男</option>
+										<option value="女">女</option>
+									</select>
+								</div>
+							</div>
+									<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/system/user/add.js">
+	</script>
+</body>
+</html>

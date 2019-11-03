@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div id="exampleToolbar" role="group" class="t-bar">
+						<button shiro:hasPermission="system:menu:add" type="button"
+								class="btn btn-primary" title="在根节点下添加菜单" onclick="add('0')">
+							<i class="fa fa-plus" aria-hidden="true"></i>添加
+						</button>
+						<button shiro:hasPermission="system:menu:batchRemove" type="button"
+								class="btn btn-danger" onclick="batchRemove()">
+							<i class="fa fa-trash" aria-hidden="true"></i>删除
+						</button>
+
+                   <a  href="/system/data/backups">
+						<button shiro:hasPermission="system:menu:batchRemove" type="button"
+								class="btn btn-primary">
+							<i  aria-hidden="true"></i>数据备份
+						</button>
+				   </a>
+
+						<button shiro:hasPermission="system:menu:batchRemove" type="button"
+								class="btn btn-primary" onclick="restore()">
+							<i  aria-hidden="true"></i>数据还原
+						</button>
+						<button shiro:hasPermission="system:menu:batchRemove" type="button"
+								class="btn btn-primary" onclick="del()">
+							<i  aria-hidden="true"></i>系统初始化
+						</button>
+					</div>
+					<table id="exampleTable" data-mobile-responsive="true">
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal movefade movemodal" id="movemodal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<span aria-hidden="true"><i class="fa fa-pencil"></i></span>
+				</div>
+				<div class="modal-body">
+					<form id="form1" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<!--<label for="exampleInputFile"></label>-->
+							<input type="file" id="exampleInputFile" name="file" value="">
+							<!--<input type="submit" value="上传文件"/>-->
+						</div>
+						<div class="form-group">
+                        <span class="span">
+                           *必须包含指定后缀名 .sql  !
+                        </span>
+						</div>
+					</form>
+				</div>
+
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger rest_false"><i class="fa fa-times"></i> 取消</button>
+					<button type="button" id="but" class="btn btn-info rest_true"><i class="fa fa-pencil-square-o"></i> 确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script type="text/javascript" src="/js/appjs/system/menu/menu.js"></script>
+	<script>
+        function restore() {
+            $(".movefade").fadeIn(1000);
+
+            $("#but").click(function () {
+                var formData = new FormData();//实例化一个FormData对象
+                formData.append("file",$('#exampleInputFile')[0].files[0]);//添加一个文件
+                $.ajax({
+                    type:'POST',
+                    url:"/system/data/reduction",
+                    data:formData,//向后台提交对象，java后端接受的对象类型为MultipartFile，不能为CommonsMultipartFile对象
+                    processData:false,//这个很有必要，不然不行
+                    contentType:false, // 不要设置Content-Type请求头
+                    dataType:"json",
+                    success:function(data){
+                        if(0==data.res){
+                            alert("还原成功！")
+                        }else{
+                            alert("请选择正确的文件格式！")
+                        }
+                    }
+                });
+
+                $(".movefade").fadeOut(300);
+            });
+            //取消按钮
+            $(document).on("click", ".rest_false", function() {
+                $(".movefade").fadeOut(300);
+            });
+
+        }
+	</script>
+	<!--<script type="text/javascript">-->
+        <!--function clo() {-->
+            <!--$.ajax({-->
+                <!--dataType: 'json', // 注意：这里是指希望服务端返回json格式的数据-->
+                <!--type: 'get',-->
+                <!--url: '/system/data/backups',-->
+                <!--error: function () {-->
+                    <!--alert('请求失败');-->
+                <!--},-->
+                <!--success: function () {-->
+                  <!--alert("成")-->
+
+                <!--}-->
+            <!--});-->
+        <!--}-->
+        <!--</script>-->
+
+	<script type="text/javascript">
+        function del() {
+            $.ajax({
+                dataType: 'json', // 注意：这里是指希望服务端返回json格式的数据
+
+                type: 'get',
+                url: '/system/data/del',
+                error: function () {
+                    alert('请求失败');
+                },
+                success: function (data) {
+                    alert("请求成功")
+                }
+
+            });
+        }
+	</script>
+</body>
+
+</html>

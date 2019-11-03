@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title></title>
+
+    <!-- Bootstrap -->
+    <link href="/static/js/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/static/js/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/static/js/lib/nprogress/nprogress.css" rel="stylesheet">
+    <!-- FullCalendar -->
+    <link href="/static/js/lib/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="/static/js/lib/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
+
+    <!--css样式-->
+    <link href="/static/css/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+
+
+    <style type="text/css">
+
+        .layui-tab-card>.layui-tab-title li {
+            line-height: 39.5px;
+            color: #999999;
+            font-size: 13px;
+        }
+        .layui-tab-card>.layui-tab-title li:hover{
+            background-color: #EEEEEE;
+            color: #9F9F9F;
+        }
+        .layui-tab-title li .layui-tab-close {
+            font-size: 12px;
+            width: 13px;
+            height: 13px;
+            line-height: 14px;
+        }
+        .layui-body{
+            left: 230px;
+            top: 40px;
+        }
+    </style>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="#" class="site_title"><i class="fa fa-paw"></i> <span>工作日志</span></a>
+                </div>
+                <div class="clearfix"></div>
+
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <ul class="nav side-menu" th:each="menu : ${menus}">
+                            <li>
+                                <a><i th:class="${menu.attributes.icon}"></i><span class="span-hfl"
+                                                                                   th:text="${menu.text}"></span><span
+                                        class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu" id="changeUl">
+                                    <li th:each="cmenu : ${menu.children}" >
+                                        <a class="btabs" th:mytitle="${cmenu.text}" th:text="${cmenu.text}" th:attr="data-index=${cmenu.attributes.url}"></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                ·
+            </div>
+        </div>
+
+        <!-- 导航开始 -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
+                                <img src="img/a5.jpg" alt="">
+                            </a>
+                        </li>
+
+                        <li role="presentation" class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fa fa-comments-o"></i>
+                                <span class="badge bg-green">6</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+            </div>
+        </div>
+        <!-- 导航结束 -->
+
+        <div class="right_col" role="main">
+
+            <body class="">
+
+            <div class="clearfix"></div>
+
+            <div class="layui-body">
+
+                <!--tabs标签-->
+
+                <div class="layui-tab layui-tab-card" lay-filter="demo" lay-allowclose="true">
+                    <!--tab选项卡-->
+                    <ul class="layui-tab-title"></ul>
+
+                    <!--tab选项卡对应的内容-->
+                    <div class="layui-tab-content"></div>
+
+                </div>
+            </div>
+
+            <iframe class="iframeSrc" frameborder="no" src="/system/people"
+                    style="width: 100%;height: 638px; margin-top: 51px"></iframe>
+
+            <!-- jQuery -->
+            <script src="/static/js/lib/jquery/dist/jquery.min.js"></script>
+            <!-- Bootstrap -->
+            <script src="/static/js/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+            <!-- FastClick -->
+            <script src="/static/js/lib/fastclick/lib/fastclick.js"></script>
+            <!-- NProgress -->
+            <script src="/static/js/lib/nprogress/nprogress.js"></script>
+            <!-- FullCalendar -->
+            <script src="/static/js/lib/moment/min/moment.min.js"></script>
+            <script src="/static/js/lib/fullcalendar/dist/fullcalendar.min.js"></script>
+            <script src="/static/layui/layui.all.js"></script>
+            <!-- Custom Theme Scripts -->
+            <script src="/static/js/custom.min.js"></script>
+            <script>
+                $(".side-menu").on("click", "a", function () {
+                    $('.iframeSrc').attr("src", $(this).attr("data-index"));
+                });
+
+
+            </script>
+
+            <script>
+                layui.use('element', function() {
+                    var element = layui.element; //加载Tab的element模块
+
+                    //触发事件
+                    var active = {
+                        tabAdd: function() {
+                            //给当前点击的a标签添加自定义属性  
+                            var htmlurl = $(this).attr('data-index');
+                            var mytitle = $(this).attr('mytitle');
+
+                            //创建一个数组            
+                            var newArry = [];
+                            $(".layui-tab-title").find('li').each(function() {
+                                var li = $(this).attr("lay-id");
+                                newArry.push(li);
+                            });
+                            var tabs = $.inArray(mytitle, newArry); //$.inArray() 函数用于在数组中查找指定值，并返回它的索引值
+
+                            if(tabs >= 0) {   //tab栏已有标签
+
+                                element.tabChange('demo', mytitle); //用于外部切换到指定的Tab项上  , 切换到当前点击的页面
+
+                            } else {    //没有相同tab 添加tab项
+
+                                element.tabAdd('demo', {  //新增一个Tab选项               
+                                    title: mytitle,
+                                    content: '<iframe style="border:0; width:100%; height: 648px" src=' + htmlurl + ' ></iframe>'                ,
+                                    id: mytitle
+                                })
+                                element.tabChange('demo', mytitle); //切换到当前点击的页面
+
+                            }
+                        }
+                    };
+
+                    $(".btabs").click(function() {
+                        var type = "tabAdd";
+                        var othis = $(this);
+                        active[type] ? active[type].call(this, othis) : '';
+                    });
+                });
+            </script>
+
+            </body>
+</html>

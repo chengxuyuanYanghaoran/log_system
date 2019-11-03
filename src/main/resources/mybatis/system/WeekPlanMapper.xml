@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hlwxy.xu_boot2.system.dao.WeekPlanDao">
+
+<resultMap id="weekPeopleDO" type="com.hlwxy.xu_boot2.system.domain.WeekPlanExtendDO">
+	<!--column的值为在数据库中查询的列，property的值为返回的pojo中的属性-->
+	<!--id配置对应主键，result配置对应属性和列名 -->
+	<id column="id" property="id"></id>
+	<result column="week_plan_code" property="week_plan_code"></result>
+	<result column="week_plan_time" property="week_plan_time"></result>
+	<result column="week_plan_entry_end_time" property="week_plan_entry_end_time"></result>
+	<result column="week_plan_content" property="week_plan_content"></result>
+	<result column="week_plan_entry_time" property="week_plan_entry_time"></result>
+	<result column="week_plan_reply" property="week_plan_reply"></result>
+	<result column="week_plan_see" property="week_plan_see"></result>
+	<result column="week_plan_state" property="week_plan_state"></result>
+	<result column="peo_id" property="peo_id"></result>
+	<!--collection 配置返回pojo中的pojo，property是在返回类型中定义的pojo的属性名，javaType是映射到的pojo的路径-->
+	<!--<collection property="peopleDO" javaType="com.hlwxy.bootcurd.system.domain.PeopleDO">-->
+		<!--<id column="id" property="id"></id>-->
+	<result column="people_code" property="peopleCode"></result>
+	<result column="job_number" property="jobNumber"></result>
+	<result column="peo_name" property="peoName"></result>
+	<result column="morning_state" property="morningState"></result>
+	<result column="afternoon_state" property="afternoonState"></result>
+	<result column="user_id" property="userId"></result>
+	<result column="gs_id" property="gsId"></result>
+	<result column="bm_id" property="bmId"></result>
+	<result column="position_id" property="positionId"></result>
+	<result column="day_plan_id" property="dayPlanId"></result>
+	<result column="day_summary_id" property="daySummaryId"></result>
+	<result column="week_plan_id" property="weekPlanId"></result>
+	<result column="week_summary_id" property="weekSummaryId"></result>
+	<result column="monthly_plan_id" property="monthlyPlanId"></result>
+	<result column="monthly_summary_id" property="monthlySummaryId"></result>
+	<!--</collection>-->
+	<collection property="monthlyPlan" javaType="com.hlwxy.xu_boot2.system.domain.MonthlyPlan">
+		<id column="id" property="id"></id>
+		<result column="monthly_plan_code" property="monthly_plan_code"></result>
+		<result column="monthly_plan_time" property="monthly_plan_time"></result>
+		<result column="monthly_plan_entry_end_time" property="monthly_plan_entry_end_time"></result>
+		<result column="monthly_plan_content" property="monthly_plan_content"></result>
+		<result column="monthly_plan_entry_time" property="monthly_plan_entry_time"></result>
+		<result column="monthly_plan_reply" property="monthly_plan_reply"></result>
+		<result column="monthly_plan_see" property="monthly_plan_see"></result>
+		<result column="monthly_plan_state" property="monthly_plan_state"></result>
+		<result column="peo_id" property="peo_id"></result>
+	</collection>
+</resultMap>
+
+<resultMap id="peopleDO" type="com.hlwxy.xu_boot2.system.domain.PeopleDO">
+	<id column="id" property="id"></id>
+	<result column="people_code" property="peopleCode"></result>
+	<result column="job_number" property="jobNumber"></result>
+	<result column="peo_name" property="peoName"></result>
+	<result column="morning_state" property="morningState"></result>
+	<result column="afternoon_state" property="afternoonState"></result>
+	<result column="user_id" property="userId"></result>
+	<result column="gs_id" property="gsId"></result>
+	<result column="bm_id" property="bmId"></result>
+	<result column="position_id" property="positionId"></result>
+	<result column="day_plan_id" property="dayPlanId"></result>
+	<result column="day_summary_id" property="daySummaryId"></result>
+	<result column="week_plan_id" property="weekPlanId"></result>
+	<result column="week_summary_id" property="weekSummaryId"></result>
+	<result column="monthly_plan_id" property="monthlyPlanId"></result>
+	<result column="monthly_summary_id" property="monthlySummaryId"></result>
+</resultMap>
+
+	<!-- 查询所有人当前周的计划,总记录数 -->
+	<select id="coun" resultType="java.lang.Integer">
+		SELECT
+			count(*)
+		FROM
+		t_people
+		LEFT JOIN t_week_plan ON t_week_plan.id = t_people.week_plan_id
+	</select>
+	<!-- 查询所有人当前月的计划 -->
+	<select id="findWeekPlan" parameterType="com.hlwxy.xu_boot2.system.domain.Page" resultMap="weekPeopleDO">
+		SELECT
+			t_week_plan.*,
+			t_people.*
+		FROM
+			t_people
+		LEFT JOIN t_week_plan ON t_week_plan.id = t_people.week_plan_id
+		LIMIT ${pc},${pageSize}
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from t_people
+	</select>
+
+	<!-- 根据计划id查询计划 -->
+	<select id="getWeekPlanById" parameterType="com.hlwxy.xu_boot2.system.domain.WeekPlanDO" resultMap="weekPeopleDO">
+		SELECT
+			*
+		FROM
+			t_week_plan
+			LEFT JOIN t_monthly_plan ON t_week_plan.monthly_plan_time = t_monthly_plan.monthly_plan_time
+			LEFT JOIN t_people ON t_week_plan.peo_id = t_people.id
+		WHERE
+			t_week_plan.peo_id = t_monthly_plan.peo_id
+			AND t_week_plan.id = ${id}
+	</select>
+
+	<!--根据公司编号查询 本月份 公司下的所有人的计划-->
+	<select id="findWeekPlanByCompany" parameterType="com.hlwxy.xu_boot2.system.domain.CompanyDO" resultMap="weekPeopleDO">
+		SELECT
+		t_week_plan.*,
+		t_people.*
+		FROM
+		t_people
+		LEFT JOIN t_week_plan ON t_week_plan.id=t_people.week_plan_id
+		WHERE t_people.gs_id=${id}
+	</select>
+
+	<!--根据部门id查询 本月份 部门下的所有人的计划-->
+	<select id="findWeekPlanByDepartment" parameterType="com.hlwxy.xu_boot2.system.domain.DepartmentDO" resultMap="weekPeopleDO">
+		SELECT
+		t_week_plan.*,
+		t_people.*
+		FROM
+		t_people
+		LEFT JOIN t_week_plan ON t_week_plan.id=t_people.week_plan_id
+		WHERE t_people.bm_id=${id}
+	</select>
+
+	<!--多条件组合查询，总条数-->
+	<select id="queryCount" parameterType="com.hlwxy.xu_boot2.system.domain.ConditionDO" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM
+		t_week_plan
+		LEFT JOIN t_people ON t_week_plan.peo_id = t_people.id
+		WHERE
+		t_people.gs_id LIKE '%${gsId}%'
+		AND week_plan_time LIKE '%${time}%'
+		AND t_people.peo_name LIKE '%${peoName}%'
+		AND t_people.bm_id LIKE '%${bmId}%'
+	</select>
+	<!--多条件组合查询-->
+	<select id="compositeQuery" parameterType="com.hlwxy.xu_boot2.system.domain.ConditionDO" resultMap="weekPeopleDO">
+		SELECT
+			t_week_plan.*,
+			t_people.*
+		FROM
+			t_week_plan
+			LEFT JOIN t_people ON t_week_plan.peo_id = t_people.id
+		WHERE
+			t_people.gs_id LIKE '%${gsId}%'
+			AND week_plan_time LIKE '%${time}%'
+			AND t_people.peo_name LIKE '%${peoName}%'
+			AND t_people.bm_id LIKE '%${bmId}%'
+			ORDER BY t_week_plan.id DESC
+			LIMIT ${pc},${pageSize}
+	</select>
+
+	<!--添加月计划-->
+	<insert id="addWeekPlan" parameterType="com.hlwxy.xu_boot2.system.domain.WeekPlanDO">
+		INSERT INTO t_week_plan ( week_plan_code, week_plan_time, week_plan_entry_end_time, week_plan_content, week_plan_entry_time, week_plan_reply, week_plan_see, week_plan_state, peo_id,monthly_plan_time)
+		VALUES
+			( '${week_plan_code}', '${week_plan_time}', '${week_plan_entry_end_time}', '${week_plan_content}', '${week_plan_entry_time}', '${week_plan_reply}', '${week_plan_see}', ${week_plan_state},${peo_id},'${monthly_plan_time}')
+	</insert>
+
+	<!--根据计划编号查询月计划-->
+	<select id="getWeekPlanByCode" parameterType="java.lang.String" resultMap="weekPeopleDO">
+		SELECT
+		*
+		FROM
+		t_week_plan
+		WHERE
+		week_plan_code = '${code}'
+	</select>
+
+	<!--修改人员周计划id-->
+	<update id="updatePeopleByCode" parameterType="com.hlwxy.xu_boot2.system.domain.PeopleDO">
+		UPDATE t_people SET week_plan_id = '${weekPlanId}' WHERE id = ${id}
+	</update>
+	<!--修改月计划内容-->
+	<update id="updateWeekPlanContentByPeople" parameterType="com.hlwxy.xu_boot2.system.domain.WeekPlanExtendDO">
+		UPDATE t_week_plan SET week_plan_content = '${week_plan_content}',week_plan_state=${week_plan_state},week_plan_entry_time='${week_plan_entry_time}' WHERE id = '${weekPlanId}'
+	</update>
+
+	<!--修改计划状态-->
+	<update id="updateWeekPlanStateById" parameterType="com.hlwxy.xu_boot2.system.domain.WeekPlanDO">
+		UPDATE t_week_plan SET week_plan_state = ${week_plan_state} WHERE id = ${id}
+	</update>
+	<!--批量修改周计划状态-->
+	<update id="updateWeekPlanStateListById" parameterType="com.hlwxy.xu_boot2.common.utils.BatchAuditUtil">
+		UPDATE t_week_plan SET week_plan_state = ${state} WHERE id IN
+		<foreach collection="ids" item="list" index="index" open="(" separator="," close=")" >
+			'${list}'
+		</foreach>
+	</update>
+</mapper>

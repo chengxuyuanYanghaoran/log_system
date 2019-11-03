@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hlwxy.xu_boot2.system.dao.PeopleDao">
+
+	<select id="get" resultType="com.hlwxy.xu_boot2.system.domain.PeopleDO">
+		select `id`,`username`,`password`,`email`,`people_code`,`job_number`,`peo_name`,`morning_state`,`afternoon_state`,`user_id`,`gs_id`,`bm_id`,`position_id`,`day_plan_id`,`day_summary_id`,`week_plan_id`,`week_summary_id`,`monthly_plan_id`,`monthly_summary_id` from t_people where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.hlwxy.xu_boot2.system.domain.PeopleDO">
+		select `id`,`username`,`password`,`email`,`people_code`,`job_number`,`peo_name`,`morning_state`,`afternoon_state`,`user_id`,`gs_id`,`bm_id`,`position_id`,`day_plan_id`,`day_summary_id`,`week_plan_id`,`week_summary_id`,`monthly_plan_id`,`monthly_summary_id` from t_people
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="username != null and username != ''"> and username = #{username} </if>
+			<if test="password != null and password != ''"> and password = #{password} </if>
+			<if test="email != null and email != ''"> and email = #{email} </if>
+			<if test="peopleCode != null and peopleCode != ''"> and people_code = #{peopleCode} </if>
+			<if test="jobNumber != null and jobNumber != ''"> and job_number = #{jobNumber} </if>
+			<if test="peoName != null and peoName != ''"> and peo_name = #{peoName} </if>
+			<if test="morningState != null and morningState != ''"> and morning_state = #{morningState} </if>
+			<if test="afternoonState != null and afternoonState != ''"> and afternoon_state = #{afternoonState} </if>
+			<if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+			<if test="gsId != null and gsId != ''"> and gs_id = #{gsId} </if>
+			<if test="bmId != null and bmId != ''"> and bm_id = #{bmId} </if>
+			<if test="positionId != null and positionId != ''"> and position_id = #{positionId} </if>
+			<if test="dayPlanId != null and dayPlanId != ''"> and day_plan_id = #{dayPlanId} </if>
+			<if test="daySummaryId != null and daySummaryId != ''"> and day_summary_id = #{daySummaryId} </if>
+			<if test="weekPlanId != null and weekPlanId != ''"> and week_plan_id = #{weekPlanId} </if>
+			<if test="weekSummaryId != null and weekSummaryId != ''"> and week_summary_id = #{weekSummaryId} </if>
+			<if test="monthlyPlanId != null and monthlyPlanId != ''"> and monthly_plan_id = #{monthlyPlanId} </if>
+			<if test="monthlySummaryId != null and monthlySummaryId != ''"> and monthly_summary_id = #{monthlySummaryId} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by id ASC
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	<select id="listPeopleAll" resultType="com.hlwxy.xu_boot2.system.dto.PeopleDTO">
+		SELECT pco.*,d.bm_name FROM
+		(SELECT pc.*,o.job_title FROM  (
+		SELECT p.*,c.gs_name FROM   t_people  p  LEFT JOIN  t_company c on
+		p.gs_id=c.id
+		<where>
+			<if test="username != null and username != ''"> and username = #{username} </if>
+			<if test="password != null and password != ''"> and password = #{password} </if>
+			<if test="email != null and email != ''"> and email = #{email} </if>
+			<if test="peopleCode != null and peopleCode != ''"> and people_code = #{peopleCode} </if>
+			<if test="jobNumber != null and jobNumber != ''"> and job_number = #{jobNumber} </if>
+			<if test="peoName != null and peoName != ''"> and peo_name = #{peoName} </if>
+			<if test="morningState != null and morningState != ''"> and morning_state = #{morningState} </if>
+			<if test="afternoonState != null and afternoonState != ''"> and afternoon_state = #{afternoonState} </if>
+			<if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+			<if test="gsId != null and gsId != ''"> and gs_id = #{gsId} </if>
+			<if test="bmId != null and bmId != ''"> and bm_id = #{bmId} </if>
+			<if test="positionId != null and positionId != ''"> and position_id = #{positionId} </if>
+			<if test="dayPlanId != null and dayPlanId != ''"> and day_plan_id = #{dayPlanId} </if>
+			<if test="daySummaryId != null and daySummaryId != ''"> and day_summary_id = #{daySummaryId} </if>
+			<if test="weekPlanId != null and weekPlanId != ''"> and week_plan_id = #{weekPlanId} </if>
+			<if test="weekSummaryId != null and weekSummaryId != ''"> and week_summary_id = #{weekSummaryId} </if>
+			<if test="monthlyPlanId != null and monthlyPlanId != ''"> and monthly_plan_id = #{monthlyPlanId} </if>
+			<if test="monthlySummaryId != null and monthlySummaryId != ''"> and monthly_summary_id = #{monthlySummaryId} </if>
+		</where>
+		)  pc
+		LEFT JOIN position o
+		ON pc.bm_id=o.id)  pco  LEFT JOIN t_department  d
+		ON pco.position_id=d.id
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by id ASC
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(*) from t_people
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="username != null and username != ''"> and username = #{username} </if>
+			<if test="password != null and password != ''"> and password = #{password} </if>
+			<if test="email != null and email != ''"> and email = #{email} </if>
+			<if test="peopleCode != null and peopleCode != ''"> and people_code = #{peopleCode} </if>
+			<if test="jobNumber != null and jobNumber != ''"> and job_number = #{jobNumber} </if>
+			<if test="peoName != null and peoName != ''"> and peo_name = #{peoName} </if>
+			<if test="morningState != null and morningState != ''"> and morning_state = #{morningState} </if>
+			<if test="afternoonState != null and afternoonState != ''"> and afternoon_state = #{afternoonState} </if>
+			<if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+			<if test="gsId != null and gsId != ''"> and gs_id = #{gsId} </if>
+			<if test="bmId != null and bmId != ''"> and bm_id = #{bmId} </if>
+			<if test="positionId != null and positionId != ''"> and position_id = #{positionId} </if>
+			<if test="dayPlanId != null and dayPlanId != ''"> and day_plan_id = #{dayPlanId} </if>
+			<if test="daySummaryId != null and daySummaryId != ''"> and day_summary_id = #{daySummaryId} </if>
+			<if test="weekPlanId != null and weekPlanId != ''"> and week_plan_id = #{weekPlanId} </if>
+			<if test="weekSummaryId != null and weekSummaryId != ''"> and week_summary_id = #{weekSummaryId} </if>
+			<if test="monthlyPlanId != null and monthlyPlanId != ''"> and monthly_plan_id = #{monthlyPlanId} </if>
+			<if test="monthlySummaryId != null and monthlySummaryId != ''"> and monthly_summary_id = #{monthlySummaryId} </if>
+		</where>
+	</select>
+
+	<insert id="save" parameterType="com.hlwxy.xu_boot2.system.domain.PeopleDO" useGeneratedKeys="true" keyProperty="id">
+		insert into t_people
+		(
+		`username`,
+		`password`,
+		`email`,
+		`people_code`,
+		`job_number`,
+		`peo_name`,
+		`morning_state`,
+		`afternoon_state`,
+		`user_id`,
+		`gs_id`,
+		`bm_id`,
+		`position_id`,
+		`day_plan_id`,
+		`day_summary_id`,
+		`week_plan_id`,
+		`week_summary_id`,
+		`monthly_plan_id`,
+		`monthly_summary_id`
+		)
+		values
+		(
+		#{username},
+		#{password},
+		#{email},
+		#{peopleCode},
+		#{jobNumber},
+		#{peoName},
+		#{morningState},
+		#{afternoonState},
+		#{userId},
+		#{gsId},
+		#{bmId},
+		#{positionId},
+		#{dayPlanId},
+		#{daySummaryId},
+		#{weekPlanId},
+		#{weekSummaryId},
+		#{monthlyPlanId},
+		#{monthlySummaryId}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.hlwxy.xu_boot2.system.domain.PeopleDO">
+		update t_people
+		<set>
+			<if test="username != null">`username` = #{username}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="email != null">`email` = #{email}, </if>
+			<if test="peopleCode != null">`people_code` = #{peopleCode}, </if>
+			<if test="jobNumber != null">`job_number` = #{jobNumber}, </if>
+			<if test="peoName != null">`peo_name` = #{peoName}, </if>
+			<if test="morningState != null">`morning_state` = #{morningState}, </if>
+			<if test="afternoonState != null">`afternoon_state` = #{afternoonState}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="gsId != null and gsId != ''">`gs_id` = #{gsId}, </if>
+			<if test="bmId != null and bmId != ''">`bm_id`= #{bmId}, </if>
+			<if test="positionId != null and positionId != ''">position_id = #{positionId}, </if>
+			<if test="dayPlanId != null">`day_plan_id` = #{dayPlanId}, </if>
+			<if test="daySummaryId != null">`day_summary_id` = #{daySummaryId}, </if>
+			<if test="weekPlanId != null">`week_plan_id` = #{weekPlanId}, </if>
+			<if test="weekSummaryId != null">`week_summary_id` = #{weekSummaryId}, </if>
+			<if test="monthlyPlanId != null">`monthly_plan_id` = #{monthlyPlanId}, </if>
+			<if test="monthlySummaryId != null">`monthly_summary_id` = #{monthlySummaryId}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="remove">
+		delete from t_people where id = #{value}
+	</delete>
+
+	<delete id="batchRemove">
+		delete from t_people where id in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+
+	<resultMap id="userMap" type="com.hlwxy.xu_boot2.system.domain.PeopleDO">
+		<id property="id" column="uid"/>
+		<id property="username" column="username"/>
+		<id property="password" column="password"/>
+		<id property="email" column="email"/>
+		<collection property="roles" ofType="com.hlwxy.xu_boot2.userlogin.domain.RoleDo">
+			<id property="id" column="rid"/>
+			<result property="username" column="rname"/>
+			<result property="name" column="name"/>
+			<collection property="menus" ofType="com.hlwxy.xu_boot2.userlogin.domain.MenuDO">
+				<id property="menuId" column="menu_id"/>
+				<result property="name" column="pname"/>
+				<result property="url" column="url"/>
+				<result property="perms" column="perms"/>
+				<result property="icon" column="icon"/>
+			</collection>
+		</collection>
+	</resultMap>
+	<select id="findByUsername" resultMap="userMap">
+		SELECT
+		u.id uid,u.username,u.password,u.email,
+		r.id rid,r.username rname,r.name name,
+		p.menu_id,p.name pname,p.url,p.perms,p.icon
+		FROM t_people u
+		INNER JOIN user_role ur on ur.user_id = u.id
+		INNER JOIN role r on r.id = ur.role_id
+		INNER JOIN role_menu pr on pr.role_id = r.id
+		INNER JOIN sys_menu p on pr.pid = p.menu_id
+		WHERE u.username = #{username}  AND  u.password= #{password} AND  p.perms !=''
+
+	</select>
+	<!-- AND  p.perms !=''-->
+</mapper>

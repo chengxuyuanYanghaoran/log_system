@@ -1,0 +1,72 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	background: url(../img/bg.jpg) no-repeat;
+	background-size: cover;
+	height: 100vh;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.full-center {
+	/*width: 360px;*/
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #fff;
+	background: rgba(84, 76, 76, .3);
+	border-radius: 4px;
+	padding: 40px 0;
+}
+
+
+/********************************************************/
+.form-horizontal{
+	width: 360px;
+}
+
+.form-horizontal .form-group{
+	margin-left: 45px;
+	margin-right: 45px;
+}
+
+/*input框*/
+.form-control{
+	padding: 10px 15px;
+	border-radius: 18px;
+}
+
+.form-control:focus{
+	border-color: #FFFFFF;
+}
+
+.btn-info:active:focus, .btn-info:active:hover{
+	border-color: #ffffff;
+}
+/*按钮*/
+.btn{
+	padding: 6px 116px;
+	border-radius: 18px;
+	margin-top: 10px;
+}	
+
+/*提示文字*/
+.has-error .help-block{
+	color: red;
+	font-size: 13px;
+}
+
+/*图标*/
+.form-control-feedback{
+	width: 50px;
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hlwxy.xu_boot2.system.dao.CompanyDao">
+
+	<select id="get" resultType="com.hlwxy.xu_boot2.system.domain.CompanyDO">
+		select `id`,`gs_code`,`gs_name` from t_company where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.hlwxy.xu_boot2.system.domain.CompanyDO">
+		select `id`,`gs_code`,`gs_name` from t_company
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="gsCode != null and gsCode != ''"> and gs_code = #{gsCode} </if>
+		  		  <if test="gsName != null and gsName != ''"> and gs_name = #{gsName} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id ASC
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from t_company
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="gsCode != null and gsCode != ''"> and gs_code = #{gsCode} </if>
+		  		  <if test="gsName != null and gsName != ''"> and gs_name = #{gsName} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.hlwxy.xu_boot2.system.domain.CompanyDO" useGeneratedKeys="true" keyProperty="id">
+		insert into t_company
+		(
+			`gs_code`, 
+			`gs_name`
+		)
+		values
+		(
+			#{gsCode}, 
+			#{gsName}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.hlwxy.xu_boot2.system.domain.CompanyDO">
+		update t_company 
+		<set>
+			<if test="gsCode != null">`gs_code` = #{gsCode}, </if>
+			<if test="gsName != null">`gs_name` = #{gsName}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from t_company where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from t_company where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

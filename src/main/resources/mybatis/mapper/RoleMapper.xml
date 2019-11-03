@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hlwxy.xu_boot2.userlogin.dao.RoleDao">
+
+	<select id="get" resultType="com.hlwxy.xu_boot2.userlogin.domain.RoleDo">
+		select `id`,`username`,`name` from role where id = #{value}
+	</select>
+
+	<select id="listByName" resultType="com.hlwxy.xu_boot2.userlogin.domain.RoleDo">
+		select `id`,`username`,`name` from role where name = #{value}
+	</select>
+
+
+
+	<select id="list" resultType="com.hlwxy.xu_boot2.userlogin.domain.RoleDo" >
+		select `id`,`username`,`name` from role
+		<where>
+		<if test="id != null and id != ''"> and id = #{id} </if>
+		<if test="username != null and username != ''"> and username = #{username} </if>
+		<if test="name != null and name != ''"> and name = #{name} </if>
+		</where>
+        <choose>
+
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id ASC
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="listall" resultType="com.hlwxy.xu_boot2.userlogin.dto.RoleDTO" >
+		select r.*,d.bm_name from role r LEFT JOIN t_department  d ON
+		r.name=d.id
+		<where>
+			<if test="id != null and id != ''"> and r.id = #{id} </if>
+			<if test="username != null and username != ''"> and r.username = #{username} </if>
+			<if test="name != null and name != ''"> and r.name = #{name} </if>
+		</where>
+		<choose>
+
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by r.id ASC
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+
+
+ 	<select id="count" resultType="int">
+		select count(*) from role
+		 <where>
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="username != null and username != ''"> and username = #{username} </if>
+			      <if test="name != null and name != ''"> and name = #{name} </if>
+		  		</where>
+	</select>
+
+	<insert id="save" parameterType="com.hlwxy.xu_boot2.userlogin.domain.RoleDo" useGeneratedKeys="true" keyProperty="id">
+		insert into role
+		(
+			`username`,
+			`name`
+		)
+		values
+		(
+			#{username},
+			#{name}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.hlwxy.xu_boot2.userlogin.domain.RoleDo">
+		update role
+		<set>
+			<if test="username != null">`username` = #{username},</if>
+			<if test="name != null">`name` = #{name}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="remove">
+		delete from role where id = #{value}
+	</delete>
+
+	<delete id="batchRemove">
+		delete from role where id in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

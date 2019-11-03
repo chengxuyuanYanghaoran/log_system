@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hlwxy.xu_boot2.system.dao.MonthlySummaryDao">
+
+<resultMap id="monthlySummaryExtendDO" type="com.hlwxy.xu_boot2.system.domain.MonthlySummaryExtendDO">
+	<!--column的值为在数据库中查询的列，property的值为返回的pojo中的属性-->
+	<!--id配置对应主键，result配置对应属性和列名 -->
+	<id column="id" property="id"></id>
+	<result column="monthly_summary_code" property="monthly_summary_code"></result>
+	<result column="monthly_summary_time" property="monthly_summary_time"></result>
+	<result column="monthly_summary_content" property="monthly_summary_content"></result>
+	<result column="monthly_summary_entry_time" property="monthly_summary_entry_time"></result>
+	<result column="monthly_summary_reply" property="monthly_summary_reply"></result>
+	<result column="monthly_summary_see" property="monthly_summary_see"></result>
+	<result column="monthly_summary_state" property="monthly_summary_state"></result>
+	<result column="peo_id" property="peo_id"></result>
+	<!--collection 配置返回pojo中的pojo，property是在返回类型中定义的pojo的属性名，javaType是映射到的pojo的路径-->
+	<!--<collection property="peopleDO" javaType="com.hlwxy.bootcurd.system.domain.PeopleDO">-->
+		<!--<id column="id" property="id"></id>-->
+	<result column="people_code" property="peopleCode"></result>
+	<result column="job_number" property="jobNumber"></result>
+	<result column="peo_name" property="peoName"></result>
+	<result column="morning_state" property="morningState"></result>
+	<result column="afternoon_state" property="afternoonState"></result>
+	<result column="user_id" property="userId"></result>
+	<result column="gs_id" property="gsId"></result>
+	<result column="bm_id" property="bmId"></result>
+	<result column="position_id" property="positionId"></result>
+	<result column="day_plan_id" property="dayPlanId"></result>
+	<result column="day_summary_id" property="daySummaryId"></result>
+	<result column="week_plan_id" property="weekPlanId"></result>
+	<result column="week_summary_id" property="weekSummaryId"></result>
+	<result column="monthly_plan_id" property="monthlyPlanId"></result>
+	<result column="monthly_summary_id" property="monthlySummaryId"></result>
+	<!--</collection>-->
+	<collection property="monthlyPlan" javaType="com.hlwxy.xu_boot2.system.domain.MonthlyPlan">
+		<id column="id" property="id"></id>
+		<result column="monthly_plan_code" property="monthly_plan_code"></result>
+		<result column="monthly_plan_time" property="monthly_plan_time"></result>
+		<result column="monthly_plan_entry_end_time" property="monthly_plan_entry_end_time"></result>
+		<result column="monthly_plan_content" property="monthly_plan_content"></result>
+		<result column="monthly_plan_entry_time" property="monthly_plan_entry_time"></result>
+		<result column="monthly_plan_reply" property="monthly_plan_reply"></result>
+		<result column="monthly_plan_see" property="monthly_plan_see"></result>
+		<result column="monthly_plan_state" property="monthly_plan_state"></result>
+		<result column="peo_id" property="peo_id"></result>
+	</collection>
+</resultMap>
+
+<resultMap id="peopleDO" type="com.hlwxy.xu_boot2.system.domain.PeopleDO">
+	<id column="id" property="id"></id>
+	<result column="people_code" property="peopleCode"></result>
+	<result column="job_number" property="jobNumber"></result>
+	<result column="peo_name" property="peoName"></result>
+	<result column="morning_state" property="morningState"></result>
+	<result column="afternoon_state" property="afternoonState"></result>
+	<result column="user_id" property="userId"></result>
+	<result column="gs_id" property="gsId"></result>
+	<result column="bm_id" property="bmId"></result>
+	<result column="position_id" property="positionId"></result>
+	<result column="day_plan_id" property="dayPlanId"></result>
+	<result column="day_summary_id" property="daySummaryId"></result>
+	<result column="week_plan_id" property="weekPlanId"></result>
+	<result column="week_summary_id" property="weekSummaryId"></result>
+	<result column="monthly_plan_id" property="monthlyPlanId"></result>
+	<result column="monthly_summary_id" property="monthlySummaryId"></result>
+</resultMap>
+	<!-- 查询所有人当前月的总结的总记录数 -->
+	<select id="coun" resultType="java.lang.Integer">
+		SELECT
+			count(*)
+		FROM
+			t_people
+			LEFT JOIN t_monthly_summary ON t_monthly_summary.id = t_people.monthly_summary_id
+	</select>
+	<!-- 查询所有人当前月的总结 -->
+	<select id="findSummarySummary" resultMap="monthlySummaryExtendDO">
+		SELECT
+			t_monthly_summary.*,
+			t_people.*
+		FROM
+			t_people
+		LEFT JOIN t_monthly_summary ON t_monthly_summary.id = t_people.monthly_summary_id
+		LIMIT ${pc},${pageSize}
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from t_people
+	</select>
+
+	<!-- 根据计划id查询总结 -->
+	<select id="getMonthlySummaryById" parameterType="com.hlwxy.xu_boot2.system.domain.MonthlySummaryDO" resultMap="monthlySummaryExtendDO">
+		SELECT
+			*
+		FROM
+			t_monthly_summary
+			LEFT JOIN t_monthly_plan ON t_monthly_summary.monthly_summary_time = t_monthly_plan.monthly_plan_time
+			LEFT JOIN t_people ON t_monthly_summary.peo_id = t_people.id
+		WHERE
+			t_monthly_plan.peo_id = t_monthly_summary.peo_id
+			AND t_monthly_summary.id = ${id}
+	</select>
+
+	<!-- 根据计划月份查询总结 -->
+	<select id="getMonthlySummaryByTime" parameterType="com.hlwxy.xu_boot2.system.domain.MonthlySummaryDO" resultMap="monthlySummaryExtendDO">
+		SELECT
+		t_monthly_summary.*,
+		t_people.*
+		FROM
+		t_monthly_summary
+		LEFT JOIN t_people ON t_monthly_summary.id=t_people.monthly_summary_id
+		WHERE t_monthly_summary.monthly_summary_time LIKE '%{monthly_summary_time}%'
+	</select>
+
+	<!--根据公司编号查询 本月份 公司下的所有人的总结-->
+	<select id="findMonthlySummaryByCompany" parameterType="com.hlwxy.xu_boot2.system.domain.CompanyDO" resultMap="monthlySummaryExtendDO">
+		SELECT
+		t_monthly_summary.*,
+		t_people.*
+		FROM
+		t_people
+		LEFT JOIN t_monthly_summary ON t_monthly_summary.id=t_people.monthly_summary_id
+		WHERE t_people.gs_id=${id}
+	</select>
+
+	<!--根据部门id查询 本月份 部门下的所有人的总结-->
+	<select id="findMonthlySummaryByDepartment" parameterType="com.hlwxy.xu_boot2.system.domain.DepartmentDO" resultMap="monthlySummaryExtendDO">
+		SELECT
+		t_monthly_summary.*,
+		t_people.*
+		FROM
+		t_people
+		LEFT JOIN t_monthly_summary ON t_monthly_summary.id=t_people.monthly_summary_id
+		WHERE t_people.bm_id=${id}
+	</select>
+
+	<!--多条件组合查询,总条数-->
+	<select id="queryCount" parameterType="com.hlwxy.xu_boot2.system.domain.ConditionDO" resultType="java.lang.Integer">
+		SELECT
+			count(*)
+		FROM
+			t_monthly_summary
+			LEFT JOIN t_people ON t_monthly_summary.peo_id = t_people.id
+		WHERE
+			t_people.gs_id LIKE '%${gsId}%'
+			AND monthly_summary_time LIKE '%${time}%'
+			AND t_people.peo_name LIKE '%${peoName}%'
+			AND t_people.bm_id LIKE '%${bmId}%'
+	</select>
+	<!--多条件组合查询-->
+	<select id="compositeQueryMonthlySummary" parameterType="com.hlwxy.xu_boot2.system.domain.ConditionDO" resultMap="monthlySummaryExtendDO">
+		SELECT
+			t_monthly_summary.*,
+			t_people.*
+		FROM
+			t_monthly_summary
+			LEFT JOIN t_people ON t_monthly_summary.peo_id = t_people.id
+		WHERE
+			t_people.gs_id LIKE '%${gsId}%'
+			AND monthly_summary_time LIKE '%${time}%'
+			AND t_people.peo_name LIKE '%${peoName}%'
+			AND t_people.bm_id LIKE '%${bmId}%'
+			ORDER BY t_monthly_summary.id DESC
+			LIMIT ${pc},${pageSize}
+	</select>
+
+	<!--添加月总结-->
+	<insert id="addMonthlySummary" parameterType="com.hlwxy.xu_boot2.system.domain.MonthlySummaryDO">
+		INSERT INTO t_monthly_summary ( monthly_summary_code, monthly_summary_time, monthly_summary_content, monthly_summary_entry_time, monthly_summary_reply, monthly_summary_see, monthly_summary_state, peo_id)
+		VALUES
+			( '${monthly_summary_code}', '${monthly_summary_time}', '${monthly_summary_content}', '${monthly_summary_entry_time}', '${monthly_summary_reply}', '${monthly_summary_see}', ${monthly_summary_state},${peo_id})
+	</insert>
+
+	<!--根据计划编号查询月总结-->
+	<select id="getMonthlySummaryByCode" parameterType="java.lang.String" resultMap="monthlySummaryExtendDO">
+		SELECT
+		*
+		FROM
+		t_monthly_summary
+		WHERE
+		monthly_summary_code = '${code}'
+	</select>
+
+	<!--修改人员月总结id-->
+	<update id="updatePeopleByCode" parameterType="com.hlwxy.xu_boot2.system.domain.PeopleDO">
+		UPDATE t_people SET monthly_summary_id = ${monthlySummaryId} WHERE id = ${id}
+	</update>
+	<!--修改月总结内容-->
+	<update id="updateMonthlySummaryContentByPeople" parameterType="com.hlwxy.xu_boot2.system.domain.MonthlySummaryExtendDO">
+		UPDATE t_monthly_summary SET monthly_summary_content = '${monthly_summary_content}',monthly_summary_state=${monthly_summary_state},monthly_summary_entry_time='${monthly_summary_entry_time}' WHERE id = '${monthlySummaryId}'
+	</update>
+
+	<!--修改总结状态-->
+	<update id="updateMonthlySummaryStateById" parameterType="com.hlwxy.xu_boot2.system.domain.MonthlySummaryDO">
+		UPDATE t_monthly_summary SET monthly_summary_state = ${monthly_summary_state} WHERE id = ${id}
+	</update>
+
+	<!--批量修改月总结状态-->
+	<update id="updateMonthlySummaryStateListById" parameterType="com.hlwxy.xu_boot2.common.utils.BatchAuditUtil">
+		UPDATE t_monthly_summary SET monthly_summary_state = ${state} WHERE id IN
+		<foreach collection="ids" item="list" index="index" open="(" separator="," close=")" >
+			'${list}'
+		</foreach>
+	</update>
+
+</mapper>

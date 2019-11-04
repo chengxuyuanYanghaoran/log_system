@@ -21,6 +21,7 @@ public interface WeekPlanDao {
      int count();
      //根据id查新月计划
      WeekPlanExtendDO getWeekPlanById(WeekPlanDO weekPlanDO);
+     WeekPlanExtendDO getWeekPlanById2(WeekPlanDO weekPlanDO);
      //根据公司id查询 本月份 公司内所有人的月计划
      List<WeekPlanExtendDO> findWeekPlanByCompany(CompanyDO companyDO);
      //根据部门id查询 本月份 部门内所有人的月计划

@@ -57,7 +57,7 @@ public class WeekPlanController {
 			WeekPlanDO weekPlanDO = new WeekPlanDO();
 			weekPlanDO.setId(people.getWeekPlanId());
 			//查询数据
-			WeekPlanExtendDO weekPlanExtendDO = weekPlanService.getWeekPlanById(weekPlanDO);
+			WeekPlanExtendDO weekPlanExtendDO = weekPlanService.getWeekPlanById2(weekPlanDO);
 			if(!weekPlanExtendDO.getWeek_plan_time().equals(dateTool.WeekAndWeek())){
 				map.put("code",0);
 				map.put("msg","您还没有编写本周的计划");
@@ -83,8 +83,14 @@ public class WeekPlanController {
 		try{
 			//查询周计划数据
 			WeekPlanExtendDO weekPlanExtendDO = weekPlanService.getWeekPlanById(weekPlanDO);
-			map.put("weekPlanExtendDO",weekPlanExtendDO);
-			map.put("code",0);
+			if (weekPlanExtendDO==null){
+				map.put("code",-1);
+				map.put("msg","他（她）未编写月计划");
+			}else {
+				//封装到map
+				map.put("weekPlanExtendDO",weekPlanExtendDO);
+				map.put("code",0);
+			}
 		}catch (Exception e){
 			map.put("code",-1);
 			map.put("msg","系统异常");
@@ -136,7 +142,7 @@ public class WeekPlanController {
 					if (people.getWeekPlanId()!=null&&!people.getWeekPlanId().equals("")){//判断该人员是否编写过周计划
 						weekPlanDO.setId(people.getWeekPlanId());//设置周计划实体的id
 						//获取人员的最新周计划
-						WeekPlanExtendDO weekPlanExtendDO1=weekPlanService.getWeekPlanById(weekPlanDO);
+						WeekPlanExtendDO weekPlanExtendDO1=weekPlanService.getWeekPlanById2(weekPlanDO);
 						//判断该周计划是否是本周的周计划
 						if (weekPlanExtendDO1.getWeek_plan_time().equals(dateTool.WeekAndWeek())){//是本周的周计划，修改
 							WeekPlanExtendDO weekPlanExtendDO=new WeekPlanExtendDO();

@@ -58,7 +58,7 @@ public class DaySummaryController {
 			DaySummaryDo daySummaryDo = new DaySummaryDo();
 			daySummaryDo.setId(people.getDaySummaryId());
 			//查询数据
-			DaySummaryExtendDO daySummaryExtendDO = daySummaryService.getDaySummaryById(daySummaryDo);
+			DaySummaryExtendDO daySummaryExtendDO = daySummaryService.getDaySummaryById2(daySummaryDo);
 			if(!daySummaryExtendDO.getDay_summary_time().equals(dateTool.adyAndDay())){
 				map.put("code",0);
 				map.put("msg","您还没有编写今天总结");
@@ -83,9 +83,14 @@ public class DaySummaryController {
 		try{
 			//查询日总结数据
 			DaySummaryExtendDO daySummaryExtendDO = daySummaryService.getDaySummaryById(daySummaryDo);
-			//封装到map
-			map.put("daySummaryExtendDO",daySummaryExtendDO);
-			map.put("code",0);
+			if (daySummaryExtendDO==null){
+				map.put("code",-1);
+				map.put("msg","他（她）未编写周计划或月计划或日计划");
+			}else {
+				//封装到map
+				map.put("daySummaryExtendDO",daySummaryExtendDO);
+				map.put("code",0);
+			}
 		}catch (Exception e){
 			map.put("code",-1);
 			map.put("msg","系统异常");
@@ -142,7 +147,7 @@ public class DaySummaryController {
 				//为日计划的实体赋值
 				DayPlanDO dayPlanDO = new DayPlanDO();
 				dayPlanDO.setId(people.getDayPlanId());
-				DayPlanExtendDO dayPlanExtendDO = dayPlanService.getDayPlanById(dayPlanDO);//获取日计划
+				DayPlanExtendDO dayPlanExtendDO = dayPlanService.getDayPlanById2(dayPlanDO);//获取日计划
 				if (dayPlanExtendDO.getDay_plan_time().equals(dateTool.adyAndDay())){//是今天的日计划
 
 					//判断是否编写过日总结

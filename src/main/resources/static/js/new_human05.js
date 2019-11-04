@@ -85,14 +85,18 @@ window.onload=function () {
                             if(res.code==null) {
                                 alert("您的权限不足！")
                             }else {
-                                document.getElementById("oneP_sum_day").innerHTML= res.daySummaryExtendDO.day_summary_content;
-                                document.getElementById("oneP_sumend_day").innerHTML= res.daySummaryExtendDO.day_summary_entry_time;
-                                document.getElementById("oneP_plan_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_content;
-                                document.getElementById("oneP_end_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_entry_time;
-                                document.getElementById("oneP_plan_week").innerHTML= res.daySummaryExtendDO.weekPlanDO.week_plan_content;
-                                document.getElementById("oneP_end_week").innerHTML=res.daySummaryExtendDO.weekPlanDO.week_plan_entry_time;
-                                document.getElementById("oneP_plan").innerHTML= res.daySummaryExtendDO.monthlyPlan.monthly_plan_content;
-                                document.getElementById("oneP_end").innerHTML=res.daySummaryExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                if (res.daySummaryExtendDO==null){
+                                    alert(res.msg)
+                                }else{
+                                    document.getElementById("oneP_sum_day").innerHTML= res.daySummaryExtendDO.day_summary_content;
+                                    document.getElementById("oneP_sumend_day").innerHTML= res.daySummaryExtendDO.day_summary_entry_time;
+                                    document.getElementById("oneP_plan_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_content;
+                                    document.getElementById("oneP_end_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_entry_time;
+                                    document.getElementById("oneP_plan_week").innerHTML= res.daySummaryExtendDO.weekPlanDO.week_plan_content;
+                                    document.getElementById("oneP_end_week").innerHTML=res.daySummaryExtendDO.weekPlanDO.week_plan_entry_time;
+                                    document.getElementById("oneP_plan").innerHTML= res.daySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                    document.getElementById("oneP_end").innerHTML=res.daySummaryExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                }
                             }
                         }
                     });
@@ -236,14 +240,18 @@ function monthplanSelect() {
                             if(res.code==null) {
                                 alert("您的权限不足！")
                             }else {
-                                document.getElementById("oneP_sum_day").innerHTML= res.daySummaryExtendDO.day_summary_content;
-                                document.getElementById("oneP_sumend_day").innerHTML= res.daySummaryExtendDO.day_summary_entry_time;
-                                document.getElementById("oneP_plan_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_content;
-                                document.getElementById("oneP_end_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_entry_time;
-                                document.getElementById("oneP_plan_week").innerHTML= res.daySummaryExtendDO.weekPlanDO.week_plan_content;
-                                document.getElementById("oneP_end_week").innerHTML=res.daySummaryExtendDO.weekPlanDO.week_plan_entry_time;
-                                document.getElementById("oneP_plan").innerHTML= res.daySummaryExtendDO.monthlyPlan.monthly_plan_content;
-                                document.getElementById("oneP_end").innerHTML=res.daySummaryExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                if (res.daySummaryExtendDO==null){
+                                    alert(res.msg)
+                                }else{
+                                    document.getElementById("oneP_sum_day").innerHTML= res.daySummaryExtendDO.day_summary_content;
+                                    document.getElementById("oneP_sumend_day").innerHTML= res.daySummaryExtendDO.day_summary_entry_time;
+                                    document.getElementById("oneP_plan_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_content;
+                                    document.getElementById("oneP_end_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_entry_time;
+                                    document.getElementById("oneP_plan_week").innerHTML= res.daySummaryExtendDO.weekPlanDO.week_plan_content;
+                                    document.getElementById("oneP_end_week").innerHTML=res.daySummaryExtendDO.weekPlanDO.week_plan_entry_time;
+                                    document.getElementById("oneP_plan").innerHTML= res.daySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                    document.getElementById("oneP_end").innerHTML=res.daySummaryExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                }
                             }
                         }
                     });
@@ -489,14 +497,18 @@ function handleData(data1,data2) {
                             if(res.code==null) {
                                 alert("您的权限不足！")
                             }else {
-                                document.getElementById("oneP_sum_day").innerHTML= res.daySummaryExtendDO.day_summary_content;
-                                document.getElementById("oneP_sumend_day").innerHTML= res.daySummaryExtendDO.day_summary_entry_time;
-                                document.getElementById("oneP_plan_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_content;
-                                document.getElementById("oneP_end_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_entry_time;
-                                document.getElementById("oneP_plan_week").innerHTML= res.daySummaryExtendDO.weekPlanDO.week_plan_content;
-                                document.getElementById("oneP_end_week").innerHTML=res.daySummaryExtendDO.weekPlanDO.week_plan_entry_time;
-                                document.getElementById("oneP_plan").innerHTML= res.daySummaryExtendDO.monthlyPlan.monthly_plan_content;
-                                document.getElementById("oneP_end").innerHTML=res.daySummaryExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                if (res.daySummaryExtendDO==null){
+                                    alert(res.msg)
+                                }else{
+                                    document.getElementById("oneP_sum_day").innerHTML= res.daySummaryExtendDO.day_summary_content;
+                                    document.getElementById("oneP_sumend_day").innerHTML= res.daySummaryExtendDO.day_summary_entry_time;
+                                    document.getElementById("oneP_plan_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_content;
+                                    document.getElementById("oneP_end_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_entry_time;
+                                    document.getElementById("oneP_plan_week").innerHTML= res.daySummaryExtendDO.weekPlanDO.week_plan_content;
+                                    document.getElementById("oneP_end_week").innerHTML=res.daySummaryExtendDO.weekPlanDO.week_plan_entry_time;
+                                    document.getElementById("oneP_plan").innerHTML= res.daySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                    document.getElementById("oneP_end").innerHTML=res.daySummaryExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                }
                             }
                         }
                     });
@@ -630,14 +642,18 @@ function queryHandleData(data1,data2) {
                             if(res.code==null) {
                                 alert("您的权限不足！")
                             }else {
-                                document.getElementById("oneP_sum_day").innerHTML= res.daySummaryExtendDO.day_summary_content;
-                                document.getElementById("oneP_sumend_day").innerHTML= res.daySummaryExtendDO.day_summary_entry_time;
-                                document.getElementById("oneP_plan_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_content;
-                                document.getElementById("oneP_end_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_entry_time;
-                                document.getElementById("oneP_plan_week").innerHTML= res.daySummaryExtendDO.weekPlanDO.week_plan_content;
-                                document.getElementById("oneP_end_week").innerHTML=res.daySummaryExtendDO.weekPlanDO.week_plan_entry_time;
-                                document.getElementById("oneP_plan").innerHTML= res.daySummaryExtendDO.monthlyPlan.monthly_plan_content;
-                                document.getElementById("oneP_end").innerHTML=res.daySummaryExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                if (res.daySummaryExtendDO==null){
+                                    alert(res.msg)
+                                }else{
+                                    document.getElementById("oneP_sum_day").innerHTML= res.daySummaryExtendDO.day_summary_content;
+                                    document.getElementById("oneP_sumend_day").innerHTML= res.daySummaryExtendDO.day_summary_entry_time;
+                                    document.getElementById("oneP_plan_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_content;
+                                    document.getElementById("oneP_end_day").innerHTML= res.daySummaryExtendDO.dayPlanDO.day_plan_entry_time;
+                                    document.getElementById("oneP_plan_week").innerHTML= res.daySummaryExtendDO.weekPlanDO.week_plan_content;
+                                    document.getElementById("oneP_end_week").innerHTML=res.daySummaryExtendDO.weekPlanDO.week_plan_entry_time;
+                                    document.getElementById("oneP_plan").innerHTML= res.daySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                    document.getElementById("oneP_end").innerHTML=res.daySummaryExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                }
                             }
                         }
                     });

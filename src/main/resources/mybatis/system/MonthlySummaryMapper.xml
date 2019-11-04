@@ -101,6 +101,16 @@
 			t_monthly_plan.peo_id = t_monthly_summary.peo_id
 			AND t_monthly_summary.id = ${id}
 	</select>
+	<!-- 根据计划id查询总结,不绑定其他日志信息 -->
+	<select id="getMonthlySummaryById2" parameterType="com.hlwxy.xu_boot2.system.domain.MonthlySummaryDO" resultMap="monthlySummaryExtendDO">
+		SELECT
+			*
+		FROM
+			t_monthly_summary
+			LEFT JOIN t_people ON t_monthly_summary.peo_id = t_people.id
+		WHERE
+	   		t_monthly_summary.id = ${id}
+	</select>
 
 	<!-- 根据计划月份查询总结 -->
 	<select id="getMonthlySummaryByTime" parameterType="com.hlwxy.xu_boot2.system.domain.MonthlySummaryDO" resultMap="monthlySummaryExtendDO">

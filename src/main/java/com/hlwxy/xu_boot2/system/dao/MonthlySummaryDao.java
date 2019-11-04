@@ -20,6 +20,7 @@ public interface MonthlySummaryDao {
      int count();
      //根据id查新月总结
      MonthlySummaryExtendDO getMonthlySummaryById(MonthlySummaryDO monthlySummaryDO);
+     MonthlySummaryExtendDO getMonthlySummaryById2(MonthlySummaryDO monthlySummaryDO);
      //根据计划时间查新月总结
      List<MonthlySummaryExtendDO> getMonthlySummaryByTime(MonthlySummaryDO monthlySummaryDO);
      //根据公司id查询 本月份 公司内所有人的月计划

@@ -91,9 +91,14 @@ window.onload=function () {
                             if (res.code==null){
                                 alert("您的权限不足！")
                             }else {
-                                document.getElementById("oneP_plan").innerHTML= res.monthlySummaryExtendDO.monthly_summary_content;
-                                document.getElementById("oneP_end").innerHTML= res.monthlySummaryExtendDO.monthly_summary_entry_time;
-                                document.getElementById("oneP_Month_Plan").innerHTML= res.monthlySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                if (res.monthlySummaryExtendDO==null){
+                                    alert(res.msg)
+                                }else{
+                                    document.getElementById("oneP_plan").innerHTML= res.monthlySummaryExtendDO.monthly_summary_content;
+                                    document.getElementById("oneP_end").innerHTML= res.monthlySummaryExtendDO.monthly_summary_entry_time;
+                                    document.getElementById("oneP_Month_Plan").innerHTML= res.monthlySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                }
+
                             }
                         }
                     });
@@ -239,9 +244,13 @@ function monthplanSelect() {
                             if (res.code==null){
                                 alert("您的权限不足！")
                             }else {
-                                document.getElementById("oneP_plan").innerHTML= res.monthlySummaryExtendDO.monthly_summary_content;
-                                document.getElementById("oneP_end").innerHTML= res.monthlySummaryExtendDO.monthly_summary_entry_time;
-                                document.getElementById("oneP_Month_Plan").innerHTML= res.monthlySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                if (res.monthlySummaryExtendDO==null){
+                                    alert(res.msg)
+                                }else{
+                                    document.getElementById("oneP_plan").innerHTML= res.monthlySummaryExtendDO.monthly_summary_content;
+                                    document.getElementById("oneP_end").innerHTML= res.monthlySummaryExtendDO.monthly_summary_entry_time;
+                                    document.getElementById("oneP_Month_Plan").innerHTML= res.monthlySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                }
                             }
                         }
                     });
@@ -493,9 +502,13 @@ function handleData(data1,data2) {
                             if (res.code==null){
                                 alert("您的权限不足！")
                             }else {
-                                document.getElementById("oneP_plan").innerHTML= res.monthlySummaryExtendDO.monthly_summary_content;
-                                document.getElementById("oneP_end").innerHTML= res.monthlySummaryExtendDO.monthly_summary_entry_time;
-                                document.getElementById("oneP_Month_Plan").innerHTML= res.monthlySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                if (res.monthlySummaryExtendDO==null){
+                                    alert(res.msg)
+                                }else{
+                                    document.getElementById("oneP_plan").innerHTML= res.monthlySummaryExtendDO.monthly_summary_content;
+                                    document.getElementById("oneP_end").innerHTML= res.monthlySummaryExtendDO.monthly_summary_entry_time;
+                                    document.getElementById("oneP_Month_Plan").innerHTML= res.monthlySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                }
                             }
                         }
                     });
@@ -628,9 +641,13 @@ function queryHandleData(data1,data2) {
                             if (res.code==null){
                                 alert("您的权限不足！")
                             }else {
-                                document.getElementById("oneP_plan").innerHTML= res.monthlySummaryExtendDO.monthly_summary_content;
-                                document.getElementById("oneP_end").innerHTML= res.monthlySummaryExtendDO.monthly_summary_entry_time;
-                                document.getElementById("oneP_Month_Plan").innerHTML= res.monthlySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                if (res.monthlySummaryExtendDO==null){
+                                    alert(res.msg)
+                                }else{
+                                    document.getElementById("oneP_plan").innerHTML= res.monthlySummaryExtendDO.monthly_summary_content;
+                                    document.getElementById("oneP_end").innerHTML= res.monthlySummaryExtendDO.monthly_summary_entry_time;
+                                    document.getElementById("oneP_Month_Plan").innerHTML= res.monthlySummaryExtendDO.monthlyPlan.monthly_plan_content;
+                                }
                             }
                         }
                     });

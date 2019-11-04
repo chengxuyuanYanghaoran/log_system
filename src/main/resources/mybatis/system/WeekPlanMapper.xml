@@ -103,6 +103,16 @@
 			t_week_plan.peo_id = t_monthly_plan.peo_id
 			AND t_week_plan.id = ${id}
 	</select>
+	<!-- 根据计划id查询计划,不绑定其他日志信息 -->
+	<select id="getWeekPlanById2" parameterType="com.hlwxy.xu_boot2.system.domain.WeekPlanDO" resultMap="weekPeopleDO">
+		SELECT
+			*
+		FROM
+			t_week_plan
+			LEFT JOIN t_people ON t_week_plan.peo_id = t_people.id
+		WHERE
+			t_week_plan.id = ${id}
+	</select>
 
 	<!--根据公司编号查询 本月份 公司下的所有人的计划-->
 	<select id="findWeekPlanByCompany" parameterType="com.hlwxy.xu_boot2.system.domain.CompanyDO" resultMap="weekPeopleDO">

@@ -22,6 +22,7 @@ public interface DaySummaryDao {
      int count();
      //根据id查新月总结
      DaySummaryExtendDO getDaySummaryById(DaySummaryDo daySummaryDo);
+     DaySummaryExtendDO getDaySummaryById2(DaySummaryDo daySummaryDo);
      //根据公司id查询 本月份 公司内所有人的月计划
      List<DaySummaryExtendDO> findDaySummaryByCompany(CompanyDO companyDO);
      //根据部门id查询 本月份 部门内所有人的月计划

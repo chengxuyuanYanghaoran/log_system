@@ -39,6 +39,11 @@ public class DaySummaryServiceImpl implements DaySummaryService {
 	}
 
 	@Override
+	public DaySummaryExtendDO getDaySummaryById2(DaySummaryDo daySummaryDo) {
+		return daySummaryDao.getDaySummaryById2(daySummaryDo);
+	}
+
+	@Override
 	public List<DaySummaryExtendDO> findDaySummaryByCompany(ConditionDO conditionDO) {
 		CompanyDO companyDO1=monthlyPlanDao.getCompanyByName(conditionDO);
 		List<DaySummaryExtendDO> daySummaryByCompany=daySummaryDao.findDaySummaryByCompany(companyDO1);

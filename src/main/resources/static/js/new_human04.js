@@ -237,12 +237,16 @@ function monthplanSelect() {
                             if (res.code==null){
                                 alert("您的权限不足！")
                             }else {
-                                document.getElementById("oneP_plan_day").innerHTML= res.dayPlanExtendDO.day_plan_content;
-                                document.getElementById("oneP_end_day").innerHTML= res.dayPlanExtendDO.day_plan_entry_time;
-                                document.getElementById("oneP_plan_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_content;
-                                document.getElementById("oneP_end_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_entry_time;
-                                document.getElementById("oneP_plan").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_content;
-                                document.getElementById("oneP_end").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                if (res.dayPlanExtendDO==null){
+                                    alert(res.msg)
+                                }else {
+                                    document.getElementById("oneP_plan_day").innerHTML= res.dayPlanExtendDO.day_plan_content;
+                                    document.getElementById("oneP_end_day").innerHTML= res.dayPlanExtendDO.day_plan_entry_time;
+                                    document.getElementById("oneP_plan_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_content;
+                                    document.getElementById("oneP_end_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_entry_time;
+                                    document.getElementById("oneP_plan").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_content;
+                                    document.getElementById("oneP_end").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                }
                             }
                         }
                     });
@@ -488,12 +492,16 @@ function handleData(data1,data2) {
                             if (res.code==null){
                                 alert("您的权限不足！")
                             }else {
-                                document.getElementById("oneP_plan_day").innerHTML= res.dayPlanExtendDO.day_plan_content;
-                                document.getElementById("oneP_end_day").innerHTML= res.dayPlanExtendDO.day_plan_entry_time;
-                                document.getElementById("oneP_plan_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_content;
-                                document.getElementById("oneP_end_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_entry_time;
-                                document.getElementById("oneP_plan").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_content;
-                                document.getElementById("oneP_end").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                if (res.dayPlanExtendDO==null){
+                                    alert(res.msg)
+                                }else {
+                                    document.getElementById("oneP_plan_day").innerHTML= res.dayPlanExtendDO.day_plan_content;
+                                    document.getElementById("oneP_end_day").innerHTML= res.dayPlanExtendDO.day_plan_entry_time;
+                                    document.getElementById("oneP_plan_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_content;
+                                    document.getElementById("oneP_end_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_entry_time;
+                                    document.getElementById("oneP_plan").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_content;
+                                    document.getElementById("oneP_end").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                }
                             }
                         }
                     });
@@ -625,12 +633,16 @@ function queryHandleData(data1,data2) {
                             if (res.code==null){
                                 alert("您的权限不足！")
                             }else {
-                                document.getElementById("oneP_plan_day").innerHTML= res.dayPlanExtendDO.day_plan_content;
-                                document.getElementById("oneP_end_day").innerHTML= res.dayPlanExtendDO.day_plan_entry_time;
-                                document.getElementById("oneP_plan_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_content;
-                                document.getElementById("oneP_end_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_entry_time;
-                                document.getElementById("oneP_plan").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_content;
-                                document.getElementById("oneP_end").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                if (res.dayPlanExtendDO==null){
+                                    alert(res.msg)
+                                }else {
+                                    document.getElementById("oneP_plan_day").innerHTML= res.dayPlanExtendDO.day_plan_content;
+                                    document.getElementById("oneP_end_day").innerHTML= res.dayPlanExtendDO.day_plan_entry_time;
+                                    document.getElementById("oneP_plan_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_content;
+                                    document.getElementById("oneP_end_week").innerHTML= res.dayPlanExtendDO.weekPlanDO.week_plan_entry_time;
+                                    document.getElementById("oneP_plan").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_content;
+                                    document.getElementById("oneP_end").innerHTML= res.dayPlanExtendDO.monthlyPlan.monthly_plan_entry_time;
+                                }
                             }
                         }
                     });

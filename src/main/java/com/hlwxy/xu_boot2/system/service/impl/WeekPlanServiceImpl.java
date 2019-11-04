@@ -41,6 +41,11 @@ public class WeekPlanServiceImpl implements WeekPlanService {
 	}
 
 	@Override
+	public WeekPlanExtendDO getWeekPlanById2(WeekPlanDO weekPlanDO) {
+		return weekPlanDao.getWeekPlanById2(weekPlanDO);
+	}
+
+	@Override
 	public List<WeekPlanExtendDO> findWeekPlanByCompany(ConditionDO conditionDO) {
 		CompanyDO companyDO1=monthlyPlanDao.getCompanyByName(conditionDO);
 		List<WeekPlanExtendDO> weekPlanExtendDOS=weekPlanDao.findWeekPlanByCompany(companyDO1);

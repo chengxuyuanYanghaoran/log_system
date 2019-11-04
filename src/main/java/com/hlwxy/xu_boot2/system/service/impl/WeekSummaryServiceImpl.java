@@ -41,6 +41,11 @@ public class WeekSummaryServiceImpl implements WeekSummaryService {
 	}
 
 	@Override
+	public WeekSummaryExtendDO getWeekSummaryById2(WeekSummaryDO weekSummaryDO) {
+		return weekSummaryDao.getWeekSummaryById2(weekSummaryDO);
+	}
+
+	@Override
 	public List<WeekSummaryExtendDO> findWeekSummaryByCompany(ConditionDO conditionDO) {
 		CompanyDO companyDO1=monthlyPlanDao.getCompanyByName(conditionDO);
 		List<WeekSummaryExtendDO> weekSummaryByCompany=weekSummaryDao.findWeekSummaryByCompany(companyDO1);

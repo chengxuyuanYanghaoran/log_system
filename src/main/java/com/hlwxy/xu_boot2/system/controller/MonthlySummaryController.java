@@ -57,7 +57,7 @@ public class MonthlySummaryController {
 			MonthlySummaryDO monthlySummaryDO = new MonthlySummaryDO();
 			monthlySummaryDO.setId(people.getMonthlySummaryId());
 			//查询数据
-			MonthlySummaryExtendDO monthlySummary = monthlySummaryService.getMonthlySummaryById(monthlySummaryDO);
+			MonthlySummaryExtendDO monthlySummary = monthlySummaryService.getMonthlySummaryById2(monthlySummaryDO);
 			if(!monthlySummary.getMonthly_summary_time().equals(dateTool.years())){
 				map.put("code",0);
 				map.put("msg","您还没有编写本月的总结");
@@ -83,9 +83,15 @@ public class MonthlySummaryController {
 		try{
 			//查询月总结数据
 			MonthlySummaryExtendDO monthlySummaryExtendDO = monthlySummaryService.getMonthlySummaryById(monthlySummaryDO);
-			map.put("monthlySummaryExtendDO",monthlySummaryExtendDO);
-//			map.put("monthlyPlanExtendDo",monthlyPlanExtendDo);
-			map.put("code",0);
+			if (monthlySummaryExtendDO==null){
+				map.put("code",-1);
+				map.put("msg","他（她）未编写月计划");
+			}else {
+				//封装到map
+				map.put("monthlySummaryExtendDO",monthlySummaryExtendDO);
+				map.put("code",0);
+			}
+
 		}catch (Exception e){
 			map.put("code",-1);
 			map.put("msg","系统异常");
@@ -126,8 +132,6 @@ public class MonthlySummaryController {
 		DateTool dateTool=new DateTool();
 		try{
 			PeopleDO people=getUser();
-//			com.hlwxy.xu_boot2.system.domain.PeopleDO people=monthlyPlanService.getPeople(user);
-
 			//判断是否编写过月计划
 			if (people.getMonthlyPlanId()!=null&&!people.getMonthlyPlanId().equals("")){  //编写过
 				MonthlyPlan monthlyPlan=new MonthlyPlan();
@@ -138,7 +142,7 @@ public class MonthlySummaryController {
 					//判断该用户是否编写过月总结
 					if (people.getMonthlySummaryId()!=null&&!people.getMonthlySummaryId().equals("")){//编写过，进行下一步判断
 						monthlySummaryDO.setId(people.getMonthlySummaryId());
-						MonthlySummaryExtendDO monthlySummaryExtendDO1=monthlySummaryService.getMonthlySummaryById(monthlySummaryDO);
+						MonthlySummaryExtendDO monthlySummaryExtendDO1=monthlySummaryService.getMonthlySummaryById2(monthlySummaryDO);
 						//判断是否为本月的月总结
 						if (monthlySummaryExtendDO1.getMonthly_summary_time().equals(dateTool.years())){  //是本月的，修改
 							MonthlySummaryExtendDO monthlySummaryExtendDO=new MonthlySummaryExtendDO();

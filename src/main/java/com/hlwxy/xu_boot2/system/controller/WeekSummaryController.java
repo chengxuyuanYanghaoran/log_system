@@ -58,7 +58,7 @@ public class WeekSummaryController {
 			WeekSummaryDO weekSummaryDO = new WeekSummaryDO();
 			weekSummaryDO.setId(people.getWeekSummaryId());
 			//查询数据
-			WeekSummaryExtendDO weekSummaryExtendDO = weekSummaryService.getWeekSummaryById(weekSummaryDO);
+			WeekSummaryExtendDO weekSummaryExtendDO = weekSummaryService.getWeekSummaryById2(weekSummaryDO);
 			if(!weekSummaryExtendDO.getWeek_summary_time().equals(dateTool.WeekAndWeek())){
 				map.put("code",0);
 				map.put("msg","您还没有编写本周的总结");
@@ -84,9 +84,15 @@ public class WeekSummaryController {
 		try{
 			//查询周总结数据
 			WeekSummaryExtendDO weekSummaryExtendDO = weekSummaryService.getWeekSummaryById(weekSummaryDO);
-			//封装到map
-			map.put("weekSummaryExtendDO",weekSummaryExtendDO);
-			map.put("code",0);
+			if (weekSummaryExtendDO==null){
+				map.put("code",-1);
+				map.put("msg","他（她）未编写月计划或周计划");
+			}else {
+				//封装到map
+				map.put("weekSummaryExtendDO",weekSummaryExtendDO);
+				map.put("code",0);
+			}
+
 		}catch (Exception e){
 			map.put("code",-1);
 			map.put("msg","系统异常");
@@ -132,12 +138,11 @@ public class WeekSummaryController {
 			if (people.getWeekPlanId()!=null&&!people.getWeekPlanId().equals("")){// 编写过
 				WeekPlanDO weekPlanDO=new WeekPlanDO();
 				weekPlanDO.setId(people.getWeekPlanId());
-				WeekPlanExtendDO weekPlanExtendDO=weekPlanService.getWeekPlanById(weekPlanDO);
+				WeekPlanExtendDO weekPlanExtendDO=weekPlanService.getWeekPlanById2(weekPlanDO);
 				if (weekPlanExtendDO.getWeek_plan_time().equals(dateTool.WeekAndWeek())){ //是本周的计划
-
 					if (people.getWeekSummaryId()!=null&&!people.getWeekSummaryId().equals("")){ //判断该用户是否编写过周总结
 						weekSummaryDO.setId(people.getWeekSummaryId());
-						WeekSummaryExtendDO weekSummaryExtendDO1=weekSummaryService.getWeekSummaryById(weekSummaryDO);
+						WeekSummaryExtendDO weekSummaryExtendDO1=weekSummaryService.getWeekSummaryById2(weekSummaryDO);
 						//判断该周总结是否为本周的周总结
 						if (weekSummaryExtendDO1.getWeek_summary_time().equals(dateTool.WeekAndWeek())){  //是本周，修改
 							WeekSummaryExtendDO weekSummaryExtendDO=new WeekSummaryExtendDO();

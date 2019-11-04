@@ -41,6 +41,11 @@ public class MonthlySummaryServiceImpl implements MonthlySummaryService {
 	}
 
 	@Override
+	public MonthlySummaryExtendDO getMonthlySummaryById2(MonthlySummaryDO monthlySummaryDO) {
+		return monthlySummaryDao.getMonthlySummaryById2(monthlySummaryDO);
+	}
+
+	@Override
 	public List<MonthlySummaryExtendDO> getMonthlySummaryByTime(MonthlySummaryDO monthlySummaryDO) {
 		return monthlySummaryDao.getMonthlySummaryByTime(monthlySummaryDO);
 	}

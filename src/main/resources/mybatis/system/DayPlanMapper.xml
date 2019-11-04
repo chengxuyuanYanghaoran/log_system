@@ -118,6 +118,17 @@
 			AND t_day_plan.id = ${id}
 	</select>
 
+	<!--查询单条日计划，不绑定周计划和月计划-->
+	<select id="getDayPlanById2" parameterType="com.hlwxy.xu_boot2.system.domain.DayPlanDO" resultMap="dayPlanExtendDO">
+		SELECT
+			*
+		FROM
+			t_day_plan
+			LEFT JOIN t_people ON t_day_plan.peo_id = t_people.id
+		WHERE
+			t_day_plan.id = ${id}
+	</select>
+
 	<!--根据公司编号查询 本月份 公司下的所有人的计划-->
 	<select id="findDayPlanByCompany" parameterType="com.hlwxy.xu_boot2.system.domain.CompanyDO" resultMap="dayPlanExtendDO">
 		SELECT

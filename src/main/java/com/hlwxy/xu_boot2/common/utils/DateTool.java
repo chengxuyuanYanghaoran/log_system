@@ -65,9 +65,15 @@ public class DateTool {
     }
 
     //获取当天是本月的第几天
-    public Integer ady(){
+    public String ady(){
         Integer day=date.get(Calendar.DAY_OF_MONTH);
-        return day;
+        String s="";
+        if (day<10){
+            s="0"+day;
+        }else {
+            s= String.valueOf(day);
+        }
+        return s;
     }
 
     //获取当天是本月的明天

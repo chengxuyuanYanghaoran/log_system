@@ -46,7 +46,7 @@ public class DayPlanController {
 		return map;
 	}
 
-	//查询个人月计划
+	//查询个人日计划
 	@ResponseBody
 	@RequestMapping("/getDayPlan")
 	public Map<String,Object> getDayPlan() {
@@ -56,8 +56,7 @@ public class DayPlanController {
 			PeopleDO people=getUser();
 			DayPlanDO weekPlanDO = new DayPlanDO();
 			weekPlanDO.setId(people.getDayPlanId());
-			//TODO 查询数据，如果这个人没有写计划会有异常
-			DayPlanExtendDO dayPlanExtendDO = dayPlanService.getDayPlanById(weekPlanDO);
+			DayPlanExtendDO dayPlanExtendDO = dayPlanService.getDayPlanById2(weekPlanDO);
 			if(!dayPlanExtendDO.getDay_plan_time().equals(dateTool.adyAndDay())){
 				map.put("code",0);
 				map.put("msg","您还没有编写今天的计划");
@@ -67,7 +66,7 @@ public class DayPlanController {
 			}
 		}catch (Exception e){
 			map.put("code",-1);
-			map.put("msg","系统异常");
+			map.put("msg","未查询到相应数据！");
 		}
 		return map;
 	}
@@ -82,9 +81,13 @@ public class DayPlanController {
 		try{
 			//查询日计划数据
 			DayPlanExtendDO dayPlanExtendDO = dayPlanService.getDayPlanById(dayPlanDO);
-
-			map.put("dayPlanExtendDO",dayPlanExtendDO);
-			map.put("code",0);
+			if (dayPlanExtendDO==null){
+				map.put("code",-1);
+				map.put("msg","他（她）未编写周计划或月计划");
+			}else {
+				map.put("dayPlanExtendDO",dayPlanExtendDO);
+				map.put("code",0);
+			}
 		}catch (Exception e){
 			map.put("code",-1);
 			map.put("msg","系统异常");

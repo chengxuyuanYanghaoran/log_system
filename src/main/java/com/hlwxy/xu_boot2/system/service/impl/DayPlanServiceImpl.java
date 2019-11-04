@@ -41,6 +41,11 @@ public class DayPlanServiceImpl implements DayPlanService {
 	}
 
 	@Override
+	public DayPlanExtendDO getDayPlanById2(DayPlanDO dayPlanDO) {
+		return dayPlanDao.getDayPlanById2(dayPlanDO);
+	}
+
+	@Override
 	public List<DayPlanExtendDO> findDayPlanByCompany(ConditionDO conditionDO) {
 		CompanyDO companyDO1=monthlyPlanDao.getCompanyByName(conditionDO);
 		List<DayPlanExtendDO> dayPlanByCompany=dayPlanDao.findDayPlanByCompany(companyDO1);

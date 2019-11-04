@@ -15,6 +15,7 @@ public interface DayPlanService {
 	int count();
 	//根据id查新月计划
 	DayPlanExtendDO getDayPlanById(DayPlanDO dayPlanDO);
+	DayPlanExtendDO getDayPlanById2(DayPlanDO dayPlanDO);
 	//根据公司id查询 本月份 公司内所有人的月计划
 	List<DayPlanExtendDO> findDayPlanByCompany(ConditionDO conditionDO);
 	//根据部门id查询 本月份 部门内所有人的月计划

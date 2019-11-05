@@ -239,5 +239,34 @@
 		LEFT JOIN t_people ON t_day_plan.peo_id = t_people.id
 		WHERE
 		t_people.job_number = '${jobNumber}'
+
+
+	<select id="list" resultMap="dayPlanExtendDO">
+		select * from t_day_plan
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="day_plan_code != null and day_plan_code != ''"> and day_plan_code = #{day_plan_code} </if>
+			<if test="day_plan_time != null and day_plan_time != ''"> and day_plan_time = #{day_plan_time} </if>
+			<if test="day_plan_entry_end_time != null and day_plan_entry_end_time != ''"> and day_plan_entry_end_time = #{day_plan_entry_end_time} </if>
+			<if test="day_plan_content != null and day_plan_content != ''"> and day_plan_content = #{day_plan_content} </if>
+			<if test="day_plan_entry_time != null and day_plan_entry_time != ''"> and day_plan_entry_time = #{day_plan_entry_time} </if>
+			<if test="day_plan_reply != null and day_plan_reply != ''"> and day_plan_reply = #{day_plan_reply} </if>
+			<if test="day_plan_see != null and day_plan_see != ''"> and day_plan_see = #{day_plan_see} </if>
+			<if test="day_plan_state != null and day_plan_state != ''"> and day_plan_state = #{day_plan_state} </if>
+			<if test="peo_id != null and peo_id != ''"> and peo_id = #{peo_id} </if>
+			<if test="week_plan_time != null and week_plan_time != ''"> and week_plan_time = #{week_plan_time} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by day_plan_time DESC
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+
 	</select>
 </mapper>

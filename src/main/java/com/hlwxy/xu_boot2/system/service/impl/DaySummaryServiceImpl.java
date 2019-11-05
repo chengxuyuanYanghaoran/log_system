@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -17,6 +18,11 @@ public class DaySummaryServiceImpl implements DaySummaryService {
 	private MonthlyPlanDao monthlyPlanDao;
 	@Resource
 	private DaySummaryDao daySummaryDao;
+
+	@Override
+	public List<DaySummaryExtendDO> list(Map<String, Object> map) {
+		return daySummaryDao.list(map);
+	}
 
 	@Override
 	public Integer coun() {

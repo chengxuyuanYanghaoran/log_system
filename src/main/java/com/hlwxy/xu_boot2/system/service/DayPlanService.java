@@ -6,8 +6,11 @@ import com.hlwxy.xu_boot2.common.utils.BatchAuditUtil;
 import com.hlwxy.xu_boot2.system.domain.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DayPlanService {
+	List<DayPlanExtendDO> list(Map<String, Object> map);
+
 	//查询人员总条数
 	Integer coun();
 	//查询所有计划

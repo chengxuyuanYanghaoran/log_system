@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -19,6 +20,11 @@ public class MonthlySummaryServiceImpl implements MonthlySummaryService {
 	@Resource
 	private MonthlySummaryDao monthlySummaryDao;
 
+
+	@Override
+	public List<MonthlySummaryExtendDO> list(Map<String, Object> map) {
+		return monthlySummaryDao.list(map);
+	}
 
 	@Override
 	public Integer coun() {

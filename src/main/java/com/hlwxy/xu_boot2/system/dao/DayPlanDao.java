@@ -8,6 +8,7 @@ import com.hlwxy.xu_boot2.system.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author shkstart
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Mapper
 public interface DayPlanDao {
+     List<DayPlanExtendDO> list(Map<String, Object> map);
      //查询人员总条数
      Integer coun();
      //查询所有计划

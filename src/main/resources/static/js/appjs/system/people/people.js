@@ -32,9 +32,8 @@ function load() {
 							return {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
-								offset:params.offset
-					           // name:$('#searchName').val(),
-					           // username:$('#searchName').val()
+								offset:params.offset,
+					            username:$('#searchName').val()
 							};
 						},
 						// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -148,9 +147,9 @@ function load() {
                                         var d = '<a class="btn btn-warning btn-sm" href="#" title="删除"  mce_href="#" onclick="remove(\''
                                             + row.id
                                             + '\')">删除</a> ';
-                                        var f = '<a class="btn btn-success btn-sm " href="#" title="重置密码"  mce_href="#" onclick="resetPwd(\''
+                                        var f = '<a class="btn btn-success btn-sm " href="#" title="修改密码"  mce_href="#" onclick="resetPwd(\''
                                             + row.id
-                                            + '\')"><i class="fa fa-key"></i></a> ';
+                                            + '\')"><i class=""></i>修改密码</a> ';
                                         return e + d + f;
 									}
 								} ]

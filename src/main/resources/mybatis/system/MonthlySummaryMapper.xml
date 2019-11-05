@@ -235,5 +235,32 @@
 		LEFT JOIN t_people ON t_monthly_summary.peo_id = t_people.id
 		WHERE
 		t_people.job_number = '${jobNumber}'
+
+	<select id="list" resultMap="monthlySummaryExtendDO">
+		select * from t_monthly_summary
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="monthly_summary_code != null and monthly_summary_code != ''"> and monthly_summary_code = #{monthly_summary_code} </if>
+			<if test="monthly_summary_time != null and monthly_summary_time != ''"> and monthly_summary_time = #{monthly_summary_time} </if>
+			<if test="monthly_summary_content != null and monthly_summary_content != ''"> and monthly_summary_content = #{monthly_summary_content} </if>
+			<if test="monthly_summary_entry_time != null and monthly_summary_entry_time != ''"> and monthly_summary_entry_time = #{monthly_summary_entry_time} </if>
+			<if test="monthly_summary_reply != null and monthly_summary_reply != ''"> and monthly_summary_reply = #{monthly_summary_reply} </if>
+			<if test="monthly_summary_see != null and monthly_summary_see != ''"> and monthly_summary_see = #{monthly_summary_see} </if>
+			<if test="monthly_summary_state != null and monthly_summary_state != ''"> and monthly_summary_state = #{monthly_summary_state} </if>
+			<if test="peo_id != null and peo_id != ''"> and peo_id = #{peo_id} </if>
+			<if test="monthlyPlan != null and monthlyPlan != ''"> and monthlyPlan = #{monthlyPlan} </if>
+
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by monthly_summary_time DESC
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 </mapper>

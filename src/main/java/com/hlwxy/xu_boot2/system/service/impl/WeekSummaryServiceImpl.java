@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -19,6 +20,11 @@ public class WeekSummaryServiceImpl implements WeekSummaryService {
 	@Resource
 	private WeekSummaryDao weekSummaryDao;
 
+
+	@Override
+	public List<WeekSummaryExtendDO> list(Map<String, Object> map) {
+		return weekSummaryDao.list(map);
+	}
 
 	@Override
 	public Integer coun() {

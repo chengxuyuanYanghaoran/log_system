@@ -232,6 +232,7 @@
 			'${list}'
 		</foreach>
 	</update>
+
 	<!--根据人员id查询这个人左右的月计划所有的月总结  LIMIT ${pc},${pageSize}  -->
 	<select id="findSumPeoByPid" parameterType="com.hlwxy.xu_boot2.system.domain.ConditionDO" resultMap="daySummaryExtendDO">
 		SELECT
@@ -255,4 +256,33 @@
 		t_people.job_number = '${jobNumber}'
 	</select>
 
+
+	<select id="list" resultMap="daySummaryExtendDO">
+		select * from t_day_summary
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="day_summary_code != null and day_summary_code != ''"> and day_summary_code = #{day_summary_code} </if>
+			<if test="day_summary_time != null and day_summary_time != ''"> and day_summary_time = #{day_summary_time} </if>
+			<if test="day_summary_content != null and day_summary_content != ''"> and day_summary_content = #{day_summary_content} </if>
+			<if test="day_summary_entry_time != null and day_summary_entry_time != ''"> and day_summary_entry_time = #{day_summary_entry_time} </if>
+			<if test="day_summary_reply != null and day_summary_reply != ''"> and day_summary_reply = #{day_summary_reply} </if>
+			<if test="day_summary_see != null and day_summary_see != ''"> and day_summary_see = #{day_summary_see} </if>
+			<if test="day_summary_state != null and day_summary_state != ''"> and day_summary_state = #{day_summary_state} </if>
+			<if test="peo_id != null and peo_id != ''"> and peo_id = #{peo_id} </if>
+			<if test="monthlyPlan != null and monthlyPlan != ''"> and monthlyPlan = #{monthlyPlan} </if>
+			<if test="weekPlanDO != null and weekPlanDO != ''"> and weekPlanDO = #{weekPlanDO} </if>
+			<if test="dayPlanDO != null and dayPlanDO != ''"> and dayPlanDO = #{dayPlanDO} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by day_summary_time DESC
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
 </mapper>

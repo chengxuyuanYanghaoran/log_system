@@ -35,7 +35,7 @@ window.onload=function () {
                 }else if (obj["day_plan_state"]==2){
                     document.getElementById(obj["day_plan_code"]+"abc").innerHTML = "待审核";
                 }else if (obj["day_plan_state"]==3){
-                    document.getElementById(obj["day_plan_code"]+"abc").innerHTML = "待提交";
+                    document.getElementById(obj["day_plan_code"]+"abc").innerHTML = "已驳回";
                 }else if (obj["day_plan_state"]==4){
                     document.getElementById(obj["day_plan_code"]+"abc").innerHTML = "已审核";
                 }
@@ -166,7 +166,6 @@ function monthplanSelect() {
                     $(this).remove();
                 }
             });
-
             $.each(res.dayPlanExtendDOS, function (index, obj) {
                 $("#table_id").append("<tr onmodify='false' id='trOne'>"+
                     "<td name='operate_check_column'><input name='operate_check'type='checkbox' value='"+obj["id"]+"'></td>"+
@@ -182,13 +181,13 @@ function monthplanSelect() {
                 );
                 //判断日志状态
                 if(obj["day_plan_state"]==1){
-                    document.getElementById(obj["day_plan_code"]+"abc").innerHTML = "待提交";
+                    document.getElementById(obj["day_plan_code"]+"abc").innerHTML ="待提交";
                 }else if (obj["day_plan_state"]==2){
-                    document.getElementById(obj["day_plan_code"]+"abc").innerHTML = "待审核";
+                    document.getElementById(obj["day_plan_code"]+"abc").innerHTML ="待审核";
                 }else if (obj["day_plan_state"]==3){
-                    document.getElementById(obj["day_plan_code"]+"abc").innerHTML = "待提交";
+                    document.getElementById(obj["day_plan_code"]+"abc").innerHTML ="驳回";
                 }else if (obj["day_plan_state"]==4){
-                    document.getElementById(obj["day_plan_code"]+"abc").innerHTML = "已审核";
+                    document.getElementById(obj["day_plan_code"]+"abc").innerHTML ="已审核";
                 }
                 //判断颜色
                 if (obj["day_plan_state"]==1||obj["day_plan_state"]==3 ){  //待审核状态

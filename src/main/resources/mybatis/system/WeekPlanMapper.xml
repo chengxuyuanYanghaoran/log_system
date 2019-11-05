@@ -203,6 +203,7 @@
 			'${list}'
 		</foreach>
 	</update>
+
 	<!--根据人员id查询这个人左右的月计划所有的周计划  LIMIT ${pc},${pageSize}  -->
 	<select id="findMonPeoByPid" parameterType="com.hlwxy.xu_boot2.system.domain.ConditionDO" resultMap="weekPeopleDO">
 		SELECT
@@ -223,5 +224,33 @@
 		LEFT JOIN t_people ON t_week_plan.peo_id = t_people.id
 		WHERE
 		t_people.job_number = '${jobNumber}'
+
+	<select id="list" resultMap="weekPeopleDO">
+		select * from t_week_plan
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="week_plan_code != null and week_plan_code != ''"> and week_plan_code = #{week_plan_code} </if>
+			<if test="week_plan_time != null and week_plan_time != ''"> and week_plan_time = #{week_plan_time} </if>
+			<if test="week_plan_entry_end_time != null and week_plan_entry_end_time != ''"> and week_plan_entry_end_time = #{week_plan_entry_end_time} </if>
+			<if test="week_plan_content != null and week_plan_content != ''"> and week_plan_content = #{week_plan_content} </if>
+			<if test="week_plan_entry_time != null and week_plan_entry_time != ''"> and week_plan_entry_time = #{week_plan_entry_time} </if>
+			<if test="week_plan_reply != null and week_plan_reply != ''"> and week_plan_reply = #{week_plan_reply} </if>
+			<if test="week_plan_see != null and week_plan_see != ''"> and week_plan_see = #{week_plan_see} </if>
+			<if test="week_plan_state != null and week_plan_state != ''"> and week_plan_state = #{week_plan_state} </if>
+			<if test="peo_id != null and peo_id != ''"> and peo_id = #{peo_id} </if>
+			<if test="monthlyPlan != null and monthlyPlan != ''"> and monthlyPlan = #{monthlyPlan} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by week_plan_time desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+
 	</select>
 </mapper>

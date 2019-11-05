@@ -23,10 +23,35 @@ public class ConditionDO implements Serializable {
 	private Integer gsId;
 	//部门id
 	private Integer bmId;
+	//人员工号
+	private String jobNumber;
 	private Integer pageSize;//每页显示多少条
 	private Integer page;//当前页数
 	private Integer pp;//总记录数
 	private Integer pc;//开始检索位置
+
+
+	public ConditionDO(String time, String gsName, String bmName, String peoName, Integer gsId, Integer bmId, String jobNumber, Integer pageSize, Integer page, Integer pp, Integer pc) {
+		this.time = time;
+		this.gsName = gsName;
+		this.bmName = bmName;
+		this.peoName = peoName;
+		this.gsId = gsId;
+		this.bmId = bmId;
+		this.jobNumber = jobNumber;
+		this.pageSize = pageSize;
+		this.page = page;
+		this.pp = pp;
+		this.pc = pc;
+	}
+
+	public String getJobNumber() {
+		return jobNumber;
+	}
+
+	public void setJobNumber(String jobNumber) {
+		this.jobNumber = jobNumber;
+	}
 
 	public Integer getPageSize() {
 		return pageSize;
@@ -63,18 +88,6 @@ public class ConditionDO implements Serializable {
 	public ConditionDO() {
 	}
 
-	public ConditionDO(String time, String gsName, String bmName, String peoName, Integer gsId, Integer bmId, Integer pageSize, Integer page, Integer pp, Integer pc) {
-		this.time = time;
-		this.gsName = gsName;
-		this.bmName = bmName;
-		this.peoName = peoName;
-		this.gsId = gsId;
-		this.bmId = bmId;
-		this.pageSize = pageSize;
-		this.page = page;
-		this.pp = pp;
-		this.pc = pc;
-	}
 
 	public String getTime() {
 		return time;

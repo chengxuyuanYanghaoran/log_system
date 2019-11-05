@@ -1,6 +1,9 @@
 package com.hlwxy.xu_boot2.system.domain;
 
+import com.hlwxy.xu_boot2.userlogin.domain.RoleDo;
+
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * 月计划实体
@@ -24,6 +27,15 @@ public class MonthlyPlanExtendDo extends PeopleDO  implements Serializable {
     private String monthly_plan_see;//编写----------是否回复
     private Integer monthly_plan_state;//计划状态
     private Integer peo_id;
+    private Integer countPlan;
+
+    public Integer getCountPlan() {
+        return countPlan;
+    }
+
+    public void setCountPlan(Integer countPlan) {
+        this.countPlan = countPlan;
+    }
 
     public Integer getPeo_id() {
         return peo_id;
@@ -36,7 +48,7 @@ public class MonthlyPlanExtendDo extends PeopleDO  implements Serializable {
     public MonthlyPlanExtendDo() {
     }
 
-    public MonthlyPlanExtendDo(Integer id, String monthly_plan_code, String monthly_plan_time, String monthly_plan_entry_end_time, String monthly_plan_content, String monthly_plan_entry_time, String monthly_plan_reply, String monthly_plan_see, Integer monthly_plan_state, Integer peo_id) {
+    public MonthlyPlanExtendDo(Integer id, String monthly_plan_code, String monthly_plan_time, String monthly_plan_entry_end_time, String monthly_plan_content, String monthly_plan_entry_time, String monthly_plan_reply, String monthly_plan_see, Integer monthly_plan_state, Integer peo_id, Integer countPlan) {
         this.id = id;
         this.monthly_plan_code = monthly_plan_code;
         this.monthly_plan_time = monthly_plan_time;
@@ -47,6 +59,22 @@ public class MonthlyPlanExtendDo extends PeopleDO  implements Serializable {
         this.monthly_plan_see = monthly_plan_see;
         this.monthly_plan_state = monthly_plan_state;
         this.peo_id = peo_id;
+        this.countPlan = countPlan;
+    }
+
+    public MonthlyPlanExtendDo(Integer id, String username, String password, String email, String peopleCode, String jobNumber, String peoName, Integer morningState, Integer afternoonState, Integer userId, String gsId, String bmId, String positionId, Integer dayPlanId, Integer daySummaryId, Integer weekPlanId, Integer weekSummaryId, Integer monthlyPlanId, Integer monthlySummaryId, Set<RoleDo> roles, Integer id1, String monthly_plan_code, String monthly_plan_time, String monthly_plan_entry_end_time, String monthly_plan_content, String monthly_plan_entry_time, String monthly_plan_reply, String monthly_plan_see, Integer monthly_plan_state, Integer peo_id, Integer countPlan) {
+        super(id, username, password, email, peopleCode, jobNumber, peoName, morningState, afternoonState, userId, gsId, bmId, positionId, dayPlanId, daySummaryId, weekPlanId, weekSummaryId, monthlyPlanId, monthlySummaryId, roles);
+        this.id = id1;
+        this.monthly_plan_code = monthly_plan_code;
+        this.monthly_plan_time = monthly_plan_time;
+        this.monthly_plan_entry_end_time = monthly_plan_entry_end_time;
+        this.monthly_plan_content = monthly_plan_content;
+        this.monthly_plan_entry_time = monthly_plan_entry_time;
+        this.monthly_plan_reply = monthly_plan_reply;
+        this.monthly_plan_see = monthly_plan_see;
+        this.monthly_plan_state = monthly_plan_state;
+        this.peo_id = peo_id;
+        this.countPlan = countPlan;
     }
 
     @Override

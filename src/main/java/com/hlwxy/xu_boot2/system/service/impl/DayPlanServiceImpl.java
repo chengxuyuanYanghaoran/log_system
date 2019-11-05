@@ -132,4 +132,14 @@ public class DayPlanServiceImpl implements DayPlanService {
 	public void updateDayPlanStateListById(BatchAuditUtil batchAuditUtil) {
 		dayPlanDao.updateDayPlanStateListById(batchAuditUtil);
 	}
+
+	@Override
+	public List<DayPlanExtendDO> findMonPeoByPid(ConditionDO conditionDO) {
+		return dayPlanDao.findMonPeoByPid(conditionDO);
+	}
+
+	@Override
+	public Integer countMonPeoByPid(ConditionDO conditionDO) {
+		return dayPlanDao.countMonPeoByPid(conditionDO);
+	}
 }

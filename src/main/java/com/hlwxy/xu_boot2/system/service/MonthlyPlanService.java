@@ -57,4 +57,9 @@ public interface MonthlyPlanService {
 
 	//根据人员账号查询人员
 	PeopleDO getPeopleById(PeopleDO peopleDO);
+
+	//根据人员的id查询这个人所有的月计划
+	List<MonthlyPlanExtendDo> findMonPeoByPid(ConditionDO conditionDO);
+	//根据人员的id查询这个人所有的月计划的总数
+	Integer countMonPeoByPid(ConditionDO conditionDO);
 }

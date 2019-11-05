@@ -132,4 +132,14 @@ public class WeekPlanServiceImpl implements WeekPlanService {
 	public void updateWeekPlanStateListById(BatchAuditUtil batchAuditUtil) {
 		weekPlanDao.updateWeekPlanStateListById(batchAuditUtil);
 	}
+
+	@Override
+	public List<WeekPlanExtendDO> findMonPeoByPid(ConditionDO conditionDO) {
+		return weekPlanDao.findMonPeoByPid(conditionDO);
+	}
+
+	@Override
+	public Integer countMonPeoByPid(ConditionDO conditionDO) {
+		return weekPlanDao.countMonPeoByPid(conditionDO);
+	}
 }

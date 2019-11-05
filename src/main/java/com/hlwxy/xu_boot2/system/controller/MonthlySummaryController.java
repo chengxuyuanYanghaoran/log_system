@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 
@@ -39,6 +40,7 @@ public class MonthlySummaryController {
 		page.setPc(page.getPageSize()*(page.getPage()-1));
 		Integer pp=monthlySummaryService.coun();
 		List<MonthlySummaryExtendDO> monthlySummaryExtendDOS = monthlySummaryService.findSummarySummary(page);
+		monthlySummaryExtendDOS=findSumPeoByPid(monthlySummaryExtendDOS);
 		int total = monthlySummaryService.count();
 	    map.put("monthlySummaryExtendDOS",monthlySummaryExtendDOS);
 	    map.put("pp",pp);
@@ -111,6 +113,7 @@ public class MonthlySummaryController {
 		try{
 			//组合查询
 			List<MonthlySummaryExtendDO> monthlySummaryExtendDOS = monthlySummaryService.compositeQueryMonthlySummary(conditionDO);
+			monthlySummaryExtendDOS=findSumPeoByPid(monthlySummaryExtendDOS);
 			Integer pp=monthlySummaryService.queryCount(conditionDO);
 			map.put("monthlySummaryExtendDOS",monthlySummaryExtendDOS);
 			map.put("pp",pp);
@@ -266,6 +269,31 @@ public class MonthlySummaryController {
 		return map;
 	}
 
+	//根据工号查询该人所有月计划
+	@ResponseBody
+	@RequestMapping("/findSumPeoByPid")
+	@RequiresPermissions("system:monthlySummary:edit")
+	public Map<String,Object> findSumPeoByPid(ConditionDO conditionDO,HttpServletRequest request) {
+		Map<String,Object> map=new HashMap<>();
+		String pageStr=request.getParameter("page");
+		String limitStr=request.getParameter("limit");
+		conditionDO.setPage(Integer.valueOf(pageStr));
+		conditionDO.setPageSize(Integer.valueOf(limitStr));
+		//计算开始检索位置
+		conditionDO.setPc(conditionDO.getPageSize()*(conditionDO.getPage()-1));
+		try{
+			Integer pp=monthlySummaryService.countSumPeoByPid(conditionDO);
+			List<MonthlySummaryExtendDO> monthlyPlanExtends = monthlySummaryService.findSumPeoByPid(conditionDO);
+			map.put("count",pp);
+			map.put("data",monthlyPlanExtends);
+			map.put("code",0);
+		}catch (Exception e){
+			map.put("code",-1);
+			map.put("msg","系统异常");
+		}
+		return map;
+	}
+
 
 	private PeopleDO getUser(){
 		PeopleDO user = (PeopleDO) SecurityUtils.getSubject().getPrincipal();
@@ -273,6 +301,21 @@ public class MonthlySummaryController {
 		return peopleDO;
 	}
 
-
+	//获取每个人的月总结总数
+	private List<MonthlySummaryExtendDO> findSumPeoByPid(List<MonthlySummaryExtendDO> monthlySummaryExtendDOS){
+		Integer count=0;
+		ConditionDO conditionDO = new ConditionDO();
+		for (MonthlySummaryExtendDO monthlyPlan:monthlySummaryExtendDOS) {
+			conditionDO.setJobNumber(monthlyPlan.getJobNumber());
+			Integer integer=monthlySummaryService.countSumPeoByPid(conditionDO);
+			if (monthlySummaryService.countSumPeoByPid(conditionDO)==null){
+				count=0;
+			}else {
+				count=monthlyPlanService.countMonPeoByPid(conditionDO);
+			}
+			monthlyPlan.setCountSumm(count);
+		}
+		return monthlySummaryExtendDOS;
+	}
 
 }

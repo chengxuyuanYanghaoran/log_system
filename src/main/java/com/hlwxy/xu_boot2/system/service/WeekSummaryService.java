@@ -36,4 +36,8 @@ public interface WeekSummaryService {
 	void updateWeekSummaryStateById(WeekSummaryDO weekSummaryDO);
 	//批量修改周总结状态
 	void updateWeekSummaryStateListById(BatchAuditUtil batchAuditUtil);
+	//根据人员的id查询这个人所有的周总结
+	List<WeekSummaryExtendDO> findSumPeoByPid(ConditionDO conditionDO);
+	//根据人员的id查询这个人所有的周总结的总数
+	Integer countSumPeoByPid(ConditionDO conditionDO);
 }

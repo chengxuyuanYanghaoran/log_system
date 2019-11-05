@@ -143,5 +143,16 @@ public class MonthlyPlanServiceImpl implements MonthlyPlanService {
 		return monthlyPlanDao.getPeopleById(peopleDO);
 	}
 
+	@Override
+	public List<MonthlyPlanExtendDo> findMonPeoByPid(ConditionDO conditionDO) {
+		return monthlyPlanDao.findMonPeoByPid(conditionDO);
+	}
+
+	@Override
+	public Integer countMonPeoByPid(ConditionDO conditionDO) {
+		Integer integer=monthlyPlanDao.countMonPeoByPid(conditionDO);
+		return integer;
+	}
+
 
 }

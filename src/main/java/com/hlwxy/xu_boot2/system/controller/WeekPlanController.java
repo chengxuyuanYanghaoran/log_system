@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 
@@ -39,6 +40,7 @@ public class WeekPlanController {
 		page.setPc(page.getPageSize()*(page.getPage()-1));
 		Integer pp=weekPlanService.coun();
 		List<WeekPlanExtendDO> weekPlanExtendDOS = weekPlanService.findWeekPlan(page);
+		weekPlanExtendDOS=findMonPeoByPid(weekPlanExtendDOS);
 		int total = weekPlanService.count();
 		map.put("pp",pp);
 	    map.put("weekPlanExtendDOS",weekPlanExtendDOS);
@@ -111,6 +113,7 @@ public class WeekPlanController {
 		try{
 			//组合查询
 			List<WeekPlanExtendDO> weekPlanExtendDOS = weekPlanService.compositeQuery(conditionDO);
+			weekPlanExtendDOS=findMonPeoByPid(weekPlanExtendDOS);
 			Integer pp=weekPlanService.queryCount(conditionDO);
 			map.put("weekPlanExtendDOS",weekPlanExtendDOS);
 			map.put("pp",pp);
@@ -271,6 +274,32 @@ public class WeekPlanController {
 		return map;
 	}
 
+	//根据工号查询该人所有月计划
+	@ResponseBody
+	@RequestMapping("/findWeelPlanPeoByPid")
+	@RequiresPermissions("system:weekPlan:edit")
+	public Map<String,Object> findWeelPlanPeoByPid(ConditionDO conditionDO,HttpServletRequest request) {
+		Map<String,Object> map=new HashMap<>();
+		String pageStr=request.getParameter("page");
+		String limitStr=request.getParameter("limit");
+		conditionDO.setPage(Integer.valueOf(pageStr));
+		conditionDO.setPageSize(Integer.valueOf(limitStr));
+		//计算开始检索位置
+		conditionDO.setPc(conditionDO.getPageSize()*(conditionDO.getPage()-1));
+
+		try{
+			Integer pp=weekPlanService.countMonPeoByPid(conditionDO);
+			List<WeekPlanExtendDO> weekPlanExtendDOS = weekPlanService.findMonPeoByPid(conditionDO);
+			map.put("count",pp);
+			map.put("data",weekPlanExtendDOS);
+			map.put("code",0);
+		}catch (Exception e){
+			map.put("code",-1);
+			map.put("msg","系统异常");
+		}
+		return map;
+	}
+
 
 	private PeopleDO getUser(){
 		PeopleDO user = (PeopleDO) SecurityUtils.getSubject().getPrincipal();
@@ -278,6 +307,22 @@ public class WeekPlanController {
 		return peopleDO;
 	}
 
+	//获取每个人的月总结总数
+	private List<WeekPlanExtendDO> findMonPeoByPid(List<WeekPlanExtendDO> weekPlanExtendDOS){
+		Integer count=0;
+		ConditionDO conditionDO = new ConditionDO();
+		for (WeekPlanExtendDO monthlyPlan:weekPlanExtendDOS) {
+			conditionDO.setJobNumber(monthlyPlan.getJobNumber());
+			Integer integer=weekPlanService.countMonPeoByPid(conditionDO);
+			if (weekPlanService.countMonPeoByPid(conditionDO)==null){
+				count=0;
+			}else {
+				count=weekPlanService.countMonPeoByPid(conditionDO);
+			}
+			monthlyPlan.setCountPlan(count);
+		}
+		return weekPlanExtendDOS;
+	}
 
 
 }

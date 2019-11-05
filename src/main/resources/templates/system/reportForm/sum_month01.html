@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/layui-v2.5.5/layui/css/layui.css">
+    <script src="/static/layui-v2.5.5/layui/layui.js"></script>
+    <script src="/static/js/jquery-3.4.0.min.js"></script>
+</head>
+<script>
+    window.onload = function(){
+        /*从url中解析出参数*/
+        var re = /\?param=([^&]+)$/gi;
+        var jobNumber = re.exec(location.search);
+        $("#v2").val(jobNumber[1]);
+        var c = $("#v2").val();
+        // alert(c);
+        var jobNumber=$("#v2").val();
+
+        layui.use('table', function(){
+            var table = layui.table;
+            table.render({
+                elem: '#test'
+                ,url:'/system/monthlySummary/findSumPeoByPid'
+                ,method:'post'
+                ,where:{"jobNumber":jobNumber}
+                ,cols: [[
+                    {type:'checkbox'}
+                    ,{field:'peoName',title:"人员姓名"}
+                    ,{field:'monthly_summary_time',title: '计划时间', sort: true}
+                    ,{field:'monthly_summary_content',title: '月总结内容'}
+                ]]
+                ,page: true,
+                limits : [ 5, 10, 15 ], //控制多少行一页（默认五条一页）
+                limit : 5 //每页默认显示的数量
+            });
+        });
+    }
+</script>
+<body>
+<table class="layui-hide" id="test"></table>
+
+<input type="hidden" id="v2" value="">
+</body>
+</html>

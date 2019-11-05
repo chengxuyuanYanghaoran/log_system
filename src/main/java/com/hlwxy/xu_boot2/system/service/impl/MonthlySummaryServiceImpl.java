@@ -139,4 +139,14 @@ public class MonthlySummaryServiceImpl implements MonthlySummaryService {
 	public void updateMonthlySummaryStateListById(BatchAuditUtil batchAuditUtil) {
 		monthlySummaryDao.updateMonthlySummaryStateListById(batchAuditUtil);
 	}
+
+	@Override
+	public List<MonthlySummaryExtendDO> findSumPeoByPid(ConditionDO conditionDO) {
+		return monthlySummaryDao.findSumPeoByPid(conditionDO);
+	}
+
+	@Override
+	public Integer countSumPeoByPid(ConditionDO conditionDO) {
+		return monthlySummaryDao.countSumPeoByPid(conditionDO);
+	}
 }

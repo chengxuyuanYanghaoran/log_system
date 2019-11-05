@@ -203,4 +203,25 @@
 			'${list}'
 		</foreach>
 	</update>
+	<!--根据人员id查询这个人左右的月计划所有的周计划  LIMIT ${pc},${pageSize}  -->
+	<select id="findMonPeoByPid" parameterType="com.hlwxy.xu_boot2.system.domain.ConditionDO" resultMap="weekPeopleDO">
+		SELECT
+		t_week_plan.*,
+		t_people.*
+		FROM
+		t_week_plan
+		LEFT JOIN t_people ON t_week_plan.peo_id = t_people.id
+		WHERE
+		t_people.job_number = '${jobNumber}'
+		LIMIT ${pc},${pageSize}
+	</select>
+	<select id="countMonPeoByPid" parameterType="com.hlwxy.xu_boot2.system.domain.ConditionDO" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM
+		t_week_plan
+		LEFT JOIN t_people ON t_week_plan.peo_id = t_people.id
+		WHERE
+		t_people.job_number = '${jobNumber}'
+	</select>
 </mapper>

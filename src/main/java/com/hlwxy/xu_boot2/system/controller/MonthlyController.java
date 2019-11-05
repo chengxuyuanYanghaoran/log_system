@@ -34,6 +34,8 @@ public class MonthlyController {
 		page.setPc(page.getPageSize()*(page.getPage()-1));
 		Integer pp=monthlyPlanService.coun();
 		List<MonthlyPlanExtendDo> monthlyPlanExtends = monthlyPlanService.findMonthlyPlan(page);
+		//获取每个人的月计划总数
+		monthlyPlanExtends=findMonPeoByPid(monthlyPlanExtends);
 		int total = monthlyPlanService.count();
 		map.put("monthlyPlanExtends",monthlyPlanExtends);
 	    map.put("pp",pp);
@@ -152,6 +154,8 @@ public class MonthlyController {
 			//组合查询
 			List<MonthlyPlanExtendDo> monthlyPlan1 = monthlyPlanService.compositeQuery(conditionDO);
 			Integer pp=monthlyPlanService.queryConut(conditionDO);
+			//获取月计划总数量
+			monthlyPlan1=findMonPeoByPid(monthlyPlan1);
 			map.put("monthlyPlan1",monthlyPlan1);
 			map.put("pp",pp);
 			map.put("code",0);
@@ -261,10 +265,53 @@ public class MonthlyController {
 		return map;
 	}
 
+	//根据工号查询该人所有月计划
+	@ResponseBody
+	@RequestMapping("/findMonPeoByPid")
+	@RequiresPermissions("system:monthly:edit")
+	public Map<String,Object> findMonPeoByPid(ConditionDO conditionDO,HttpServletRequest request) {
+		Map<String,Object> map=new HashMap<>();
+		String pageStr=request.getParameter("page");
+		String limitStr=request.getParameter("limit");
+		conditionDO.setPage(Integer.valueOf(pageStr));
+		conditionDO.setPageSize(Integer.valueOf(limitStr));
+		//计算开始检索位置
+		conditionDO.setPc(conditionDO.getPageSize()*(conditionDO.getPage()-1));
+
+		try{
+			Integer pp=monthlyPlanService.countMonPeoByPid(conditionDO);
+			List<MonthlyPlanExtendDo> monthlyPlanExtends = monthlyPlanService.findMonPeoByPid(conditionDO);
+			map.put("count",pp);
+			map.put("data",monthlyPlanExtends);
+			map.put("code",0);
+		}catch (Exception e){
+			map.put("code",-1);
+			map.put("msg","系统异常");
+		}
+		return map;
+	}
+
 	private PeopleDO getUser(){
 		PeopleDO user = (PeopleDO) SecurityUtils.getSubject().getPrincipal();
 		PeopleDO peopleDO=monthlyPlanService.getPeopleById(user);
 		return peopleDO;
+	}
+
+	//获取每个人的月计划总数
+	private List<MonthlyPlanExtendDo> findMonPeoByPid(List<MonthlyPlanExtendDo> monthlyPlan1){
+		Integer count=0;
+		ConditionDO conditionDO = new ConditionDO();
+		for (MonthlyPlanExtendDo monthlyPlan:monthlyPlan1) {
+			conditionDO.setJobNumber(monthlyPlan.getJobNumber());
+			Integer integer=monthlyPlanService.countMonPeoByPid(conditionDO);
+			if (monthlyPlanService.countMonPeoByPid(conditionDO)==null){
+				count=0;
+			}else {
+				count=monthlyPlanService.countMonPeoByPid(conditionDO);
+			}
+			monthlyPlan.setCountPlan(count);
+		}
+		return monthlyPlan1;
 	}
 
 

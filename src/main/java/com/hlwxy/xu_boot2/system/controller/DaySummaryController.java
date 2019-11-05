@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 
@@ -40,6 +41,7 @@ public class DaySummaryController {
 		page.setPc(page.getPageSize()*(page.getPage()-1));
 		Integer pp=daySummaryService.coun();
 		List<DaySummaryExtendDO> daySummaryExtendDOS = daySummaryService.findDaySummary(page);
+		daySummaryExtendDOS=findDayMonPeoByPid(daySummaryExtendDOS);
 		int total = daySummaryService.count();
 	    map.put("daySummaryExtendDOS",daySummaryExtendDOS);
 		map.put("pp",pp);
@@ -120,6 +122,7 @@ public class DaySummaryController {
 		try{
 			//组合查询
 			List<DaySummaryExtendDO> daySummaryExtendDOS = daySummaryService.compositeQueryDaySummary(conditionDO);
+			daySummaryExtendDOS=findDayMonPeoByPid(daySummaryExtendDOS);
 			Integer pp=daySummaryService.queryCount(conditionDO);
 			map.put("daySummaryExtendDOS",daySummaryExtendDOS);
 			map.put("pp",pp);
@@ -282,12 +285,53 @@ public class DaySummaryController {
 		return map;
 	}
 
+	//根据工号查询该人所有月计划
+	@ResponseBody
+	@RequestMapping("/findWeelSummPeoByPid")
+	@RequiresPermissions("system:daySummary:edit")
+	public Map<String,Object> findWeelSummPeoByPid(ConditionDO conditionDO,HttpServletRequest request) {
+		Map<String,Object> map=new HashMap<>();
+		String pageStr=request.getParameter("page");
+		String limitStr=request.getParameter("limit");
+		conditionDO.setPage(Integer.valueOf(pageStr));
+		conditionDO.setPageSize(Integer.valueOf(limitStr));
+		//计算开始检索位置
+		conditionDO.setPc(conditionDO.getPageSize()*(conditionDO.getPage()-1));
+
+		try{
+			Integer pp=daySummaryService.countSumPeoByPid(conditionDO);
+			List<DaySummaryExtendDO> weekPlanExtendDOS = daySummaryService.findSumPeoByPid(conditionDO);
+			map.put("count",pp);
+			map.put("data",weekPlanExtendDOS);
+			map.put("code",0);
+		}catch (Exception e){
+			map.put("code",-1);
+			map.put("msg","系统异常");
+		}
+		return map;
+	}
+
 	private PeopleDO getUser(){
 		PeopleDO user = (PeopleDO) SecurityUtils.getSubject().getPrincipal();
 		PeopleDO peopleDO=monthlyPlanService.getPeopleById(user);
 		return peopleDO;
 	}
 
-
+	//获取每个人的日总结总数
+	private List<DaySummaryExtendDO> findDayMonPeoByPid(List<DaySummaryExtendDO> daySummaryExtendDOS){
+		Integer count=0;
+		ConditionDO conditionDO = new ConditionDO();
+		for (DaySummaryExtendDO monthlyPlan:daySummaryExtendDOS) {
+			conditionDO.setJobNumber(monthlyPlan.getJobNumber());
+			Integer integer=daySummaryService.countSumPeoByPid(conditionDO);
+			if (daySummaryService.countSumPeoByPid(conditionDO)==null){
+				count=0;
+			}else {
+				count=daySummaryService.countSumPeoByPid(conditionDO);
+			}
+			monthlyPlan.setCountSumm(count);
+		}
+		return daySummaryExtendDOS;
+	}
 
 }

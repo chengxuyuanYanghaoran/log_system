@@ -1,5 +1,9 @@
 package com.hlwxy.xu_boot2.system.domain;
 
+import com.hlwxy.xu_boot2.userlogin.domain.RoleDo;
+
+import java.util.Set;
+
 /**
  * 日总结扩展类
  * @author shkstart
@@ -18,11 +22,12 @@ public class DaySummaryExtendDO extends PeopleDO {
     private MonthlyPlan monthlyPlan;
     private WeekPlanDO weekPlanDO;
     private DayPlanDO dayPlanDO;
+    private Integer countSumm;
 
     public DaySummaryExtendDO() {
     }
 
-    public DaySummaryExtendDO(Integer id, String day_summary_code, String day_summary_time, String day_summary_content, String day_summary_entry_time, String day_summary_reply, String day_summary_see, Integer day_summary_state, Integer peo_id, MonthlyPlan monthlyPlan, WeekPlanDO weekPlanDO, DayPlanDO dayPlanDO) {
+    public DaySummaryExtendDO(Integer id, String day_summary_code, String day_summary_time, String day_summary_content, String day_summary_entry_time, String day_summary_reply, String day_summary_see, Integer day_summary_state, Integer peo_id, MonthlyPlan monthlyPlan, WeekPlanDO weekPlanDO, DayPlanDO dayPlanDO, Integer countSumm) {
         this.id = id;
         this.day_summary_code = day_summary_code;
         this.day_summary_time = day_summary_time;
@@ -35,6 +40,32 @@ public class DaySummaryExtendDO extends PeopleDO {
         this.monthlyPlan = monthlyPlan;
         this.weekPlanDO = weekPlanDO;
         this.dayPlanDO = dayPlanDO;
+        this.countSumm = countSumm;
+    }
+
+    public DaySummaryExtendDO(Integer id, String username, String password, String email, String peopleCode, String jobNumber, String peoName, Integer morningState, Integer afternoonState, Integer userId, String gsId, String bmId, String positionId, Integer dayPlanId, Integer daySummaryId, Integer weekPlanId, Integer weekSummaryId, Integer monthlyPlanId, Integer monthlySummaryId, Set<RoleDo> roles, Integer id1, String day_summary_code, String day_summary_time, String day_summary_content, String day_summary_entry_time, String day_summary_reply, String day_summary_see, Integer day_summary_state, Integer peo_id, MonthlyPlan monthlyPlan, WeekPlanDO weekPlanDO, DayPlanDO dayPlanDO, Integer countSumm) {
+        super(id, username, password, email, peopleCode, jobNumber, peoName, morningState, afternoonState, userId, gsId, bmId, positionId, dayPlanId, daySummaryId, weekPlanId, weekSummaryId, monthlyPlanId, monthlySummaryId, roles);
+        this.id = id1;
+        this.day_summary_code = day_summary_code;
+        this.day_summary_time = day_summary_time;
+        this.day_summary_content = day_summary_content;
+        this.day_summary_entry_time = day_summary_entry_time;
+        this.day_summary_reply = day_summary_reply;
+        this.day_summary_see = day_summary_see;
+        this.day_summary_state = day_summary_state;
+        this.peo_id = peo_id;
+        this.monthlyPlan = monthlyPlan;
+        this.weekPlanDO = weekPlanDO;
+        this.dayPlanDO = dayPlanDO;
+        this.countSumm = countSumm;
+    }
+
+    public Integer getCountSumm() {
+        return countSumm;
+    }
+
+    public void setCountSumm(Integer countSumm) {
+        this.countSumm = countSumm;
     }
 
     public MonthlyPlan getMonthlyPlan() {

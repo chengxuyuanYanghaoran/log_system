@@ -1,5 +1,9 @@
 package com.hlwxy.xu_boot2.system.domain;
 
+import com.hlwxy.xu_boot2.userlogin.domain.RoleDo;
+
+import java.util.Set;
+
 /**
  * 月总结扩展类
  * @author shkstart
@@ -16,11 +20,12 @@ public class MonthlySummaryExtendDO extends PeopleDO {
     private Integer monthly_summary_state;//总结状态
     private Integer peo_id;
     private MonthlyPlan monthlyPlan;
+    private Integer countSumm;
 
     public MonthlySummaryExtendDO() {
     }
 
-    public MonthlySummaryExtendDO(Integer id, String monthly_summary_code, String monthly_summary_time, String monthly_summary_content, String monthly_summary_entry_time, String monthly_summary_reply, String monthly_summary_see, Integer monthly_summary_state, Integer peo_id, MonthlyPlan monthlyPlan) {
+    public MonthlySummaryExtendDO(Integer id, String monthly_summary_code, String monthly_summary_time, String monthly_summary_content, String monthly_summary_entry_time, String monthly_summary_reply, String monthly_summary_see, Integer monthly_summary_state, Integer peo_id, MonthlyPlan monthlyPlan, Integer countSumm) {
         this.id = id;
         this.monthly_summary_code = monthly_summary_code;
         this.monthly_summary_time = monthly_summary_time;
@@ -31,6 +36,30 @@ public class MonthlySummaryExtendDO extends PeopleDO {
         this.monthly_summary_state = monthly_summary_state;
         this.peo_id = peo_id;
         this.monthlyPlan = monthlyPlan;
+        this.countSumm = countSumm;
+    }
+
+    public MonthlySummaryExtendDO(Integer id, String username, String password, String email, String peopleCode, String jobNumber, String peoName, Integer morningState, Integer afternoonState, Integer userId, String gsId, String bmId, String positionId, Integer dayPlanId, Integer daySummaryId, Integer weekPlanId, Integer weekSummaryId, Integer monthlyPlanId, Integer monthlySummaryId, Set<RoleDo> roles, Integer id1, String monthly_summary_code, String monthly_summary_time, String monthly_summary_content, String monthly_summary_entry_time, String monthly_summary_reply, String monthly_summary_see, Integer monthly_summary_state, Integer peo_id, MonthlyPlan monthlyPlan, Integer countSumm) {
+        super(id, username, password, email, peopleCode, jobNumber, peoName, morningState, afternoonState, userId, gsId, bmId, positionId, dayPlanId, daySummaryId, weekPlanId, weekSummaryId, monthlyPlanId, monthlySummaryId, roles);
+        this.id = id1;
+        this.monthly_summary_code = monthly_summary_code;
+        this.monthly_summary_time = monthly_summary_time;
+        this.monthly_summary_content = monthly_summary_content;
+        this.monthly_summary_entry_time = monthly_summary_entry_time;
+        this.monthly_summary_reply = monthly_summary_reply;
+        this.monthly_summary_see = monthly_summary_see;
+        this.monthly_summary_state = monthly_summary_state;
+        this.peo_id = peo_id;
+        this.monthlyPlan = monthlyPlan;
+        this.countSumm = countSumm;
+    }
+
+    public Integer getCountSumm() {
+        return countSumm;
+    }
+
+    public void setCountSumm(Integer countSumm) {
+        this.countSumm = countSumm;
     }
 
     public MonthlyPlan getMonthlyPlan() {

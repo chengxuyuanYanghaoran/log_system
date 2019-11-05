@@ -1,5 +1,9 @@
 package com.hlwxy.xu_boot2.system.domain;
 
+import com.hlwxy.xu_boot2.userlogin.domain.RoleDo;
+
+import java.util.Set;
+
 /**
  * 月计划实体
  * @author shkstart
@@ -18,10 +22,51 @@ public class DayPlanExtendDO extends PeopleDO{
     private Integer peo_id;
     private MonthlyPlan monthlyPlan;
     private WeekPlanDO weekPlanDO;
+    private Integer countPlan;
 
     public DayPlanExtendDO() {
     }
 
+    public DayPlanExtendDO(Integer id, String day_plan_code, String day_plan_time, String day_plan_entry_end_time, String day_plan_content, String day_plan_entry_time, String day_plan_reply, String day_plan_see, Integer day_plan_state, Integer peo_id, MonthlyPlan monthlyPlan, WeekPlanDO weekPlanDO, Integer countPlan) {
+        this.id = id;
+        this.day_plan_code = day_plan_code;
+        this.day_plan_time = day_plan_time;
+        this.day_plan_entry_end_time = day_plan_entry_end_time;
+        this.day_plan_content = day_plan_content;
+        this.day_plan_entry_time = day_plan_entry_time;
+        this.day_plan_reply = day_plan_reply;
+        this.day_plan_see = day_plan_see;
+        this.day_plan_state = day_plan_state;
+        this.peo_id = peo_id;
+        this.monthlyPlan = monthlyPlan;
+        this.weekPlanDO = weekPlanDO;
+        this.countPlan = countPlan;
+    }
+
+    public DayPlanExtendDO(Integer id, String username, String password, String email, String peopleCode, String jobNumber, String peoName, Integer morningState, Integer afternoonState, Integer userId, String gsId, String bmId, String positionId, Integer dayPlanId, Integer daySummaryId, Integer weekPlanId, Integer weekSummaryId, Integer monthlyPlanId, Integer monthlySummaryId, Set<RoleDo> roles, Integer id1, String day_plan_code, String day_plan_time, String day_plan_entry_end_time, String day_plan_content, String day_plan_entry_time, String day_plan_reply, String day_plan_see, Integer day_plan_state, Integer peo_id, MonthlyPlan monthlyPlan, WeekPlanDO weekPlanDO, Integer countPlan) {
+        super(id, username, password, email, peopleCode, jobNumber, peoName, morningState, afternoonState, userId, gsId, bmId, positionId, dayPlanId, daySummaryId, weekPlanId, weekSummaryId, monthlyPlanId, monthlySummaryId, roles);
+        this.id = id1;
+        this.day_plan_code = day_plan_code;
+        this.day_plan_time = day_plan_time;
+        this.day_plan_entry_end_time = day_plan_entry_end_time;
+        this.day_plan_content = day_plan_content;
+        this.day_plan_entry_time = day_plan_entry_time;
+        this.day_plan_reply = day_plan_reply;
+        this.day_plan_see = day_plan_see;
+        this.day_plan_state = day_plan_state;
+        this.peo_id = peo_id;
+        this.monthlyPlan = monthlyPlan;
+        this.weekPlanDO = weekPlanDO;
+        this.countPlan = countPlan;
+    }
+
+    public Integer getCountPlan() {
+        return countPlan;
+    }
+
+    public void setCountPlan(Integer countPlan) {
+        this.countPlan = countPlan;
+    }
 
     public MonthlyPlan getMonthlyPlan() {
         return monthlyPlan;

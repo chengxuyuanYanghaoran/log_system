@@ -130,4 +130,14 @@ public class DaySummaryServiceImpl implements DaySummaryService {
 	public void updateDaySummaryStateListById(BatchAuditUtil batchAuditUtil) {
 		daySummaryDao.updateDaySummaryStateListById(batchAuditUtil);
 	}
+
+	@Override
+	public List<DaySummaryExtendDO> findSumPeoByPid(ConditionDO conditionDO) {
+		return daySummaryDao.findSumPeoByPid(conditionDO);
+	}
+
+	@Override
+	public Integer countSumPeoByPid(ConditionDO conditionDO) {
+		return daySummaryDao.countSumPeoByPid(conditionDO);
+	}
 }

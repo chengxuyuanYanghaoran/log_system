@@ -43,5 +43,9 @@ public interface MonthlySummaryDao {
      void updateMonthlySummaryStateById(MonthlySummaryDO monthlySummaryDO);
      //批量修改总结状态
      void updateMonthlySummaryStateListById(BatchAuditUtil batchAuditUtil);
+     //根据人员的id查询这个人所有的月总结
+     List<MonthlySummaryExtendDO> findSumPeoByPid(ConditionDO conditionDO);
+     //根据人员的id查询这个人所有的月总结的总数
+     Integer countSumPeoByPid(ConditionDO conditionDO);
 
 }

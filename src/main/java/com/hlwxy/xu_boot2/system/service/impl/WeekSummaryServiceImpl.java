@@ -132,4 +132,14 @@ public class WeekSummaryServiceImpl implements WeekSummaryService {
 	public void updateWeekSummaryStateListById(BatchAuditUtil batchAuditUtil) {
 		weekSummaryDao.updateWeekSummaryStateListById(batchAuditUtil);
 	}
+
+	@Override
+	public List<WeekSummaryExtendDO> findSumPeoByPid(ConditionDO conditionDO) {
+		return weekSummaryDao.findSumPeoByPid(conditionDO);
+	}
+
+	@Override
+	public Integer countSumPeoByPid(ConditionDO conditionDO) {
+		return weekSummaryDao.countSumPeoByPid(conditionDO);
+	}
 }

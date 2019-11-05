@@ -42,5 +42,9 @@ public interface WeekPlanDao {
      void updateWeekPlanStateById(WeekPlanDO weekPlanDO);
      //批量修改周计划
      void updateWeekPlanStateListById(BatchAuditUtil batchAuditUtil);
+     //根据人员的id查询这个人所有的周计划
+     List<WeekPlanExtendDO> findMonPeoByPid(ConditionDO conditionDO);
+     //根据人员的id查询这个人所有的周计划的总数
+     Integer countMonPeoByPid(ConditionDO conditionDO);
 
 }

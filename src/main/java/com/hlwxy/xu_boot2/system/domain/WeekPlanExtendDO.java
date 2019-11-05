@@ -1,5 +1,9 @@
 package com.hlwxy.xu_boot2.system.domain;
 
+import com.hlwxy.xu_boot2.userlogin.domain.RoleDo;
+
+import java.util.Set;
+
 /**
  * 月计划实体
  * @author shkstart
@@ -17,11 +21,12 @@ public class WeekPlanExtendDO extends PeopleDO{
     private Integer week_plan_state;//计划状态
     private Integer peo_id;
     private MonthlyPlan monthlyPlan;
+    private Integer countPlan;
 
     public WeekPlanExtendDO() {
     }
 
-    public WeekPlanExtendDO(Integer id, String week_plan_code, String week_plan_time, String week_plan_entry_end_time, String week_plan_content, String week_plan_entry_time, String week_plan_reply, String week_plan_see, Integer week_plan_state, Integer peo_id, MonthlyPlan monthlyPlan) {
+    public WeekPlanExtendDO(Integer id, String week_plan_code, String week_plan_time, String week_plan_entry_end_time, String week_plan_content, String week_plan_entry_time, String week_plan_reply, String week_plan_see, Integer week_plan_state, Integer peo_id, MonthlyPlan monthlyPlan, Integer countPlan) {
         this.id = id;
         this.week_plan_code = week_plan_code;
         this.week_plan_time = week_plan_time;
@@ -33,6 +38,31 @@ public class WeekPlanExtendDO extends PeopleDO{
         this.week_plan_state = week_plan_state;
         this.peo_id = peo_id;
         this.monthlyPlan = monthlyPlan;
+        this.countPlan = countPlan;
+    }
+
+    public WeekPlanExtendDO(Integer id, String username, String password, String email, String peopleCode, String jobNumber, String peoName, Integer morningState, Integer afternoonState, Integer userId, String gsId, String bmId, String positionId, Integer dayPlanId, Integer daySummaryId, Integer weekPlanId, Integer weekSummaryId, Integer monthlyPlanId, Integer monthlySummaryId, Set<RoleDo> roles, Integer id1, String week_plan_code, String week_plan_time, String week_plan_entry_end_time, String week_plan_content, String week_plan_entry_time, String week_plan_reply, String week_plan_see, Integer week_plan_state, Integer peo_id, MonthlyPlan monthlyPlan, Integer countPlan) {
+        super(id, username, password, email, peopleCode, jobNumber, peoName, morningState, afternoonState, userId, gsId, bmId, positionId, dayPlanId, daySummaryId, weekPlanId, weekSummaryId, monthlyPlanId, monthlySummaryId, roles);
+        this.id = id1;
+        this.week_plan_code = week_plan_code;
+        this.week_plan_time = week_plan_time;
+        this.week_plan_entry_end_time = week_plan_entry_end_time;
+        this.week_plan_content = week_plan_content;
+        this.week_plan_entry_time = week_plan_entry_time;
+        this.week_plan_reply = week_plan_reply;
+        this.week_plan_see = week_plan_see;
+        this.week_plan_state = week_plan_state;
+        this.peo_id = peo_id;
+        this.monthlyPlan = monthlyPlan;
+        this.countPlan = countPlan;
+    }
+
+    public Integer getCountPlan() {
+        return countPlan;
+    }
+
+    public void setCountPlan(Integer countPlan) {
+        this.countPlan = countPlan;
     }
 
     public MonthlyPlan getMonthlyPlan() {

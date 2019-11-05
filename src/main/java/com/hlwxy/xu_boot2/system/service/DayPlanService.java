@@ -36,4 +36,7 @@ public interface DayPlanService {
 	void updateDayPlanStateById(DayPlanDO dayPlanDO);
 	//批量修改日计划
 	void updateDayPlanStateListById(BatchAuditUtil batchAuditUtil);
+	//根据人员的id查询这个人所有的日计划
+	List<DayPlanExtendDO> findMonPeoByPid(ConditionDO conditionDO);
+	Integer countMonPeoByPid(ConditionDO conditionDO);
 }

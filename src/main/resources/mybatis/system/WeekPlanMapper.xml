@@ -224,7 +224,7 @@
 		LEFT JOIN t_people ON t_week_plan.peo_id = t_people.id
 		WHERE
 		t_people.job_number = '${jobNumber}'
-
+	</select>
 	<select id="list" resultMap="weekPeopleDO">
 		select * from t_week_plan
 		<where>

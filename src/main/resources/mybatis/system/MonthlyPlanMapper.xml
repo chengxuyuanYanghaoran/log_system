@@ -257,7 +257,7 @@
 			LEFT JOIN t_people ON t_monthly_plan.peo_id = t_people.id
 		WHERE
 			t_people.job_number = '${jobNumber}'
-
+	</select>
 	<select id="list" resultMap="monthlyPeopleDO">
 		select * from t_monthly_plan
 		<where>

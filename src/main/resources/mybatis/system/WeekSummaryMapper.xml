@@ -238,7 +238,7 @@
 		LEFT JOIN t_people ON t_week_summary.peo_id = t_people.id
 		WHERE
 		t_people.job_number = '${jobNumber}'
-
+	</select>
 
 	<select id="list" resultMap="weekSummaryExtendDO">
 		select * from t_week_summary

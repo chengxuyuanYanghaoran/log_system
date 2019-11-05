@@ -240,7 +240,7 @@
 		WHERE
 		t_people.job_number = '${jobNumber}'
 
-
+    </select>
 	<select id="list" resultMap="dayPlanExtendDO">
 		select * from t_day_plan
 		<where>

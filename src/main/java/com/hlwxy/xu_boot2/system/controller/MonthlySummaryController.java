@@ -150,7 +150,6 @@ public class MonthlySummaryController {
 						map.put("code",-1);
 						map.put("msg","您未编写本月的计划，不可以编写本月的总结！");
 					}
-
 				}
 			}else {
 				if (monthlySummaryDO.getMonthly_summary_state()==1){ //保存按钮

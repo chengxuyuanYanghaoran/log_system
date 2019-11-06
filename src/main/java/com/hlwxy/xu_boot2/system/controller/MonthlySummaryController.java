@@ -141,65 +141,11 @@ public class MonthlySummaryController {
 				monthlyPlan.setId(people.getMonthlyPlanId());
 				MonthlyPlanExtendDo monthlyPlanExtendDo=monthlyPlanService.getMonthlyPlanById(monthlyPlan);
 				if (monthlyPlanExtendDo.getMonthly_plan_time().equals(dateTool.years())) { //是本月的计划
-
 					//判断该用户是否编写过月总结
-					if (people.getMonthlySummaryId()!=null&&!people.getMonthlySummaryId().equals("")){//编写过，进行下一步判断
-						monthlySummaryDO.setId(people.getMonthlySummaryId());
-						MonthlySummaryExtendDO monthlySummaryExtendDO1=monthlySummaryService.getMonthlySummaryById2(monthlySummaryDO);
-						//判断是否为本月的月总结
-						if (monthlySummaryExtendDO1.getMonthly_summary_time().equals(dateTool.years())){  //是本月的，修改
-							MonthlySummaryExtendDO monthlySummaryExtendDO=new MonthlySummaryExtendDO();
-							monthlySummaryExtendDO.setMonthlySummaryId(people.getMonthlySummaryId());
-							monthlySummaryExtendDO.setMonthly_summary_content(monthlySummaryDO.getMonthly_summary_content());
-							monthlySummaryExtendDO.setMonthly_summary_state(monthlySummaryDO.getMonthly_summary_state());
-							monthlySummaryExtendDO.setMonthly_summary_entry_time(dateTool.adyAndDay());
-							monthlySummaryService.updateMonthlySummaryContentByPeople(monthlySummaryExtendDO);
-							map.put("msg","保存成功");
-							map.put("code",0);
-						}else {  //不是本月的，添加
-							monthlySummaryDO.setMonthly_summary_code(String.valueOf(UUID.randomUUID()));
-							monthlySummaryDO.setMonthly_summary_entry_time(dateTool.adyAndDay());
-							monthlySummaryDO.setMonthly_summary_time(dateTool.years());
-							monthlySummaryDO.setMonthly_summary_reply("否");//是否查看，默认为否
-							monthlySummaryDO.setMonthly_summary_see("否");//是否回复，默认为否
-							monthlySummaryDO.setPeo_id(people.getId());
-							monthlySummaryService.addMonthlySummary(monthlySummaryDO);
-							MonthlySummaryExtendDO monthlySummaryExtendDO=monthlySummaryService.getMonthlySummaryByCode(monthlySummaryDO.getMonthly_summary_code());
-							people.setMonthlySummaryId(monthlySummaryExtendDO.getId());
-							//修改人员月计划编码
-							monthlySummaryService.updatePeopleByCode(people);
-							map.put("code",0);
-						}
-					}else {
-						monthlySummaryDO.setMonthly_summary_code(String.valueOf(UUID.randomUUID()));
-						monthlySummaryDO.setMonthly_summary_entry_time(dateTool.adyAndDay());
-						monthlySummaryDO.setMonthly_summary_time(dateTool.years());
-						monthlySummaryDO.setMonthly_summary_reply("否");//是否查看，默认为否
-						monthlySummaryDO.setMonthly_summary_see("否");//是否回复，默认为否
-						monthlySummaryDO.setPeo_id(people.getId());
-						monthlySummaryService.addMonthlySummary(monthlySummaryDO);
-						MonthlySummaryExtendDO monthlySummaryExtendDO=monthlySummaryService.getMonthlySummaryByCode(monthlySummaryDO.getMonthly_summary_code());
-						people.setMonthlySummaryId(monthlySummaryExtendDO.getId());
-						//修改人员月计划编码
-						monthlySummaryService.updatePeopleByCode(people);
-						map.put("code",0);
-					}
-
+					map=add(monthlySummaryDO,dateTool);
 				}else {
 					if (monthlySummaryDO.getMonthly_summary_state()==1){ //保存按钮
-						monthlySummaryDO.setMonthly_summary_code(String.valueOf(UUID.randomUUID()));
-						monthlySummaryDO.setMonthly_summary_entry_time(dateTool.adyAndDay());
-						monthlySummaryDO.setMonthly_summary_time(dateTool.years());
-						monthlySummaryDO.setMonthly_summary_reply("否");//是否查看，默认为否
-						monthlySummaryDO.setMonthly_summary_see("否");//是否回复，默认为否
-						monthlySummaryDO.setPeo_id(people.getId());
-						monthlySummaryService.addMonthlySummary(monthlySummaryDO);
-						MonthlySummaryExtendDO monthlySummaryExtendDO=monthlySummaryService.getMonthlySummaryByCode(monthlySummaryDO.getMonthly_summary_code());
-						people.setMonthlySummaryId(monthlySummaryExtendDO.getId());
-						//修改人员月计划编码
-						monthlySummaryService.updatePeopleByCode(people);
-						map.put("code",0);
-						map.put("msg","保存成功！");
+						map=add(monthlySummaryDO,dateTool);
 					}else {
 						map.put("code",-1);
 						map.put("msg","您未编写本月的计划，不可以编写本月的总结！");
@@ -208,19 +154,7 @@ public class MonthlySummaryController {
 				}
 			}else {
 				if (monthlySummaryDO.getMonthly_summary_state()==1){ //保存按钮
-					monthlySummaryDO.setMonthly_summary_code(String.valueOf(UUID.randomUUID()));
-					monthlySummaryDO.setMonthly_summary_entry_time(dateTool.adyAndDay());
-					monthlySummaryDO.setMonthly_summary_time(dateTool.years());
-					monthlySummaryDO.setMonthly_summary_reply("否");//是否查看，默认为否
-					monthlySummaryDO.setMonthly_summary_see("否");//是否回复，默认为否
-					monthlySummaryDO.setPeo_id(people.getId());
-					monthlySummaryService.addMonthlySummary(monthlySummaryDO);
-					MonthlySummaryExtendDO monthlySummaryExtendDO=monthlySummaryService.getMonthlySummaryByCode(monthlySummaryDO.getMonthly_summary_code());
-					people.setMonthlySummaryId(monthlySummaryExtendDO.getId());
-					//修改人员月计划编码
-					monthlySummaryService.updatePeopleByCode(people);
-					map.put("code",0);
-					map.put("msg","保存成功！");
+					map=add(monthlySummaryDO,dateTool);
 				}else {
 					map.put("code",-1);
 					map.put("msg","您未编写本月的计划，不可以编写本月的总结！");
@@ -316,6 +250,57 @@ public class MonthlySummaryController {
 			monthlyPlan.setCountSumm(count);
 		}
 		return monthlySummaryExtendDOS;
+	}
+
+	//添加或保存月总结的方法
+	private Map<String,Object> add(MonthlySummaryDO monthlySummaryDO,DateTool dateTool){
+		Map<String,Object> map=new HashMap<>();
+		PeopleDO people=getUser();
+
+		if (people.getMonthlySummaryId()!=null&&!people.getMonthlySummaryId().equals("")){ //编写过，进行下一步判断
+			monthlySummaryDO.setId(people.getMonthlySummaryId());
+			MonthlySummaryExtendDO monthlySummaryExtendDO1=monthlySummaryService.getMonthlySummaryById2(monthlySummaryDO);
+			//判断是否为本月的月总结
+			if (monthlySummaryExtendDO1.getMonthly_summary_time().equals(dateTool.years())){  //是本月的，修改
+				MonthlySummaryExtendDO monthlySummaryExtendDO=new MonthlySummaryExtendDO();
+				monthlySummaryExtendDO.setMonthlySummaryId(people.getMonthlySummaryId());
+				monthlySummaryExtendDO.setMonthly_summary_content(monthlySummaryDO.getMonthly_summary_content());
+				monthlySummaryExtendDO.setMonthly_summary_state(monthlySummaryDO.getMonthly_summary_state());
+				monthlySummaryExtendDO.setMonthly_summary_entry_time(dateTool.adyAndDay());
+				monthlySummaryService.updateMonthlySummaryContentByPeople(monthlySummaryExtendDO);
+				map.put("msg","保存成功");
+				map.put("code",0);
+			}else {  //不是本月的，添加
+				monthlySummaryDO.setMonthly_summary_code(String.valueOf(UUID.randomUUID()));
+				monthlySummaryDO.setMonthly_summary_entry_time(dateTool.adyAndDay());
+				monthlySummaryDO.setMonthly_summary_time(dateTool.years());
+				monthlySummaryDO.setMonthly_summary_reply("否");//是否查看，默认为否
+				monthlySummaryDO.setMonthly_summary_see("否");//是否回复，默认为否
+				monthlySummaryDO.setPeo_id(people.getId());
+				monthlySummaryService.addMonthlySummary(monthlySummaryDO);
+				MonthlySummaryExtendDO monthlySummaryExtendDO=monthlySummaryService.getMonthlySummaryByCode(monthlySummaryDO.getMonthly_summary_code());
+				people.setMonthlySummaryId(monthlySummaryExtendDO.getId());
+				//修改人员月计划编码
+				monthlySummaryService.updatePeopleByCode(people);
+				map.put("msg","保存成功");
+				map.put("code",0);
+			}
+		}else {
+			monthlySummaryDO.setMonthly_summary_code(String.valueOf(UUID.randomUUID()));
+			monthlySummaryDO.setMonthly_summary_entry_time(dateTool.adyAndDay());
+			monthlySummaryDO.setMonthly_summary_time(dateTool.years());
+			monthlySummaryDO.setMonthly_summary_reply("否");//是否查看，默认为否
+			monthlySummaryDO.setMonthly_summary_see("否");//是否回复，默认为否
+			monthlySummaryDO.setPeo_id(people.getId());
+			monthlySummaryService.addMonthlySummary(monthlySummaryDO);
+			MonthlySummaryExtendDO monthlySummaryExtendDO=monthlySummaryService.getMonthlySummaryByCode(monthlySummaryDO.getMonthly_summary_code());
+			people.setMonthlySummaryId(monthlySummaryExtendDO.getId());
+			//修改人员月计划编码
+			monthlySummaryService.updatePeopleByCode(people);
+			map.put("msg","保存成功");
+			map.put("code",0);
+		}
+		return map;
 	}
 
 }

@@ -143,89 +143,23 @@ public class WeekSummaryController {
 				weekPlanDO.setId(people.getWeekPlanId());
 				WeekPlanExtendDO weekPlanExtendDO=weekPlanService.getWeekPlanById2(weekPlanDO);
 				if (weekPlanExtendDO.getWeek_plan_time().equals(dateTool.WeekAndWeek())){ //是本周的计划
-					if (people.getWeekSummaryId()!=null&&!people.getWeekSummaryId().equals("")){ //判断该用户是否编写过周总结
-						weekSummaryDO.setId(people.getWeekSummaryId());
-						WeekSummaryExtendDO weekSummaryExtendDO1=weekSummaryService.getWeekSummaryById2(weekSummaryDO);
-						//判断该周总结是否为本周的周总结
-						if (weekSummaryExtendDO1.getWeek_summary_time().equals(dateTool.WeekAndWeek())){  //是本周，修改
-							WeekSummaryExtendDO weekSummaryExtendDO=new WeekSummaryExtendDO();
-							weekSummaryExtendDO.setWeekSummaryId(people.getWeekSummaryId());
-							weekSummaryExtendDO.setWeek_summary_content(weekSummaryDO.getWeek_summary_content());
-							weekSummaryExtendDO.setWeek_summary_state(weekSummaryDO.getWeek_summary_state());
-							weekSummaryExtendDO.setWeek_summary_entry_time(dateTool.adyAndDay());
-							weekSummaryService.updateWeekSummaryContentByPeople(weekSummaryExtendDO);
-							map.put("msg","保存成功");
-							map.put("code",0);
-						}else {  //不是本周
-							weekSummaryDO.setWeek_summary_code(String.valueOf(UUID.randomUUID()));
-							weekSummaryDO.setWeek_summary_entry_time(dateTool.adyAndDay());
-							weekSummaryDO.setWeek_summary_time(dateTool.WeekAndWeek());
-							weekSummaryDO.setWeek_summary_reply("否");//是否查看，默认为否
-							weekSummaryDO.setWeek_summary_see("否");//是否回复，默认为否
-							weekSummaryDO.setPeo_id(people.getId());
-							weekSummaryService.addWeekSummary(weekSummaryDO);
-							WeekSummaryExtendDO weekSummaryExtendDO=weekSummaryService.getWeekSummaryByCode(weekSummaryDO.getWeek_summary_code());
-							people.setWeekSummaryId(weekSummaryExtendDO.getId());
-							//修改人员月计划编码
-							weekSummaryService.updatePeopleByCode(people);
-							map.put("code",0);
-						}
-					}else {  //未编写过周总结
-						weekSummaryDO.setWeek_summary_code(String.valueOf(UUID.randomUUID()));
-						weekSummaryDO.setWeek_summary_entry_time(dateTool.adyAndDay());
-						weekSummaryDO.setWeek_summary_time(dateTool.WeekAndWeek());
-						weekSummaryDO.setWeek_summary_reply("否");//是否查看，默认为否
-						weekSummaryDO.setWeek_summary_see("否");//是否回复，默认为否
-						weekSummaryDO.setPeo_id(people.getId());
-						weekSummaryService.addWeekSummary(weekSummaryDO);
-						WeekSummaryExtendDO weekSummaryExtendDO=weekSummaryService.getWeekSummaryByCode(weekSummaryDO.getWeek_summary_code());
-						people.setWeekSummaryId(weekSummaryExtendDO.getId());
-						//修改人员月计划编码
-						weekSummaryService.updatePeopleByCode(people);
-						map.put("code",0);
-					}
-
+					//判断并添加周总结
+					map=add(weekSummaryDO,dateTool);
 				}else { //不是本周的总结
 					if (weekSummaryDO.getWeek_summary_state()==1){ //保存按钮
-						weekSummaryDO.setWeek_summary_code(String.valueOf(UUID.randomUUID()));
-						weekSummaryDO.setWeek_summary_entry_time(dateTool.adyAndDay());
-						weekSummaryDO.setWeek_summary_time(dateTool.WeekAndWeek());
-						weekSummaryDO.setWeek_summary_reply("否");//是否查看，默认为否
-						weekSummaryDO.setWeek_summary_see("否");//是否回复，默认为否
-						weekSummaryDO.setPeo_id(people.getId());
-						weekSummaryService.addWeekSummary(weekSummaryDO);
-						WeekSummaryExtendDO weekSummaryExtendDO=weekSummaryService.getWeekSummaryByCode(weekSummaryDO.getWeek_summary_code());
-						people.setWeekSummaryId(weekSummaryExtendDO.getId());
-						//修改人员月计划编码
-						weekSummaryService.updatePeopleByCode(people);
-						map.put("code",0);
-						map.put("msg","保存成功！");
+						map=add(weekSummaryDO,dateTool);
 					}else {
 						map.put("code",-1);
 						map.put("msg","请先编写周计划！");
 					}
-
 				}
 			}else { //未编写周计划
 				if (weekSummaryDO.getWeek_summary_state()==1){ //保存按钮
-					weekSummaryDO.setWeek_summary_code(String.valueOf(UUID.randomUUID()));
-					weekSummaryDO.setWeek_summary_entry_time(dateTool.adyAndDay());
-					weekSummaryDO.setWeek_summary_time(dateTool.WeekAndWeek());
-					weekSummaryDO.setWeek_summary_reply("否");//是否查看，默认为否
-					weekSummaryDO.setWeek_summary_see("否");//是否回复，默认为否
-					weekSummaryDO.setPeo_id(people.getId());
-					weekSummaryService.addWeekSummary(weekSummaryDO);
-					WeekSummaryExtendDO weekSummaryExtendDO=weekSummaryService.getWeekSummaryByCode(weekSummaryDO.getWeek_summary_code());
-					people.setWeekSummaryId(weekSummaryExtendDO.getId());
-					//修改人员月计划编码
-					weekSummaryService.updatePeopleByCode(people);
-					map.put("code",0);
-					map.put("msg","保存成功！");
+					map=add(weekSummaryDO,dateTool);
 				}else {
 					map.put("code",-1);
 					map.put("msg","请先编写周计划！");
 				}
-
 			}
 
 		}catch (Exception e){
@@ -316,6 +250,58 @@ public class WeekSummaryController {
 			monthlyPlan.setCountSumm(count);
 		}
 		return weekPlanExtendDOS;
+	}
+
+	//添加或保存周总结方法
+	private Map<String,Object> add(WeekSummaryDO weekSummaryDO,DateTool dateTool){
+		Map<String,Object> map=new HashMap<>();
+		PeopleDO people=getUser();
+
+		if (people.getWeekSummaryId()!=null&&!people.getWeekSummaryId().equals("")){ //判断该用户是否编写过周总结
+			weekSummaryDO.setId(people.getWeekSummaryId());
+			WeekSummaryExtendDO weekSummaryExtendDO1=weekSummaryService.getWeekSummaryById2(weekSummaryDO);
+			//判断该周总结是否为本周的周总结
+			if (weekSummaryExtendDO1.getWeek_summary_time().equals(dateTool.WeekAndWeek())){  //是本周，修改
+				WeekSummaryExtendDO weekSummaryExtendDO=new WeekSummaryExtendDO();
+				weekSummaryExtendDO.setWeekSummaryId(people.getWeekSummaryId());
+				weekSummaryExtendDO.setWeek_summary_content(weekSummaryDO.getWeek_summary_content());
+				weekSummaryExtendDO.setWeek_summary_state(weekSummaryDO.getWeek_summary_state());
+				weekSummaryExtendDO.setWeek_summary_entry_time(dateTool.adyAndDay());
+				weekSummaryService.updateWeekSummaryContentByPeople(weekSummaryExtendDO);
+				map.put("msg","保存成功");
+				map.put("code",0);
+			}else {  //不是本周
+				weekSummaryDO.setWeek_summary_code(String.valueOf(UUID.randomUUID()));
+				weekSummaryDO.setWeek_summary_entry_time(dateTool.adyAndDay());
+				weekSummaryDO.setWeek_summary_time(dateTool.WeekAndWeek());
+				weekSummaryDO.setWeek_summary_reply("否");//是否查看，默认为否
+				weekSummaryDO.setWeek_summary_see("否");//是否回复，默认为否
+				weekSummaryDO.setPeo_id(people.getId());
+				weekSummaryService.addWeekSummary(weekSummaryDO);
+				WeekSummaryExtendDO weekSummaryExtendDO=weekSummaryService.getWeekSummaryByCode(weekSummaryDO.getWeek_summary_code());
+				people.setWeekSummaryId(weekSummaryExtendDO.getId());
+				//修改人员月计划编码
+				weekSummaryService.updatePeopleByCode(people);
+				map.put("msg","保存成功");
+				map.put("code",0);
+			}
+		}else {  //未编写过周总结
+			weekSummaryDO.setWeek_summary_code(String.valueOf(UUID.randomUUID()));
+			weekSummaryDO.setWeek_summary_entry_time(dateTool.adyAndDay());
+			weekSummaryDO.setWeek_summary_time(dateTool.WeekAndWeek());
+			weekSummaryDO.setWeek_summary_reply("否");//是否查看，默认为否
+			weekSummaryDO.setWeek_summary_see("否");//是否回复，默认为否
+			weekSummaryDO.setPeo_id(people.getId());
+			weekSummaryService.addWeekSummary(weekSummaryDO);
+			WeekSummaryExtendDO weekSummaryExtendDO=weekSummaryService.getWeekSummaryByCode(weekSummaryDO.getWeek_summary_code());
+			people.setWeekSummaryId(weekSummaryExtendDO.getId());
+			//修改人员月计划编码
+			weekSummaryService.updatePeopleByCode(people);
+			map.put("msg","保存成功");
+			map.put("code",0);
+		}
+
+		return map;
 	}
 
 }

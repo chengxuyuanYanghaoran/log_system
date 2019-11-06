@@ -187,7 +187,7 @@ function monthplanSelect() {
                 }else if (obj["day_summary_state"]==2){
                     document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "待审核";
                 }else if (obj["day_summary_state"]==3){
-                    document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "待提交";
+                    document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "已驳回";
                 }else if (obj["day_summary_state"]==4){
                     document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "已审核";
                 }else {
@@ -448,7 +448,7 @@ function handleData(data1,data2) {
                 }else if (obj["day_summary_state"]==2){
                     document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "待审核";
                 }else if (obj["day_summary_state"]==3){
-                    document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "待提交";
+                    document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "已驳回";
                 }else if (obj["day_summary_state"]==4){
                     document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "已审核";
                 }
@@ -591,7 +591,7 @@ function queryHandleData(data1,data2) {
                 }else if (obj["day_summary_state"]==2){
                     document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "待审核";
                 }else if (obj["day_summary_state"]==3){
-                    document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "待提交";
+                    document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "已驳回";
                 }else if (obj["day_summary_state"]==4){
                     document.getElementById(obj["day_summary_code"]+"abc").innerHTML = "已审核";
                 }else {

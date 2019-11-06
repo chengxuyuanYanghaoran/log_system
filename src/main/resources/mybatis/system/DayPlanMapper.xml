@@ -239,8 +239,9 @@
 		LEFT JOIN t_people ON t_day_plan.peo_id = t_people.id
 		WHERE
 		t_people.job_number = '${jobNumber}'
+	</select>
 
-    </select>
+
 	<select id="list" resultMap="dayPlanExtendDO">
 		select * from t_day_plan
 		<where>

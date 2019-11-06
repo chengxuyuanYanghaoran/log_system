@@ -152,93 +152,23 @@ public class DaySummaryController {
 				dayPlanDO.setId(people.getDayPlanId());
 				DayPlanExtendDO dayPlanExtendDO = dayPlanService.getDayPlanById2(dayPlanDO);//获取日计划
 				if (dayPlanExtendDO.getDay_plan_time().equals(dateTool.adyAndDay())){//是今天的日计划
-
 					//判断是否编写过日总结
-					if (people.getDaySummaryId()!=null&&!people.getDaySummaryId().equals("")){  //编写过，进行下一步判断
-						//给日总结的实体类设置id
-						daySummaryDo.setId(people.getDaySummaryId());
-						//获取该用户最新的日总结
-						DaySummaryExtendDO daySummaryExtendDO1=daySummaryService.getDaySummaryById(daySummaryDo);
-						//判断最新的日总结是否是今天的日总结
-						if (daySummaryExtendDO1.getDay_summary_time().equals(dateTool.adyAndDay())){  //是今天的日总结
-							DaySummaryExtendDO daySummaryExtendDO=new DaySummaryExtendDO();
-							daySummaryExtendDO.setDaySummaryId(people.getDaySummaryId());
-							daySummaryExtendDO.setDay_summary_content(daySummaryDo.getDay_summary_content());
-							daySummaryExtendDO.setDay_summary_state(daySummaryDo.getDay_summary_state());
-							daySummaryExtendDO.setDay_summary_entry_time(dateTool.adyAndDay());
-							daySummaryService.updateDaySummaryContentByPeople(daySummaryExtendDO);
-							map.put("msg","保存成功");
-							map.put("code",0);
-						}else {  //不是今天的日总结
-							daySummaryDo.setDay_summary_code(String.valueOf(UUID.randomUUID()));
-							daySummaryDo.setDay_summary_entry_time(dateTool.adyAndDay());
-							daySummaryDo.setDay_summary_time(dateTool.adyAndDay());
-							daySummaryDo.setDay_summary_reply("否");//是否查看，默认为否
-							daySummaryDo.setDay_summary_see("否");//是否回复，默认为否
-							daySummaryDo.setPeo_id(people.getId());
-							daySummaryService.addDaySummary(daySummaryDo);
-							DaySummaryExtendDO daySummaryExtendDO=daySummaryService.getDaySummaryByCode(daySummaryDo.getDay_summary_code());
-							people.setDaySummaryId(daySummaryExtendDO.getId());
-							//修改人员月计划编码
-							daySummaryService.updatePeopleByCode(people);
-							map.put("code",0);
-						}
-					}else { //未编写过，进行添加
-						daySummaryDo.setDay_summary_code(String.valueOf(UUID.randomUUID()));
-						daySummaryDo.setDay_summary_entry_time(dateTool.adyAndDay());
-						daySummaryDo.setDay_summary_time(dateTool.adyAndDay());
-						daySummaryDo.setDay_summary_reply("否");//是否查看，默认为否
-						daySummaryDo.setDay_summary_see("否");//是否回复，默认为否
-						daySummaryDo.setPeo_id(people.getId());
-						daySummaryService.addDaySummary(daySummaryDo);
-						DaySummaryExtendDO daySummaryExtendDO=daySummaryService.getDaySummaryByCode(daySummaryDo.getDay_summary_code());
-						people.setDaySummaryId(daySummaryExtendDO.getId());
-						//修改人员月计划编码
-						daySummaryService.updatePeopleByCode(people);
-						map.put("code",0);
-					}
-
+					map=add(daySummaryDo,dateTool);
 				}else {  //不是今天的日计划
 					if (daySummaryDo.getDay_summary_state()==1){ //保存按钮
-						daySummaryDo.setDay_summary_code(String.valueOf(UUID.randomUUID()));
-						daySummaryDo.setDay_summary_entry_time(dateTool.adyAndDay());
-						daySummaryDo.setDay_summary_time(dateTool.adyAndDay());
-						daySummaryDo.setDay_summary_reply("否");//是否查看，默认为否
-						daySummaryDo.setDay_summary_see("否");//是否回复，默认为否
-						daySummaryDo.setPeo_id(people.getId());
-						daySummaryService.addDaySummary(daySummaryDo);
-						DaySummaryExtendDO daySummaryExtendDO=daySummaryService.getDaySummaryByCode(daySummaryDo.getDay_summary_code());
-						people.setDaySummaryId(daySummaryExtendDO.getId());
-						//修改人员月计划编码
-						daySummaryService.updatePeopleByCode(people);
-						map.put("code",0);
-						map.put("msg","保存成功！");
+						map=add(daySummaryDo,dateTool);
 					}else {
 						map.put("code",-1);
 						map.put("msg","请先编写日计划！");
 					}
-
 				}
 			}else {  //未编写日计划
 				if (daySummaryDo.getDay_summary_state()==1){ //保存按钮
-					daySummaryDo.setDay_summary_code(String.valueOf(UUID.randomUUID()));
-					daySummaryDo.setDay_summary_entry_time(dateTool.adyAndDay());
-					daySummaryDo.setDay_summary_time(dateTool.adyAndDay());
-					daySummaryDo.setDay_summary_reply("否");//是否查看，默认为否
-					daySummaryDo.setDay_summary_see("否");//是否回复，默认为否
-					daySummaryDo.setPeo_id(people.getId());
-					daySummaryService.addDaySummary(daySummaryDo);
-					DaySummaryExtendDO daySummaryExtendDO=daySummaryService.getDaySummaryByCode(daySummaryDo.getDay_summary_code());
-					people.setDaySummaryId(daySummaryExtendDO.getId());
-					//修改人员月计划编码
-					daySummaryService.updatePeopleByCode(people);
-					map.put("code",0);
-					map.put("msg","保存成功！");
+					map=add(daySummaryDo,dateTool);
 				}else {
 					map.put("code",-1);
 					map.put("msg","请先编写日计划！");
 				}
-
 			}
 
 		}catch (Exception e){
@@ -332,6 +262,58 @@ public class DaySummaryController {
 			monthlyPlan.setCountSumm(count);
 		}
 		return daySummaryExtendDOS;
+	}
+
+	//添加或保存周总结
+	private Map<String,Object> add(DaySummaryDo daySummaryDo,DateTool dateTool){
+		Map<String,Object> map=new HashMap<>();
+		PeopleDO people=getUser();
+		if (people.getDaySummaryId()!=null&&!people.getDaySummaryId().equals("")){  //编写过，进行下一步判断
+			//给日总结的实体类设置id
+			daySummaryDo.setId(people.getDaySummaryId());
+			//获取该用户最新的日总结
+			DaySummaryExtendDO daySummaryExtendDO1=daySummaryService.getDaySummaryById2(daySummaryDo);
+			//判断最新的日总结是否是今天的日总结
+			if (daySummaryExtendDO1.getDay_summary_time().equals(dateTool.adyAndDay())){  //是今天的日总结
+				DaySummaryExtendDO daySummaryExtendDO=new DaySummaryExtendDO();
+				daySummaryExtendDO.setDaySummaryId(people.getDaySummaryId());
+				daySummaryExtendDO.setDay_summary_content(daySummaryDo.getDay_summary_content());
+				daySummaryExtendDO.setDay_summary_state(daySummaryDo.getDay_summary_state());
+				daySummaryExtendDO.setDay_summary_entry_time(dateTool.adyAndDay());
+				daySummaryService.updateDaySummaryContentByPeople(daySummaryExtendDO);
+				map.put("msg","保存成功");
+				map.put("code",0);
+			}else {  //不是今天的日总结
+				daySummaryDo.setDay_summary_code(String.valueOf(UUID.randomUUID()));
+				daySummaryDo.setDay_summary_entry_time(dateTool.adyAndDay());
+				daySummaryDo.setDay_summary_time(dateTool.adyAndDay());
+				daySummaryDo.setDay_summary_reply("否");//是否查看，默认为否
+				daySummaryDo.setDay_summary_see("否");//是否回复，默认为否
+				daySummaryDo.setPeo_id(people.getId());
+				daySummaryService.addDaySummary(daySummaryDo);
+				DaySummaryExtendDO daySummaryExtendDO=daySummaryService.getDaySummaryByCode(daySummaryDo.getDay_summary_code());
+				people.setDaySummaryId(daySummaryExtendDO.getId());
+				//修改人员月计划编码
+				daySummaryService.updatePeopleByCode(people);
+				map.put("msg","保存成功");
+				map.put("code",0);
+			}
+		}else { //未编写过，进行添加
+			daySummaryDo.setDay_summary_code(String.valueOf(UUID.randomUUID()));
+			daySummaryDo.setDay_summary_entry_time(dateTool.adyAndDay());
+			daySummaryDo.setDay_summary_time(dateTool.adyAndDay());
+			daySummaryDo.setDay_summary_reply("否");//是否查看，默认为否
+			daySummaryDo.setDay_summary_see("否");//是否回复，默认为否
+			daySummaryDo.setPeo_id(people.getId());
+			daySummaryService.addDaySummary(daySummaryDo);
+			DaySummaryExtendDO daySummaryExtendDO=daySummaryService.getDaySummaryByCode(daySummaryDo.getDay_summary_code());
+			people.setDaySummaryId(daySummaryExtendDO.getId());
+			//修改人员月计划编码
+			daySummaryService.updatePeopleByCode(people);
+			map.put("msg","保存成功");
+			map.put("code",0);
+		}
+		return map;
 	}
 
 }

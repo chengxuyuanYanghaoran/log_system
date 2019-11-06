@@ -444,7 +444,8 @@ body .container.body .right_col {
 
 .nav-md .container.body .right_col {
 	padding: 0px 0px 0;
-	margin-left: 230px
+	margin-left: 230px;
+	height: 753px;
 }
 
 .nav_title {

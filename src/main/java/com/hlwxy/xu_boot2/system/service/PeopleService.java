@@ -29,9 +29,6 @@ public interface PeopleService {
 	int remove(Integer id);
 
 	int batchRemove(Integer[] ids);
-	PeopleDO finduserid(Integer userId);
-
-	PeopleDO getpeoname(String peoName);
 
 	/**
 	 //	 * 根据用户名查询用户
@@ -41,5 +38,5 @@ public interface PeopleService {
 	PeopleDO findByUsername(@Param("username") String username, @Param("password") String password);
 
 	int modifyPassword(String password, String newpassword, String username);
-	int resetPwd(UserVO userVO, PeopleDO peopleDO) throws Exception;
+
 }

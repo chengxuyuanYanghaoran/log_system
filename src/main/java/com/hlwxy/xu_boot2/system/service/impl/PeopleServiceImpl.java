@@ -61,15 +61,6 @@ public class PeopleServiceImpl implements PeopleService {
 		return peopleDao.batchRemove(ids);
 	}
 
-	@Override
-	public PeopleDO finduserid(Integer userId) {
-		return peopleDao.finduserid(userId);
-	}
-
-	@Override
-	public PeopleDO getpeoname(String peoName) {
-		return peopleDao.getpeoname(peoName);
-	}
 
 	@Override
 	public PeopleDO findByUsername(String username, String password) {
@@ -91,18 +82,5 @@ public class PeopleServiceImpl implements PeopleService {
 		}
 		return 0;
 	}
-	@Override
-	public int resetPwd(UserVO userVO, PeopleDO peopleDO) throws Exception {
-		if (Objects.equals(userVO.getPeopleDO().getId(), peopleDO.getId())) {
-			if (Objects.equals(MD5Utils.encrypt(peopleDO.getUsername(), userVO.getPwdOld()), peopleDO.getPassword())) {
-				peopleDO.setPassword(MD5Utils.encrypt(peopleDO.getUsername(), userVO.getPwdNew()));
-				return peopleDao.update(peopleDO);
-			} else {
-				throw new Exception("输入的旧密码有误！");
-			}
-		} else {
-			throw new Exception("你修改的不是你登录的账号！");
-		}
 
-	}
 }

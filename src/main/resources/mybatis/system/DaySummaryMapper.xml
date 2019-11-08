@@ -278,7 +278,7 @@
 				order by ${sort} ${order}
 			</when>
 			<otherwise>
-				order by day_summary_time DESC
+				order by id DESC
 			</otherwise>
 		</choose>
 		<if test="offset != null and limit != null">

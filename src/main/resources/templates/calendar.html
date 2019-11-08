@@ -57,6 +57,7 @@
             height: 600px !important;
         }
 
+
     </style>
 </head>
 
@@ -71,6 +72,8 @@
                 <div class="clearfix"></div>
 
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+
                     <div class="menu_section">
                         <ul class="nav side-menu" th:each="menu : ${menus}">
                             <li>
@@ -135,10 +138,15 @@
 
                 <div class="layui-tab layui-tab-card" lay-filter="demo" lay-allowclose="true">
                     <!--tab选项卡-->
-                    <ul class="layui-tab-title"></ul>
+                    <ul class="layui-tab-title">
+                     <li class="layui-this">主页</li>
+                    </ul>
 
                     <!--tab选项卡对应的内容-->
                     <div class="layui-tab-content">
+
+                        <iframe class="iframeSrc" frameborder="no" src="/main.html" style="width: 100%;height: 638px; margin-top: 1px"></iframe>
+
 
                     </div>
 
@@ -146,8 +154,18 @@
             </div>
             </div>
 
-            <!--<iframe class="iframeSrc" frameborder="no" src="/system/people"-->
-                    <!--style="width: 100%;height: 638px; margin-top: 51px"></iframe>-->
+            <!--<div class="layui-carousel" id="lunbo">-->
+                <!--<div carousel-item>-->
+                    <!--<div style="background-size: cover">-->
+                        <!--<img src="img/4.jpg" alt=""/>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<img src="img/3.jpg" alt=""/>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+
 
             <!-- jQuery -->
             <script src="/static/js/lib/jquery/dist/jquery.min.js"></script>
@@ -257,18 +275,6 @@
                     });
                 });
 
-
-                layui.use('carousel', function(){
-                    var carousel = layui.carousel;//加载轮播模块
-
-                    carousel.render({
-                        elem: '#lunbo'
-                        ,width: '100%' //设置容器宽度
-                        ,arrow: 'always' //始终显示箭头
-                        ,interval:2000
-                        //,anim: 'updown' //切换动画方式
-                    });
-                });
             </script>
             </body>
 </html>

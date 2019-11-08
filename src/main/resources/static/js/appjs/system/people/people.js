@@ -58,10 +58,10 @@ function load() {
                             //     field: 'password',
                             //     title: '密码'
                             // },
-                            {
-                                field: 'email',
-                                title: '邮箱'
-                            },
+                            // {
+                            //     field: 'email',
+                            //     title: '邮箱'
+                            // },
 
                             {
                                 field: 'peopleCode',

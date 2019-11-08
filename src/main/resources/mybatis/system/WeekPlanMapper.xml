@@ -245,7 +245,7 @@
 				order by ${sort} ${order}
 			</when>
 			<otherwise>
-				order by week_plan_time desc
+				order by id desc
 			</otherwise>
 		</choose>
 		<if test="offset != null and limit != null">

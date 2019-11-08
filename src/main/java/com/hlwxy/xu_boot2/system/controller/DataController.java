@@ -50,7 +50,7 @@ public class DataController {
 		}
 
 		//下载备份的文件
-		String filename = "C:\\beifen";
+		String filename = "C:\\beifen\\";
 		String filenameZip = filename + dbName + ".sql";//获取文件的路径
 		try {
 			response.setContentType("application/x-execl");

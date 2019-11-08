@@ -178,7 +178,7 @@ function monthplanSelect() {
                     "<td name='column'>" + obj["week_plan_time"] + "</td>" +
                     "<td name='column'>" + obj["week_plan_entry_time"] + "</td>" +
                     "<td><a href='#' id='"+obj["id"]+"\' class='month_a' data-method=\"setTop\">查看</a></td>" +
-                    "<td><p onclick='reportForm(this.id)' id='"+obj["jobNumber"]+"\'>"+obj["countPlan"]+"</p></td>" +
+                    "<td><p style='cursor: pointer' onclick='reportForm(this.id)' id='"+obj["jobNumber"]+"\'>"+obj["countPlan"]+"</p></td>" +
                     "<td id='"+obj["week_plan_code"]+"abc"+"\'>默认</td>"+
                     "<td><input type=\"button\" value=\"审核\" name='"+obj["id"]+"\' class=\"btn btn-primary btn-lg active btn btn-primary btn-sm\" id='btn'  onclick='sss(this.name)'/></td>" +
                     "</tr>"
@@ -437,7 +437,7 @@ function handleData(data1,data2) {
                     "<td name='column'>" + obj["week_plan_time"] + "</td>" +
                     "<td name='column'>" + obj["week_plan_entry_time"] + "</td>" +
                     "<td><a href='#' id='"+obj["id"]+"\' class='month_a' data-method=\"setTop\">查看</a></td>" +
-                    "<td><p onclick='reportForm(this.id)' id='"+obj["jobNumber"]+"\'>"+obj["countPlan"]+"</p></td>" +
+                    "<td><p style='cursor: pointer' onclick='reportForm(this.id)' id='"+obj["jobNumber"]+"\'>"+obj["countPlan"]+"</p></td>" +
                     "<td id='"+obj["week_plan_code"]+"abc"+"\'>默认</td>"+
                     "<td><input type=\"button\" value=\"审核\" name='"+obj["id"]+"\' class=\"btn btn-primary btn-lg active btn btn-primary btn-sm\" id='btn' onclick='sss(this.name)'/></td>" +
                     // "<td><a href='#' id='week_a' class='week_a'>周计划-总结</a></td>"+
@@ -580,7 +580,7 @@ function queryHandleData(data1,data2) {
                     "<td name='column'>" + obj["week_plan_time"] + "</td>" +
                     "<td name='column'>" + obj["week_plan_entry_time"] + "</td>" +
                     "<td><a href='#' id='"+obj["id"]+"\' class='month_a' data-method=\"setTop\">查看</a></td>" +
-                    "<td><p onclick='reportForm(this.id)' id='"+obj["jobNumber"]+"\'>"+obj["countPlan"]+"</p></td>" +
+                    "<td><p style='cursor: pointer' onclick='reportForm(this.id)' id='"+obj["jobNumber"]+"\'>"+obj["countPlan"]+"</p></td>" +
                     "<td id='"+obj["week_plan_code"]+"abc"+"\'>默认</td>"+
                     "<td><input type=\"button\" value=\"审核\" name='"+obj["id"]+"\' class=\"btn btn-primary btn-lg active btn btn-primary btn-sm\" id='btn'  onclick='sss(this.name)'/></td>" +
                     "</tr>"

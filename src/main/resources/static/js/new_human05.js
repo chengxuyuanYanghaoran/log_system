@@ -24,7 +24,7 @@ window.onload=function () {
                     "<td name='column'>" + obj["day_summary_time"] + "</td>" +
                     "<td name='column'>" + obj["day_summary_entry_time"] + "</td>" +
                     "<td><a href='#' id='"+obj["id"]+"\' class='month_a' data-method=\"setTop\">查看</a></td>" +
-                    "<td><p onclick='reportForm(this.id)' id='"+obj["jobNumber"]+"\'>"+obj["countSumm"]+"</p></td>" +
+                    "<td><p style='cursor: pointer' onclick='reportForm(this.id)' id='"+obj["jobNumber"]+"\'>"+obj["countSumm"]+"</p></td>" +
                     "<td id='"+obj["day_summary_code"]+"abc"+"\'>默认</td>"+
                     "<td><input type=\"button\" value=\"审核\" name='"+obj["id"]+"\' class=\"btn btn-primary btn-lg active btn btn-primary btn-sm\" id='btn' onclick='sss(this.name)'/></td>" +
                     "</tr>"

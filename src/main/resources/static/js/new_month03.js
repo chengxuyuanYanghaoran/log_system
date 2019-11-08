@@ -112,17 +112,17 @@ function showSign(){
 //计划的按钮失效
 function invalid(state) {
     if (state==2){
-        alert("您的月计划正在等待审核不能修改呦！")
+        alert("您的日计划正在等待审核不能修改呦！")
     }else if (state==4){
-        alert("您的月计划已经审核成功不能修改呦！")
+        alert("您的日计划已经审核成功不能修改呦！")
     }
 }
 //总结的按钮失效
 function invalidSum(state) {
     if (state==2){
-        alert("您的月总结正在等待审核不能修改呦！")
+        alert("您的日总结正在等待审核不能修改呦！")
     }else if (state==4){
-        alert("您的月总结已经审核成功不能修改呦！")
+        alert("您的日总结已经审核成功不能修改呦！")
     }
 }
 //修改

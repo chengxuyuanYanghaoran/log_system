@@ -60,7 +60,6 @@
 
     </style>
 </head>
-
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
@@ -82,7 +81,7 @@
                                         class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu" id="changeUl">
                                     <li th:each="cmenu : ${menu.children}">
-                                        <a class="btabs" th:mytitle="${cmenu.text}" th:text="${cmenu.text}"
+                                        <a th:id="${cmenu.id}+'m'" class="btabs" th:mytitle="${cmenu.text}" th:text="${cmenu.text}"
                                            th:attr="data-index=${cmenu.attributes.url}"></a>
                                     </li>
                                 </ul>
@@ -139,14 +138,13 @@
                 <div class="layui-tab layui-tab-card" lay-filter="demo" lay-allowclose="true">
                     <!--tab选项卡-->
                     <ul class="layui-tab-title">
-                     <li class="layui-this">主页</li>
+                     <!--<li class="layui-this">主页</li>-->
                     </ul>
 
-                    <!--tab选项卡对应的内容-->
+                    <!--&lt;!&ndash;tab选项卡对应的内容&ndash;&gt;-->
                     <div class="layui-tab-content">
 
-                        <iframe class="iframeSrc" frameborder="no" src="/main.html" style="width: 100%;height: 638px; margin-top: 1px"></iframe>
-
+                        <iframe class="iframeSrc" id="def2" frameborder="no" src="/main.html" style="width: 100%;height: 638px; margin-top: 1px; position:absolute ; z-index: -99; border: 0"></iframe>
 
                     </div>
 
@@ -242,6 +240,7 @@
                             //给当前点击的a标签添加自定义属性  
                             var htmlurl = $(this).attr('data-index');
                             var mytitle = $(this).attr('mytitle');
+                            var myid=$(this).attr('id');
 
                             //创建一个数组            
                             var newArry = [];
@@ -252,16 +251,15 @@
                             var tabs = $.inArray(mytitle, newArry); //$.inArray() 函数用于在数组中查找指定值，并返回它的索引值
 
                             if (tabs >= 0) {   //tab栏已有标签
-
                                 element.tabChange('demo', mytitle); //用于外部切换到指定的Tab项上  , 切换到当前点击的页面
-
                             } else {    //没有相同tab 添加tab项
-
+                                $('#def2').remove(); //移除初始的iframe标签
                                 element.tabAdd('demo', {  //新增一个Tab选项               
                                     title: mytitle,
-                                    content: '<iframe style="border:0; width:100%; height: 648px" src=' + htmlurl + ' ></iframe>',
+                                    content: '<iframe id='+myid+"s"+' style="border:0; width:100%; height: 648px" src=' + htmlurl + ' ></iframe>',
                                     id: mytitle
                                 })
+
                                 element.tabChange('demo', mytitle); //切换到当前点击的页面
 
                             }

@@ -40,12 +40,14 @@ window.onload=function () {
                     document.getElementById(obj["week_summary_code"]+"abc").innerHTML = "已审核";
                 }
                 //判断颜色
-                if (obj["week_summary_state"]==1||obj["week_summary_state"]==3 ){  //待审核状态
+                if (obj["week_summary_state"]==3 ){  //待审核状态
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "red";
                 }else if (obj["week_summary_state"]==2){
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "blue";
                 }else if (obj["week_summary_state"]==4){
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "green";
+                }else if (obj["week_summary_state"]==1){
+                    document.getElementById(obj["week_summary_code"]+"abc").style.color = "orange";
                 }
 
             })
@@ -190,12 +192,14 @@ function monthplanSelect() {
                     document.getElementById(obj["week_summary_code"]+"abc").innerHTML = "错误";
                 }
                 //判断颜色
-                if (obj["week_summary_state"]==1||obj["week_summary_state"]==3 ){  //待审核状态
+                if (obj["week_summary_state"]==3 ){  //待审核状态
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "red";
                 }else if (obj["week_summary_state"]==2){
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "blue";
                 }else if (obj["week_summary_state"]==4){
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "green";
+                }else if (obj["week_summary_state"]==1){
+                    document.getElementById(obj["week_summary_code"]+"abc").style.color = "orange";
                 }
             })
             // $("#size").setAttribute("onclick","monthplanSelect("+size+")");
@@ -451,12 +455,14 @@ function handleData(data1,data2) {
                     document.getElementById(obj["week_summary_code"]+"abc").innerHTML = "已审核";
                 }
                 //判断颜色
-                if (obj["week_summary_state"]==1||obj["week_summary_state"]==3 ){  //待审核状态
+                if (obj["week_summary_state"]==3 ){  //待审核状态
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "red";
                 }else if (obj["week_summary_state"]==2){
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "blue";
                 }else if (obj["week_summary_state"]==4){
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "green";
+                }else if (obj["week_summary_state"]==1){
+                    document.getElementById(obj["week_summary_code"]+"abc").style.color = "orange";
                 }
             })
 
@@ -594,12 +600,14 @@ function queryHandleData(data1,data2) {
                     document.getElementById(obj["week_summary_code"]+"abc").innerHTML = "错误";
                 }
                 //判断颜色
-                if (obj["week_summary_state"]==1||obj["week_summary_state"]==3 ){  //待审核状态
+                if (obj["week_summary_state"]==3 ){  //待审核状态
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "red";
                 }else if (obj["week_summary_state"]==2){
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "blue";
                 }else if (obj["week_summary_state"]==4){
                     document.getElementById(obj["week_summary_code"]+"abc").style.color = "green";
+                }else if (obj["week_summary_state"]==1){
+                    document.getElementById(obj["week_summary_code"]+"abc").style.color = "orange";
                 }
             })
             // $("#size").setAttribute("onclick","monthplanSelect("+size+")");

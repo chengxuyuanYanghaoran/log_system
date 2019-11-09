@@ -46,12 +46,14 @@ window.onload=function () {
                 }
 
                 //判断颜色
-                if (obj["monthly_summary_state"]==1||obj["monthly_summary_state"]==3 ){  //待审核状态
+                if (obj["monthly_summary_state"]==3 ){  //待审核状态
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "red";
                 }else if (obj["monthly_summary_state"]==2){
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "blue";
                 }else if (obj["monthly_summary_state"]==4){
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "green";
+                }else if (obj["monthly_summary_state"]==1){
+                    document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "orange";
                 }
             })
             //layui弹框
@@ -196,12 +198,14 @@ function monthplanSelect() {
                 }
 
                 //判断颜色
-                if (obj["monthly_summary_state"]==1||obj["monthly_summary_state"]==3 ){  //待审核状态
+                if (obj["monthly_summary_state"]==3 ){  //待审核状态
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "red";
                 }else if (obj["monthly_summary_state"]==2){
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "blue";
                 }else if (obj["monthly_summary_state"]==4){
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "green";
+                }else if (obj["monthly_summary_state"]==1){
+                    document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "orange";
                 }
 
             })
@@ -457,12 +461,14 @@ function handleData(data1,data2) {
                 }
 
                 //判断颜色
-                if (obj["monthly_summary_state"]==1||obj["monthly_summary_state"]==3 ){  //待审核状态
+                if (obj["monthly_summary_state"]==3 ){  //待审核状态
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "red";
                 }else if (obj["monthly_summary_state"]==2){
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "blue";
                 }else if (obj["monthly_summary_state"]==4){
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "green";
+                }else if (obj["monthly_summary_state"]==1){
+                    document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "orange";
                 }
 
             })
@@ -599,12 +605,14 @@ function queryHandleData(data1,data2) {
                 }
 
                 //判断颜色
-                if (obj["monthly_summary_state"]==1||obj["monthly_summary_state"]==3 ){  //待审核状态
+                if (obj["monthly_summary_state"]==3 ){  //待审核状态
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "red";
                 }else if (obj["monthly_summary_state"]==2){
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "blue";
                 }else if (obj["monthly_summary_state"]==4){
                     document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "green";
+                }else if (obj["monthly_summary_state"]==1){
+                    document.getElementById(obj["monthly_summary_code"]+"abc").style.color = "orange";
                 }
             })
             //layui弹框

@@ -108,7 +108,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-email</artifactId>
-            <version>1.4</version>
+            <version>1.5</version>
         </dependency>
         <!--hibernate的校验框架validation所需要jar包-->
         <dependency>
